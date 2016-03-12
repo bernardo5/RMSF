@@ -2,13 +2,13 @@ package com.example.bernardo.socket;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.*;
 import java.net.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         textoEntrada=(TextView) findViewById(R.id.textoentrada);
 
         Button botaoenviar= (Button) findViewById(R.id.enviar);
-        botaoenviar=setOnClickListener(buttonSendOnClickListener);
+        botaoenviar.setOnClickListener(buttonSendOnClickListener);
     }
 
-    OnClickListener buttonSendOnClickListener = new Button.onClickListener(){
+    View.OnClickListener buttonSendOnClickListener = new Button.OnClickListener(){
 
         @Override
         public void onClick(View arg0){
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             DataInputStream dataInputStream=null;
 
             try{
-                socket=new Socket("192.168.1.101", 8080);
+                socket=new Socket("192.168.1.110", 8080);
 
                 dataOutputStream=new DataOutputStream(socket.getOutputStream());
                 dataInputStream= new DataInputStream(socket.getInputStream());
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }finally {
                 try{
                     if(socket!=null){
-                        close(socket);
+                        socket.close();
                     }
                     if(dataOutputStream!=null){
                         dataOutputStream.close();
@@ -68,5 +68,5 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    }
+    };
 }
