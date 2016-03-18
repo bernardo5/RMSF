@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             DataInputStream dataInputStream=null;
 
             try{
-                socket=new Socket("192.168.1.77", 8080);
+                socket=new Socket("194.210.176.153", 8080);
 
                 dataOutputStream=new DataOutputStream(socket.getOutputStream());
                 dataInputStream= new DataInputStream(socket.getInputStream());
