@@ -112,10 +112,12 @@ Para a aplicação \textit{Android}:
 
 \item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a \textit{User Interface} (UI) principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, a primeira acção será a abertura de uma \textit{thread}, com recurso à classe \textit{Thread}. 
 
-Para efectuar os pedidos HTTPS, usar-se-á uma de duas classes: \textit{URLConnection} ou \textit{HttpURLConnection}.
+Para efectuar os pedidos HTTPS, usar-se-á uma de duas classes: \textit{URLConnection} ou \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
 
 Ao receber a resposta, a \textit{thread} deverá ser processada com \textit{parsing} de \textit{JSON} com recurso à classe \textit{JsonReader}. Após o processamento da resposta, irá ser verificado se a temperatura recebida ultrapassa algum \textit{threshold} definido pelo utilizador. Em caso afirmativo, irá ser gerada uma notificação com recurso a um objecto \textit{Notification}.
 \end{itemize}
+
+Para a implementação do sensor de temperatura, recorrer-se-á às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}.
 
 \section{Trabalho realizado}
 \section{Considerações finais}
