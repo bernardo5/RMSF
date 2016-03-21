@@ -67,7 +67,7 @@ As relações entre as actividades descritas, encontram-se representadas na figu
 
 A actividade \textit{Welcome Screen} terá como objectivo averiguar a existência de um utilizador na aplicação. No caso de existir um utilizador registado, a aplicação deverá prosseguir para a actividade de visualização das mensagens do dispositivo (\textit{Logs}). Caso contrário, o utilizador deverá proceder ao seu registo, bem como ao registo do \textit{device} que pretende monitorizar.
 
-\vspace{5mm}
+A averiguação do \textit{login} de um utilizador será feita mediante a existência de um ficheiro armazenado na aplicação.
 
 \begin{figure}[hb]
   \centering
@@ -76,7 +76,10 @@ A actividade \textit{Welcome Screen} terá como objectivo averiguar a existênci
   \label{fig:app_welcome}
 \end{figure}
 
-A averiguação do \textit{login} de um utilizador será feita mediante a existência de um ficheiro armazenado na aplicação.
+A actividade de registo de um primeiro utilizador (\textit{New First User}), terá apenas três campos de inserção de texto: \textit{user name, password} e \textit{devicetype-id}. Estes parâmetros deverão ser gravados no ficheiro de texto descrito anteriormente. De seguida, será lançada a actividade de \textit{Logs}.
+
+
+
 
 \section{Trabalho realizado}
 \section{Considerações finais}
