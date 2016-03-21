@@ -15,10 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LogsActivity"
-            android:label="@string/title_activity_logs"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".LogsActivity" />
+        <activity android:name=".CreateLogActivity"></activity>
     </application>
 
 </manifest>
