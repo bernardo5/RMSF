@@ -19,7 +19,7 @@
 }
 \pagenumbering{arabic}
 
-\section{Objectivo}
+\section*{Objectivo}
 
 O objectivo do projecto é o desenvolvimento de um sistema de monitorização de temperatura. 
 
@@ -27,7 +27,7 @@ O sistema, deverá ser baseado num sensor de temperatura associado a um disposit
 
 Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
 
-\section{Solução proposta}
+\section*{Solução proposta}
 
 Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{cloud SigFox} como intermediária.
 
@@ -41,7 +41,7 @@ A arquitectura será então a apresentada na figura \ref{fig:general}:
   \label{fig:general}
 \end{figure}
 
-\subsection{Aplicação \textit{Android}}
+\subsection*{Aplicação \textit{Android}}
 
 A aplicação \textit{Android}, com a qual o utilizador irá ter contacto directo, será constituída por cinco actividades:
 
@@ -92,17 +92,17 @@ Esta actividade irá ainda ter a opção de registar um novo dispositivo para mo
 
 À semelhança da actividade \textit{New First User}, as actividades \textit{Add Device} e \textit{Set Alarm} serão apenas compostas por campos de texto. Após o registo num ficheiro das informações recolhidas, estas irão retornar no \textit{stack}, voltando à actividade anterior.
 
-\subsection{Servidor \textit{SigFox}}
+\subsection*{Servidor \textit{SigFox}}
 
 O papel deste servidor será o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
 
 Em termos de implementação para o projecto, foi apenas necessário conhecer a forma como os pedidos devem ser realizados bem como o formato de resposta.
 
-\subsection{Sensor Arduino}
+\subsection*{Sensor Arduino}
 
 O sensor deverá realizar medições periodicamente enviando-as para a \textit{cloud SigFox}, via rádio.
 
-\section{Detalhes técnicos}
+\section*{Detalhes técnicos}
 
 Para a implementação da solução descrita anteriormente, para os diferentes módulos recorreu-se às seguintes tecnologias:
 
@@ -119,7 +119,33 @@ Ao receber a resposta, a \textit{thread} deverá ser processada com \textit{pars
 
 Para a implementação do sensor de temperatura, recorrer-se-á às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}.
 
-\section{Trabalho realizado}
-\section{Considerações finais}
+\section*{Trabalho realizado}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{ficheiros}
+  [FILE16] \texttt{http://developer.android.com/reference/java/io/File.html}, Março 2016
+  
+\bibitem{thread}
+  [THREAD16] \texttt{http://developer.android.com/reference/java/lang/Thread.html}, Março 2016
+  
+\bibitem{get}
+  [HTTPURLCONNECTION16] \begin{sloppypar} \texttt{http://developer.android.com/reference/java/net/HttpURLConnection.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{get_}
+  [URLCONNECTION16] \begin{sloppypar}\texttt{http://developer.android.com/reference/java/net/URLConnection.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{jason}
+  [JSON16] \texttt{http://developer.android.com/reference/android/util/JsonReader.html}, Março 2016
+  
+\bibitem{notifications}
+  [NOTIFICATION16] \begin{sloppypar}\texttt{http://developer.android.com/training/notify-user/build-notification.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{Akeru}
+  [AKERU16] \texttt{https://github.com/Snootlab/Akeru}, Fevereiro 2016
+
+
+\end{thebibliography}
 
 \end{document}
