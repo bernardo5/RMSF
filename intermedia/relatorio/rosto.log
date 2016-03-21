@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.21)  21 MAR 2016 15:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.21)  21 MAR 2016 15:43
 entering extended mode
 **rosto.tex
 (C:\BG-files\IST\4ano\2semestre\RMSF\RMSF\intermedia\relatorio\rosto.tex
@@ -111,7 +111,7 @@ Overfull \hbox (21.08043pt too wide) in paragraph at lines 7--7
 ! Undefined control sequence.
 <recently read> \Large 
                        
-l.9 		\textsc{\Large Relat√≥rio do projecto}
+l.9 		\textsc{\Large Relat√≥rio interm√©dio}
                                             \\[1.5cm]
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -121,24 +121,26 @@ and I'll forget about whatever was undefined.
 
 Missing character: There is no √ in font cmcsc10!
 Missing character: There is no ≥ in font cmcsc10!
+Missing character: There is no √ in font cmcsc10!
+Missing character: There is no © in font cmcsc10!
 
 Overfull \hbox (45.4886pt too wide) in paragraph at lines 9--9
  []\OT1/cmr/m/sc/10 Relatrio 
  []
 
 
-Overfull \hbox (12.59996pt too wide) in paragraph at lines 9--9
- \OT1/cmr/m/sc/10 do 
+Overfull \hbox (12.93326pt too wide) in paragraph at lines 9--9
+ \OT1/cmr/m/sc/10 in- 
  []
 
 
-Overfull \hbox (21.51099pt too wide) in paragraph at lines 9--9
- \OT1/cmr/m/sc/10 pro- 
+Overfull \hbox (21.28876pt too wide) in paragraph at lines 9--9
+ \OT1/cmr/m/sc/10 ter- 
  []
 
 
-Overfull \hbox (27.99985pt too wide) in paragraph at lines 9--9
- \OT1/cmr/m/sc/10 jecto 
+Overfull \hbox (23.08879pt too wide) in paragraph at lines 9--9
+ \OT1/cmr/m/sc/10 mdio 
  []
 
 ! Undefined control sequence.
