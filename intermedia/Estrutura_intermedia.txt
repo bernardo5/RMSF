@@ -17,3 +17,11 @@ API para a configuraçao de alarmes para thresholds de temperatura:
 -Make a periodic get: http://stackoverflow.com/questions/5452394/best-way-to-perform-an-action-periodically-while-an-app-is-running-handler
 
 
+-parse de jason: http://www.tutorialspoint.com/android/android_json_parser.htm
+
+-leitura de ficheiros: java.lang.Object
+   	java.io.File
+		http://developer.android.com/reference/java/io/File.html
+		Exemplo em: http://stackoverflow.com/questions/14376807/how-to-read-write-string-from-a-file-in-android
+
+
