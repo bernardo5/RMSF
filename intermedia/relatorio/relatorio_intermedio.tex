@@ -27,7 +27,7 @@ O sistema, deverá ser baseado num sensor de temperatura associado a um disposit
 
 Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
 
-\section{Arquitectura do projecto}
+\section{Solução proposta}
 
 Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{cloud SigFox} como intermediária.
 
@@ -45,13 +45,14 @@ A arquitectura será então a apresentada na figura \ref{fig:general}:
 
 A aplicação \textit{Android}, com a qual o utilizador irá ter contacto directo, será constituída por cinco actividades:
 
-\begin{enumerate}
+\begin{itemize}
 \item \textit{Welcome Screen};
 \item \textit{New First User};
 \item \textit{Logs};
 \item \textit{Set Alarm};
-\item \textit{Add Device};
-\end{enumerate} 
+\item \textit{Add Device}.
+\end{itemize}
+
 \vspace{35mm}
 
 As relações entre as actividades descritas, encontram-se representadas na figura \ref{fig:app_android_geral}.
@@ -90,6 +91,31 @@ A actividade de visualização da informação da \textit{Cloud}, que poderá se
 Esta actividade irá ainda ter a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de o \textit{threshold} de temperatura ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
 
 À semelhança da actividade \textit{New First User}, as actividades \textit{Add Device} e \textit{Set Alarm} serão apenas compostas por campos de texto. Após o registo num ficheiro das informações recolhidas, estas irão retornar no \textit{stack}, voltando à actividade anterior.
+
+\subsection{Servidor \textit{SigFox}}
+
+O papel deste servidor será o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
+
+Em termos de implementação para o projecto, foi apenas necessário conhecer a forma como os pedidos devem ser realizados bem como o formato de resposta.
+
+\subsection{Sensor Arduino}
+
+O sensor deverá realizar medições periodicamente enviando-as para a \textit{cloud SigFox}, via rádio.
+
+\section{Detalhes técnicos}
+
+Para a implementação da solução descrita anteriormente, para os diferentes módulos recorreu-se às seguintes tecnologias:
+
+Para a aplicação \textit{Android}:
+\begin{itemize}
+\item \textbf{Welcome Screen, New First User, Set Alarm e Add Device} - Nestes módulos, pensa-se utilizar a abertura, leitura e escrita de ficheiros, por forma a efectuar/consultar registos (utilizador, dispositivo ou alarme). Para tal, ir-se-á utilizar a Classe \textit{FILE} presente em \textit{android};
+
+\item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a \textit{User Interface} (UI) principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, a primeira acção será a abertura de uma \textit{thread}, com recurso à classe \textit{Thread}. 
+
+Para efectuar os pedidos HTTPS, usar-se-á uma de duas classes: \textit{URLConnection} ou \textit{HttpURLConnection}.
+
+Ao receber a resposta, a \textit{thread} deverá ser processada com \textit{parsing} de \textit{JSON} com recurso à classe \textit{JsonReader}. Após o processamento da resposta, irá ser verificado se a temperatura recebida ultrapassa algum \textit{threshold} definido pelo utilizador. Em caso afirmativo, irá ser gerada uma notificação com recurso a um objecto \textit{Notification}.
+\end{itemize}
 
 \section{Trabalho realizado}
 \section{Considerações finais}
