@@ -1,2 +1,0 @@
-INDEX VERSION 1.127+C:\BG-files\IST\4ano\2semestre\RMSF\RMSF\URL\.metadata\.plugins\org.eclipse.jdt.core
-3629029135.index

@@ -1,0 +1,19 @@
+API para a configuraçao de alarmes para thresholds de temperatura:
+- Notification manager: http://developer.android.com/training/notify-user/build-notification.html (API)
+- Why not alarm manager: http://stackoverflow.com/questions/17404463/alarm-manager-and-notification-in-android
+			Alarm manager is not a user notification system but an event for the phone to wake up and do 						something at a certain time.
+			Notifications are what you would use to notify the user of an event.
+
+- Priority levels: http://developer.android.com/design/patterns/notifications.html
+
+
+-Pass a linked list across activities: http://stackoverflow.com/questions/14777675/android-accessing-application-class-						linkedlist-from-main-activity
+
+
+-Save a linked list:
+ http://stackoverflow.com/questions/31120006/simple-way-to-store-a-linked-list
+			http://stackoverflow.com/questions/10818922/easy-way-to-save-a-linkedlist-in-a-android-application
+
+-Make a periodic get: http://stackoverflow.com/questions/5452394/best-way-to-perform-an-action-periodically-while-an-app-is-running-handler
+
+
