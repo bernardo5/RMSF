@@ -78,8 +78,18 @@ A averiguação do \textit{login} de um utilizador será feita mediante a exist�
 
 A actividade de registo de um primeiro utilizador (\textit{New First User}), terá apenas três campos de inserção de texto: \textit{user name, password} e \textit{devicetype-id}. Estes parâmetros deverão ser gravados no ficheiro de texto descrito anteriormente. De seguida, será lançada a actividade de \textit{Logs}.
 
+A actividade de visualização da informação da \textit{Cloud}, que poderá ser acedida a partir das outras duas actividades descritas anteriormente, irá ser constituída por duas \textit{threads}. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) que irão ser realizados periodicamente. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador.
 
+\begin{figure}[hb]
+  \centering
+  \includegraphics[scale=0.40]{ShowLogs.png}
+  \caption{Arquitectura da actividade \textit{Logs}}
+  \label{fig:app_logs}
+\end{figure}
 
+Esta actividade irá ainda ter a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de o \textit{threshold} de temperatura ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
+
+À semelhança da actividade \textit{New First User}, as actividades \textit{Add Device} e \textit{Set Alarm} serão apenas compostas por campos de texto. Após o registo num ficheiro das informações recolhidas, estas irão retornar no \textit{stack}, voltando à actividade anterior.
 
 \section{Trabalho realizado}
 \section{Considerações finais}
