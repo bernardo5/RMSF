@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/56bdd1da9336b182b106d3b0/id-pac");
-               //new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
+               new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/56bdd1da9336b182b106d3b0/messages");
             }
         });
     }
@@ -47,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                /*Authenticator.setDefault(new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("56c47b4c9336adb5ba39c9b6", "dd6bd147da1dcc9e34b4674b0f0be948".toCharArray());
-                    }
-                });*/
 
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 connection.connect();
 
                 InputStream stream = connection.getInputStream();
-                //InputStream error = connection.getErrorStream();
 
                 reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -71,11 +68,28 @@ public class MainActivity extends AppCompatActivity {
                     buffer.append(line);
                 }
 
-                return buffer.toString();
+                String finalJson = buffer.toString();
+
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("data");
+
+                StringBuffer finalBufferedData = new StringBuffer();
+                for(int i = 0; i < parentArray.length(); i++){
+
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+
+                    String link_quality = finalObject.getString("linkQuality");
+                    double SNR = finalObject.getDouble("snr");
+                    finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n");
+                }
+                return finalBufferedData.toString();
+                
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if((connection) != null) {
