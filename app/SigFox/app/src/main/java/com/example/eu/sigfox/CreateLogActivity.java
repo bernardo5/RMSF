@@ -26,10 +26,9 @@ public class CreateLogActivity extends AppCompatActivity {
         EditText Device_id = (EditText) findViewById(R.id.device_id);
 
         try {
+            String message=Name.getText().toString()+" "+ Pass.getText().toString()+" "+Device_id.getText().toString();
             FileOutputStream fileOutputStream = openFileOutput("logs.txt", MODE_PRIVATE); //no other app can open file
-            fileOutputStream.write(Name.getText().toString().getBytes());
-            fileOutputStream.write(Pass.getText().toString().getBytes());
-            fileOutputStream.write(Device_id.getText().toString().getBytes());
+            fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();
         }catch(FileNotFoundException e){
