@@ -1,5 +1,6 @@
 package com.example.eu.sigfox;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -52,6 +53,11 @@ public class LogsActivity extends AppCompatActivity {
                     "Couldn't logout!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void newdevice(View view){
+        Intent new_device = new Intent(this, AddDeviceActivity.class);
+        startActivity(new_device);
     }
 
 }

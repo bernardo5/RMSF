@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogsActivity" />
-        <activity android:name=".CreateLogActivity"></activity>
+        <activity android:name=".CreateLogActivity" />
+        <activity android:name=".AddDeviceActivity"></activity>
     </application>
 
 </manifest>
