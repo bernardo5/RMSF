@@ -27,18 +27,36 @@ public class LogsActivity extends AppCompatActivity {
         textView.setVisibility(View.GONE);
     }
 
-    public void login(View view) throws IOException {
-        String message;
-        FileInputStream fileInputStream=openFileInput("logs.txt");
-        InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream);
-        BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
-        StringBuffer stringBuffer= new StringBuffer();
-        while((message=bufferedReader.readLine())!=null){
-            stringBuffer.append(message+"\n");
+    public void checkLogin(View view) {
+        File file = new File(getFilesDir(), "logs.txt");
+        if(file.exists()){
+            //user is logged in
+            login();
+        }else{
+            //user has to create a log
+            Intent create_log = new Intent(this, CreateLogActivity.class);
+            startActivity(create_log);
         }
-        textView.setMovementMethod(new ScrollingMovementMethod());
-        textView.setText(stringBuffer.toString());
-        textView.setVisibility(View.VISIBLE);
+    }
+
+    public void login() {
+        String message;
+        try{
+            FileInputStream fileInputStream = openFileInput("logs.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            while ((message = bufferedReader.readLine()) != null) {
+                stringBuffer.append(message + "\n");
+            }
+            textView.setMovementMethod(new ScrollingMovementMethod());
+            textView.setText(stringBuffer.toString());
+            textView.setVisibility(View.VISIBLE);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void logout(View view){
@@ -47,7 +65,8 @@ public class LogsActivity extends AppCompatActivity {
         if(deleted==true){ /*deleted file*/
             Toast.makeText(LogsActivity.this,
                     "Logout successfully!", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent new_log = new Intent(this, CreateLogActivity.class);
+            startActivity(new_log);
         }else{
             Toast.makeText(LogsActivity.this,
                     "Couldn't logout!", Toast.LENGTH_SHORT).show();

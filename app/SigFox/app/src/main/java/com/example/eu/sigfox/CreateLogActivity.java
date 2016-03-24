@@ -36,7 +36,6 @@ public class CreateLogActivity extends AppCompatActivity {
         }catch(IOException e){
             e.printStackTrace();
         }
-        Intent logged = new Intent(this, LogsActivity.class);
-        startActivity(logged);
+        finish();
     }
 }

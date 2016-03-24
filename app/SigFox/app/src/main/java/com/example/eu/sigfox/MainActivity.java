@@ -20,17 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     public void checkLogin(View view) {
-        File file = new File(getFilesDir(), "logs.txt");
-        if(file.exists()){
-            //user is logged in
             Intent logged = new Intent(this, LogsActivity.class);
             startActivity(logged);
-        }else{
-            //user has to create a log
-            Intent create_log = new Intent(this, CreateLogActivity.class);
-            startActivity(create_log);
-        }
-
-
     }
 }

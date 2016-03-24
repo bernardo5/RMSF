@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/login"
-        android:onClick="login"
+        android:onClick="checkLogin"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -41,10 +41,10 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         android:id="@+id/logout"
-        android:layout_above="@+id/add_device"
-        android:layout_alignRight="@+id/login"
-        android:layout_alignEnd="@+id/login"
-        android:onClick="logout"/>
+        android:onClick="logout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/add_device"
+        android:layout_alignEnd="@+id/add_device" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -52,10 +52,20 @@
         android:layout_height="wrap_content"
         android:text="Add device"
         android:id="@+id/add_device"
-        android:layout_alignParentBottom="true"
+        android:onClick="newdevice"
+        android:layout_above="@+id/logout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="newdevice"/>
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add alarm"
+        android:id="@+id/addAlarm"
+        android:layout_above="@+id/add_device"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
