@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.21)  24 MAR 2016 17:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.21)  24 MAR 2016 17:14
 entering extended mode
 **relatorio_intermedio.tex
 
@@ -511,14 +511,14 @@ File: ./title.png Graphic file (type png)
 Package pdftex.def Info: ./title.png used on input line 5.
 (pdftex.def)             Requested size: 170.71652pt x 39.7041pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 20.
+(Font)              <7> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 20.
+(Font)              <5> on input line 25.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/BG-files/IST/4ano/2sem
 estre/RMSF/RMSF/intermedia/relatorio/title.png (PNG copy)>])
-<general.png, id=13, 1013.19705pt x 123.28412pt>
+<general.png, id=14, 1013.19705pt x 123.28412pt>
 File: general.png Graphic file (type png)
  <use general.png>
 Package pdftex.def Info: general.png used on input line 39.
@@ -536,7 +536,7 @@ been already used, duplicate ignored
                    \relax 
 l.61 
       [1 <C:/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/general
-.png>] <App_geral.png, id=28, 921.08824pt x 379.77176pt>
+.png>] <App_geral.png, id=29, 921.08824pt x 379.77176pt>
 File: App_geral.png Graphic file (type png)
  <use App_geral.png>
 Package pdftex.def Info: App_geral.png used on input line 64.
@@ -546,7 +546,7 @@ Overfull \hbox (23.42877pt too wide) in paragraph at lines 64--65
  [][] 
  []
 
-<ShowLogs.png, id=30, 787.8847pt x 674.52pt>
+<ShowLogs.png, id=31, 787.8847pt x 674.52pt>
 File: ShowLogs.png Graphic file (type png)
  <use ShowLogs.png>
 Package pdftex.def Info: ShowLogs.png used on input line 85.
@@ -554,7 +554,7 @@ Package pdftex.def Info: ShowLogs.png used on input line 85.
  [2 <C:/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/App_geral.pn
 g>] [3 <C:/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/ShowLogs.
 png>]
-<welcome.png, id=45, 481.8pt x 857.2025pt>
+<welcome.png, id=46, 481.8pt x 857.2025pt>
 File: welcome.png Graphic file (type png)
  <use welcome.png>
 Package pdftex.def Info: welcome.png used on input line 123.
@@ -564,31 +564,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--124
 []\T1/cmr/m/n/10 Figura 4: |Wel-come
  []
 
-<newUser.png, id=46, 481.8pt x 857.2025pt>
+<newUser.png, id=47, 481.8pt x 857.2025pt>
 File: newUser.png Graphic file (type png)
  <use newUser.png>
 Package pdftex.def Info: newUser.png used on input line 127.
 (pdftex.def)             Requested size: 110.40253pt x 196.41995pt.
 
-<AddDevice.png, id=47, 481.8pt x 857.2025pt>
+<AddDevice.png, id=48, 481.8pt x 857.2025pt>
 File: AddDevice.png Graphic file (type png)
  <use AddDevice.png>
 Package pdftex.def Info: AddDevice.png used on input line 131.
 (pdftex.def)             Requested size: 110.40253pt x 196.41995pt.
 
-<newalarm.png, id=48, 481.8pt x 857.2025pt>
+<newalarm.png, id=49, 481.8pt x 857.2025pt>
 File: newalarm.png Graphic file (type png)
  <use newalarm.png>
 Package pdftex.def Info: newalarm.png used on input line 138.
 (pdftex.def)             Requested size: 100.04768pt x 177.99046pt.
 
-<logs.png, id=49, 481.8pt x 857.2025pt>
+<logs.png, id=50, 481.8pt x 857.2025pt>
 File: logs.png Graphic file (type png)
  <use logs.png>
 Package pdftex.def Info: logs.png used on input line 142.
 (pdftex.def)             Requested size: 100.04768pt x 177.99046pt.
 
-<login.png, id=50, 481.8pt x 857.2025pt>
+<login.png, id=51, 481.8pt x 857.2025pt>
 File: login.png Graphic file (type png)
  <use login.png>
 Package pdftex.def Info: login.png used on input line 146.
@@ -596,13 +596,13 @@ Package pdftex.def Info: login.png used on input line 146.
  [4 <C:/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/welcome.png>
  <C:/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/newUser.png> <C
 :/BG-files/IST/4ano/2semestre/RMSF/RMSF/intermedia/relatorio/AddDevice.png>]
-<get.jpg, id=57, 492.84125pt x 788.9475pt>
+<get.jpg, id=58, 492.84125pt x 788.9475pt>
 File: get.jpg Graphic file (type jpg)
  <use get.jpg>
 Package pdftex.def Info: get.jpg used on input line 155.
 (pdftex.def)             Requested size: 137.9979pt x 220.90378pt.
 
-<json.jpg, id=58, 492.84125pt x 788.9475pt>
+<json.jpg, id=59, 492.84125pt x 788.9475pt>
 File: json.jpg Graphic file (type jpg)
  <use json.jpg>
 Package pdftex.def Info: json.jpg used on input line 159.
@@ -667,11 +667,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
 Here is how much of TeX's memory you used:
  6913 strings out of 493921
  103500 string characters out of 3147291
- 187265 words of memory out of 3000000
+ 188265 words of memory out of 3000000
  10103 multiletter control sequences out of 15000+200000
  11983 words of font info for 26 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 36i,7n,39p,553b,445s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,7n,39p,524b,445s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\eu\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ect
 t1000.pk> <C:\Users\eu\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi
 600\ecbx1000.pk> <C:\Users\eu\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen
@@ -681,12 +681,13 @@ jfour\jknappen\ec\dpi600\ecti1000.pk> <C:\Users\eu\AppData\Local\MiKTeX\2.9\fon
 ts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\eu\AppData\Local\MiKTeX\
 2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\eu\AppData\Local\
 MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\eu\AppData
-\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1440.pk> <C:\Users\eu\
-AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1728.pk><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on relatorio_intermedio.pdf (7 pages, 328776 bytes).
+\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1000.pk> <C:\Users\eu\
+AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1440.pk> <C:\Us
+ers\eu\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1728.pk>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on relatorio_intermedio.pdf (7 pages, 337412 bytes).
 PDF statistics:
- 408 PDF objects out of 1000 (max. 8388607)
+ 438 PDF objects out of 1000 (max. 8388607)
  28 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

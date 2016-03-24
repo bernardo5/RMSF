@@ -72,7 +72,7 @@ A averiguação do \textit{login} de um utilizador será feita mediante a exist�
 
 A actividade de registo de um primeiro utilizador (\textit{New First User}), terá apenas três campos de inserção de texto: \textit{user name, password} e \textit{devicetype-id}. Estes parâmetros deverão ser gravados no ficheiro de texto descrito anteriormente. De seguida, a aplicação irá retornar à actividade \textit{Logs}.
 
-A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), irá ser constituída por duas \textit{threads}. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET), de acordo com a informação de registo do utilizador, que irão ser realizados periodicamente. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
+A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), irá ser constituída por duas \textit{threads}. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
 
 Esta actividade irá ainda ter a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de o \textit{threshold} de temperatura ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
 
@@ -161,7 +161,7 @@ Relativamente à obtenção das leituras do sensor de arduíno a partir da \text
 \endminipage\hfill
 \end{figure}
 
-Será agora necessária a interligação dos dois programas e a activação das notificações, por forma a que a aplicação fique concluída.
+Será agora necessária a interligação dos dois programas e a activação das notificações, por forma a que a aplicação fique terminada.
 
 Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo iniciada a implementação quando a aplicação estiver concluída.
 
