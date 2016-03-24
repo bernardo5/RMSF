@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +36,20 @@ public class LogsActivity extends AppCompatActivity {
         }
         textView.setText(stringBuffer.toString());
         textView.setVisibility(View.VISIBLE);
+    }
+
+    public void logout(View view){
+        File file=new File(getFilesDir(), "logs.txt");
+        boolean deleted=file.delete();
+        if(deleted==true){ /*deleted file*/
+            Toast.makeText(LogsActivity.this,
+                    "Logout successfully!", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+            Toast.makeText(LogsActivity.this,
+                    "Couldn't logout!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }
