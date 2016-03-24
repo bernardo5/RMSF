@@ -40,6 +40,8 @@ public class LogsActivity extends AppCompatActivity {
     }
 
     public void login() {
+        int i=0;
+        String type=" ";
         String message;
         try{
             FileInputStream fileInputStream = openFileInput("logs.txt");
@@ -47,7 +49,14 @@ public class LogsActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
             while ((message = bufferedReader.readLine()) != null) {
-                stringBuffer.append(message + "\n");
+                if(i<=1){
+                    if(i==0) type="User: ";
+                    if(i==1) type="Password: ";
+                }else{
+                   type="Device: ";
+                }
+                stringBuffer.append(type + message + "\n");
+                i++;
             }
             textView.setMovementMethod(new ScrollingMovementMethod());
             textView.setText(stringBuffer.toString());
