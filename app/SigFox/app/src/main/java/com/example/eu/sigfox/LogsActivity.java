@@ -83,6 +83,11 @@ public class LogsActivity extends AppCompatActivity {
 
     }
 
+    public void addAlarm(View view){
+        Intent new_alarm = new Intent(this, NewAlarmActivity.class);
+        startActivity(new_alarm);
+    }
+
     public void newdevice(View view){
         Intent new_device = new Intent(this, AddDeviceActivity.class);
         startActivity(new_device);

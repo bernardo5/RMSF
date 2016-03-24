@@ -65,7 +65,8 @@
         android:id="@+id/addAlarm"
         android:layout_above="@+id/add_device"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="addAlarm"/>
 
 
 </RelativeLayout>
