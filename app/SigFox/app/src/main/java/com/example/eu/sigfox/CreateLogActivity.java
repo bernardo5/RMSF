@@ -26,7 +26,7 @@ public class CreateLogActivity extends AppCompatActivity {
         EditText Device_id = (EditText) findViewById(R.id.device_id);
 
         try {
-            String message=Name.getText().toString()+" "+ Pass.getText().toString()+" "+Device_id.getText().toString();
+            String message=Name.getText().toString()+"\n"+ Pass.getText().toString()+"\n"+Device_id.getText().toString()+"\n";
             FileOutputStream fileOutputStream = openFileOutput("logs.txt", MODE_PRIVATE); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();

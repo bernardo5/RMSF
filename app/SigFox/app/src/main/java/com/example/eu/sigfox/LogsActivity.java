@@ -2,6 +2,7 @@ package com.example.eu.sigfox;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class LogsActivity extends AppCompatActivity {
         while((message=bufferedReader.readLine())!=null){
             stringBuffer.append(message+"\n");
         }
+        textView.setMovementMethod(new ScrollingMovementMethod());
         textView.setText(stringBuffer.toString());
         textView.setVisibility(View.VISIBLE);
     }
