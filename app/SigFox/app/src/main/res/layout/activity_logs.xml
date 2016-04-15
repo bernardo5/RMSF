@@ -68,5 +68,27 @@
         android:layout_alignParentEnd="true"
         android:onClick="addAlarm"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/sensor_text"
+        android:layout_below="@+id/login_info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp"
+        android:layout_above="@+id/addAlarm"
+        android:layout_alignRight="@+id/addAlarm"
+        android:layout_alignEnd="@+id/addAlarm" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show sensor data"
+        android:id="@+id/sensor_button"
+        android:layout_alignTop="@+id/addAlarm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
