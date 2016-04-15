@@ -32,9 +32,9 @@ import java.net.URL;
 public class LogsActivity extends AppCompatActivity {
     TextView textView;
     private TextView tvData;
-    private String user= "56c47b4c9336adb5ba39c9b6";
-    private String pass="dd6bd147da1dcc9e34b4674b0f0be948";
-    private String Device="56bdd1da9336b182b106d3b0";
+    private String user;
+    private String pass;
+    private String Device;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class LogsActivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.login_info);
         textView.setVisibility(View.GONE);
         //timer.start();
+        login();
         Button btnHit = (Button)findViewById(R.id.sensor_button);
 
         tvData = (TextView)findViewById(R.id.sensor_text);
@@ -79,10 +80,17 @@ public class LogsActivity extends AppCompatActivity {
             StringBuffer stringBuffer = new StringBuffer();
             while ((message = bufferedReader.readLine()) != null) {
                 if(i<=1){
-                    if(i==0) type="User: ";
-                    if(i==1) type="Password: ";
+                    if(i==0){
+                        type="User: ";
+                        user=message;
+                    }
+                    if(i==1){
+                        type="Password: ";
+                        pass=message;
+                    }
                 }else{
                    type="Device: ";
+                    Device=message;
                 }
                 stringBuffer.append(type + message + "\n");
                 i++;
