@@ -29,11 +29,11 @@
         android:id="@+id/login_info"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/login"
-        android:layout_alignBottom="@+id/login"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:maxLines = "20"
-        android:scrollbars = "vertical"/>
+        android:scrollbars = "vertical"
+        android:layout_alignBottom="@+id/login" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -43,8 +43,10 @@
         android:id="@+id/logout"
         android:onClick="logout"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/add_device"
-        android:layout_alignEnd="@+id/add_device" />
+        android:layout_alignLeft="@+id/sensor_button"
+        android:layout_alignStart="@+id/sensor_button"
+        android:layout_alignRight="@+id/sensor_button"
+        android:layout_alignEnd="@+id/sensor_button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -53,9 +55,9 @@
         android:text="Add device"
         android:id="@+id/add_device"
         android:onClick="newdevice"
-        android:layout_above="@+id/logout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/addAlarm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -63,32 +65,32 @@
         android:layout_height="wrap_content"
         android:text="Add alarm"
         android:id="@+id/addAlarm"
-        android:layout_above="@+id/add_device"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="addAlarm"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/sensor_text"
-        android:layout_below="@+id/login_info"
+        android:onClick="addAlarm"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp"
-        android:layout_above="@+id/addAlarm"
-        android:layout_alignRight="@+id/addAlarm"
-        android:layout_alignEnd="@+id/addAlarm" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="show sensor data"
         android:id="@+id/sensor_button"
-        android:layout_alignTop="@+id/addAlarm"
+        android:layout_alignTop="@+id/add_device"
+        android:layout_alignRight="@+id/login"
+        android:layout_alignEnd="@+id/login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/sensor_text"
+        android:layout_below="@+id/login_info"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="54dp"
+        android:layout_above="@+id/add_device"
+        android:layout_alignRight="@+id/sensor_button"
+        android:layout_alignEnd="@+id/sensor_button" />
 
 
 </RelativeLayout>
