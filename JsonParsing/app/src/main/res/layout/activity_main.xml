@@ -14,10 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnHit"
-        android:text="Hit"/>
+        android:text="Show Messages"/>
     <TextView
         android:id="@+id/tvJsonItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

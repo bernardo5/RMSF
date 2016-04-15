@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n");
                 }
                 return finalBufferedData.toString();
-                
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
