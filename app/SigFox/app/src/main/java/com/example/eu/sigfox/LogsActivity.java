@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class LogsActivity extends AppCompatActivity {
     TextView textView;
@@ -35,6 +47,10 @@ public class LogsActivity extends AppCompatActivity {
     private String user;
     private String pass;
     private String Device;
+
+    Spinner spinner;
+    ArrayAdapter<String> adapterBusinessType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +59,35 @@ public class LogsActivity extends AppCompatActivity {
         textView.setVisibility(View.GONE);
         //timer.start();
         login();
+
+        /////////////////////////////////////////////////////////////////////////
+
+        adapterBusinessType = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, businessType);
+        spinner.setAdapter(adapterBusinessType);
+
+
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                String item = adapter.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(getApplicationContext(),
+                        "Bussiness Type : " + item, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        /////////////////////////////////////////////////////////////////////////////
+
         Button btnHit = (Button)findViewById(R.id.sensor_button);
 
         tvData = (TextView)findViewById(R.id.sensor_text);
@@ -203,6 +248,10 @@ public class LogsActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
 
 
 }
