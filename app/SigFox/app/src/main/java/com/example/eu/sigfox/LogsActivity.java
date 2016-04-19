@@ -49,7 +49,7 @@ public class LogsActivity extends AppCompatActivity {
     private String Device;
 
     Spinner spinner;
-    ArrayAdapter<String> adapterBusinessType;
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,34 +60,28 @@ public class LogsActivity extends AppCompatActivity {
         //timer.start();
         login();
 
-        /////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+        spinner=(Spinner)findViewById(R.id.spinner);
 
-        adapterBusinessType = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, businessType);
-        spinner.setAdapter(adapterBusinessType);
+        adapter=ArrayAdapter.createFromResource(this, R.array.devices_names, android.R.layout.simple_spinner_item);
 
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spinner.setAdapter(adapter);
 
-            @Override
-            public void onItemSelected(AdapterView<?> adapter, View v,
-                                       int position, long id) {
-                // On selecting a spinner item
-                String item = adapter.getItemAtPosition(position).toString();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
-                // Showing selected spinner item
-                Toast.makeText(getApplicationContext(),
-                        "Bussiness Type : " + item, Toast.LENGTH_LONG).show();
+            public void onItemSelected(AdapterView<?>parent, View view, int position, long id){
+                    Toast.makeText(getBaseContext(), parent.getItemAtPosition(position)+" selected", Toast.LENGTH_LONG).show();
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
+            public void onNothingSelected(AdapterView<?> parent){
 
             }
+
         });
-        /////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////
         Button btnHit = (Button)findViewById(R.id.sensor_button);
 
         tvData = (TextView)findViewById(R.id.sensor_text);
