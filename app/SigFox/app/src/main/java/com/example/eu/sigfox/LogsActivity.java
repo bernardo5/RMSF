@@ -60,8 +60,8 @@ public class LogsActivity extends AppCompatActivity {
         textView.setVisibility(View.GONE);
 
         stringArray = new ArrayList<String>();
-        stringArray.add("56bdd1da9336b182b106d3b0");
-        stringArray.add("othersssDevice");
+       /* stringArray.add("56bdd1da9336b182b106d3b0");
+        stringArray.add("othersssDevice");*/
 
 
         //timer.start();
@@ -139,6 +139,7 @@ public class LogsActivity extends AppCompatActivity {
                 }else{
                    type="Device: ";
                     Device=message;
+                    stringArray.add(message);
                 }
                 stringBuffer.append(type + message + "\n");
                 i++;
