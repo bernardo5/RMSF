@@ -73,6 +73,7 @@ public class LogsActivity extends AppCompatActivity {
 
             public void onItemSelected(AdapterView<?>parent, View view, int position, long id){
                     Toast.makeText(getBaseContext(), parent.getItemAtPosition(position)+" selected", Toast.LENGTH_LONG).show();
+                    Device=parent.getItemAtPosition(position).toString();
             }
 
             public void onNothingSelected(AdapterView<?> parent){
