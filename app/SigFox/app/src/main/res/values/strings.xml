@@ -1,8 +1,4 @@
 <resources>
     <string name="app_name">SigFox</string>
     <string name="title_activity_logs">LogsActivity</string>
-    <string-array name="devices_names">
-        <item>56bdd1da9336b182b106d3b0</item>
-        <item>otherDevice</item>
-    </string-array>
 </resources>

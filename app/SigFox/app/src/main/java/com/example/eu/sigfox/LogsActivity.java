@@ -49,7 +49,8 @@ public class LogsActivity extends AppCompatActivity {
     private String Device;
 
     Spinner spinner;
-    ArrayAdapter<CharSequence> adapter;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> stringArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,20 @@ public class LogsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logs);
         textView=(TextView)findViewById(R.id.login_info);
         textView.setVisibility(View.GONE);
+
+        stringArray = new ArrayList<String>();
+        stringArray.add("56bdd1da9336b182b106d3b0");
+        stringArray.add("othersssDevice");
+
+
         //timer.start();
         login();
 
 ////////////////////////////////////////////////////////////////////////////////////////////
         spinner=(Spinner)findViewById(R.id.spinner);
 
-        adapter=ArrayAdapter.createFromResource(this, R.array.devices_names, android.R.layout.simple_spinner_item);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, stringArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
