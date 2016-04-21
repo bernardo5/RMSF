@@ -54,6 +54,8 @@ public class LogsActivity extends AppCompatActivity {
     private String pass;
     private String Device;
     Timer t ;
+    MyTimerTask timerTask;
+    final Handler handler = new Handler();
     Spinner spinner;
     ArrayAdapter<String> adapter;
     ArrayList<String> stringArray;
@@ -136,12 +138,22 @@ public class LogsActivity extends AppCompatActivity {
         repeatChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(t != null){
+                    t.cancel();
+                }
+
+                //re-schedule timer here
+                //otherwise, IllegalStateException of
+                //"TimerTask is scheduled already"
+                //will be thrown
+
                 if (isChecked) {
-                    Toast.makeText(LogsActivity.this,
-                            "checked", Toast.LENGTH_SHORT).show();
+                    t = new Timer();
+                    timerTask = new MyTimerTask();
+                    t.schedule(timerTask, 1000, 5000);
                 }else{
-                    Toast.makeText(LogsActivity.this,
-                            "Unchecked", Toast.LENGTH_SHORT).show();
+                    t.cancel();
+                    t=null;
                 }
 
             }
@@ -297,7 +309,20 @@ public class LogsActivity extends AppCompatActivity {
     }
 
 
+    class MyTimerTask extends TimerTask {
 
+        @Override
+        public void run() {
+          runOnUiThread(new Runnable(){
+
+                @Override
+                public void run() {
+                    Toast.makeText(LogsActivity.this,
+                            "thread!", Toast.LENGTH_SHORT).show();
+                }});
+        }
+
+    }
 
 
 

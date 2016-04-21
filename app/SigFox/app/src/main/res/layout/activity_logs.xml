@@ -116,7 +116,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="non periodic"
+        android:text="periodic"
         android:id="@+id/checkBox2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
