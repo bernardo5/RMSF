@@ -19,8 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void checkLogin(View view) {
+
+    public void submit(View view) {
+            EditText appUsername = (EditText) findViewById(R.id.appUsername);
+            String message=appUsername.getText().toString();
+
             Intent logged = new Intent(this, LogsActivity.class);
+            logged.putExtra("username", message);
             startActivity(logged);
     }
 }

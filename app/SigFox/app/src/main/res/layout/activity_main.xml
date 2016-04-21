@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="To check if you are logged press the button bellow"
+        android:text="Please insert your app user name"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -21,10 +21,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Check Login"
+        android:text="submit"
         android:id="@+id/button"
+        android:onClick="submit"
+        android:layout_below="@+id/appUsername"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/appUsername"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
-        android:onClick="checkLogin"/>
+        android:layout_marginTop="102dp" />
 </RelativeLayout>

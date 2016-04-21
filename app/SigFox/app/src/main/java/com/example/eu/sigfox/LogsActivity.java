@@ -52,6 +52,8 @@ public class LogsActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> stringArray;
 
+    private String UsernameApp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,10 @@ public class LogsActivity extends AppCompatActivity {
        /* stringArray.add("56bdd1da9336b182b106d3b0");
         stringArray.add("othersssDevice");*/
 
+        /*get username from last activity*/
+        UsernameApp=getIntent().getExtras().getString("username");
+        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
+        /**********************************/
 
         //timer.start();
         login();
@@ -155,18 +161,10 @@ public class LogsActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
-        File file=new File(getFilesDir(), "logs.txt");
-        boolean deleted=file.delete();
-        if(deleted==true){ /*deleted file*/
-            Toast.makeText(LogsActivity.this,
-                    "Logout successfully!", Toast.LENGTH_SHORT).show();
-            Intent new_log = new Intent(this, CreateLogActivity.class);
-            startActivity(new_log);
-        }else{
-            Toast.makeText(LogsActivity.this,
-                    "Couldn't logout!", Toast.LENGTH_SHORT).show();
-        }
-
+        Toast.makeText(LogsActivity.this,
+                "Logout successfully!", Toast.LENGTH_SHORT).show();
+        Intent new_log = new Intent(this, CreateLogActivity.class);
+        startActivity(new_log);
     }
 
     public void addAlarm(View view){
