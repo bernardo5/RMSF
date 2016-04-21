@@ -136,18 +136,6 @@ public class LogsActivity extends AppCompatActivity {
 
         }
     }
-    public void checkLogin() {
-        File file = new File(getFilesDir(), UsernameApp + ".txt");
-        if (file.exists()) {
-            //user is logged in
-            login(UsernameApp);
-        } else {
-            //user has to create a log
-            Intent create_log = new Intent(this, CreateLogActivity.class);
-            create_log.putExtra("username", UsernameApp);
-            startActivity(create_log);
-        }
-    }
 
     public void login(String userUsed) {
         int i=0;
@@ -189,7 +177,7 @@ public class LogsActivity extends AppCompatActivity {
     public void logout(View view){
         Toast.makeText(LogsActivity.this,
                 "Logout successfully!", Toast.LENGTH_SHORT).show();
-        Intent new_log = new Intent(this, CreateLogActivity.class);
+        Intent new_log = new Intent(this, MainActivity.class);
         startActivity(new_log);
     }
 
