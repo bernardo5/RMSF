@@ -139,7 +139,7 @@ public class LogsActivity extends AppCompatActivity {
                 }else{
                    type="Device: ";
                     Device=message;
-                    stringArray.add(message);
+                    if(!(stringArray.contains(message)))stringArray.add(message);
                 }
                 stringBuffer.append(type + message + "\n");
                 i++;
