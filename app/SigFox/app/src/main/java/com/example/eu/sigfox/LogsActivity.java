@@ -184,6 +184,7 @@ public class LogsActivity extends AppCompatActivity {
     public void addAlarm(View view){
         Intent new_alarm = new Intent(this, NewAlarmActivity.class);
         new_alarm.putExtra("username", UsernameApp);
+        new_alarm.putExtra("username", UsernameApp);
         startActivity(new_alarm);
     }
 

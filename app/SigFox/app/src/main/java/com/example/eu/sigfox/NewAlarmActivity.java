@@ -13,17 +13,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class NewAlarmActivity extends AppCompatActivity {
+    String UsernameApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_alarm);
+        UsernameApp=getIntent().getExtras().getString("username");
+        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
     }
 
     public void RegisterNewAlarm(EditText alarm_threshold){
         try {
             String message = alarm_threshold.getText().toString() + "\n";
-            FileOutputStream fileOutputStream = openFileOutput("alarms.txt", MODE_APPEND); //no other app can open file
+            FileOutputStream fileOutputStream = openFileOutput(UsernameApp+"-alarms.txt", MODE_APPEND); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(NewAlarmActivity.this,
@@ -38,13 +41,13 @@ public class NewAlarmActivity extends AppCompatActivity {
 
     public void createAlarm(View view){
         EditText alarm_threshold = (EditText) findViewById(R.id.temperatureThreshold);
-        File file = new File(getFilesDir(), "logs.txt");
+        File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
         if(file.exists()){
             RegisterNewAlarm(alarm_threshold);
         }else{
             try {
                 String message=alarm_threshold.getText().toString()+"\n";
-                FileOutputStream fileOutputStream = openFileOutput("alarms.txt", MODE_PRIVATE); //no other app can open file
+                FileOutputStream fileOutputStream = openFileOutput(UsernameApp+"-alarms.txt", MODE_PRIVATE); //no other app can open file
                 fileOutputStream.write(message.getBytes());
                 fileOutputStream.close();
                 Toast.makeText(getApplicationContext(), "Alarm successfully created!", Toast.LENGTH_LONG).show();
