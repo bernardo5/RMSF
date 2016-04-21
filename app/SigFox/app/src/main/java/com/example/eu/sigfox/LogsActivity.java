@@ -138,7 +138,10 @@ public class LogsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Toast.makeText(LogsActivity.this,
-                            "fsljnvçsdnbvsldvmzmnçzdlm!", Toast.LENGTH_SHORT).show();
+                            "checked", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(LogsActivity.this,
+                            "Unchecked", Toast.LENGTH_SHORT).show();
                 }
 
             }
