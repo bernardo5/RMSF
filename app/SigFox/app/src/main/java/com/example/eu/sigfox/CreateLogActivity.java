@@ -13,11 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class CreateLogActivity extends AppCompatActivity {
-
+    String UsernameApp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_log);
+        UsernameApp=getIntent().getExtras().getString("username");
+        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
     }
 
     public void createLog(View view) {
@@ -27,7 +29,7 @@ public class CreateLogActivity extends AppCompatActivity {
 
         try {/************AQUIIIIII*/
             String message=Name.getText().toString()+"\n"+ Pass.getText().toString()+"\n"+Device_id.getText().toString()+"\n";
-            FileOutputStream fileOutputStream = openFileOutput(/*Name.getText()+*/"logs.txt", MODE_PRIVATE); //no other app can open file
+            FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_PRIVATE); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();

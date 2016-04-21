@@ -112,13 +112,14 @@ public class LogsActivity extends AppCompatActivity {
     }
 
     public void checkLogin(View view) {
-        File file = new File(getFilesDir(), "logs.txt");
+        File file = new File(getFilesDir(), UsernameApp+".txt");
         if(file.exists()){
             //user is logged in
             login(UsernameApp);
         }else{
             //user has to create a log
             Intent create_log = new Intent(this, CreateLogActivity.class);
+            create_log.putExtra("username", UsernameApp);
             startActivity(create_log);
         }
     }
