@@ -8,10 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,7 +53,7 @@ public class LogsActivity extends AppCompatActivity {
     private String user;
     private String pass;
     private String Device;
-
+    Timer t ;
     Spinner spinner;
     ArrayAdapter<String> adapter;
     ArrayList<String> stringArray;
@@ -114,13 +120,32 @@ public class LogsActivity extends AppCompatActivity {
             }
         });
 
-        /*if(a==0){
-            Intent create_log = new Intent(this, CreateLogActivity.class);
-            create_log.putExtra("username", UsernameApp);
-            startActivity(create_log);
-        }*/
-        //checkLogin();
-       // login(UsernameApp);
+        /*t = new Timer();
+        t.schedule(new TimerTask() {
+
+            public void run() {
+                Log.d("MyApp", "I am here");
+                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+            }
+        }, 1000);*/
+
+
+
+
+        CheckBox repeatChkBx = (CheckBox) findViewById( R.id.checkBox2);
+        repeatChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(LogsActivity.this,
+                            "fsljnvçsdnbvsldvmzmnçzdlm!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
     }
 
     public void checkLogin(View view) {
