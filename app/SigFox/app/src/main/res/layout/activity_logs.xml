@@ -28,12 +28,13 @@
         android:text="Medium Text"
         android:id="@+id/login_info"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/login"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:maxLines = "20"
         android:scrollbars = "vertical"
-        android:layout_alignBottom="@+id/login" />
+        android:layout_alignBottom="@+id/login"
+        android:layout_toLeftOf="@+id/sensor_button"
+        android:layout_toStartOf="@+id/sensor_button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -114,6 +115,15 @@
         android:layout_alignRight="@+id/add_device"
         android:layout_alignEnd="@+id/add_device" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="periodic"
+        android:id="@+id/checkBox2"
+        android:layout_toLeftOf="@+id/login"
+        android:layout_alignTop="@+id/login"
+        android:layout_toRightOf="@+id/login_info"
+        android:layout_toEndOf="@+id/login_info" />
 
-    
+
 </RelativeLayout>
