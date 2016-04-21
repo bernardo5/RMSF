@@ -75,9 +75,9 @@
         android:layout_height="wrap_content"
         android:text="show sensor data"
         android:id="@+id/sensor_button"
-        android:layout_above="@+id/logout"
-        android:layout_alignLeft="@+id/spinner"
-        android:layout_alignStart="@+id/spinner" />
+        android:layout_below="@+id/sensor_text"
+        android:layout_alignRight="@+id/sensor_text"
+        android:layout_alignEnd="@+id/sensor_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,8 +89,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="54dp"
         android:layout_above="@+id/add_device"
-        android:layout_alignRight="@+id/sensor_button"
-        android:layout_alignEnd="@+id/sensor_button" />
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner" />
 
     <Spinner
         android:layout_width="wrap_content"
