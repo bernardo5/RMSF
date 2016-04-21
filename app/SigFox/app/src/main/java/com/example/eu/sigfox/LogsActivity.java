@@ -318,7 +318,8 @@ public class LogsActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(LogsActivity.this,
-                            "thread!", Toast.LENGTH_SHORT).show();
+                            "thread update!", Toast.LENGTH_SHORT).show();
+                    new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
                 }});
         }
 
