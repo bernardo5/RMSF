@@ -38,6 +38,8 @@ public class CreateLogActivity extends AppCompatActivity {
         }catch(IOException e){
             e.printStackTrace();
         }
-        finish();
+        Intent logged = new Intent(this, LogsActivity.class);
+        logged.putExtra("username", UsernameApp);
+        startActivity(logged);
     }
 }

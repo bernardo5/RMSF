@@ -69,9 +69,14 @@ public class LogsActivity extends AppCompatActivity {
         UsernameApp=getIntent().getExtras().getString("username");
         Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
         /**********************************/
-
         //timer.start();
-        login(UsernameApp);
+        File file = new File(getFilesDir(), UsernameApp + ".txt");
+        int a=0;
+        if (file.exists()) {
+            //user is logged in
+            login(UsernameApp);
+            a=1;
+        }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
         spinner=(Spinner)findViewById(R.id.spinner);
@@ -105,10 +110,17 @@ public class LogsActivity extends AppCompatActivity {
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/"+Device+"/messages");
+                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
             }
         });
 
+        /*if(a==0){
+            Intent create_log = new Intent(this, CreateLogActivity.class);
+            create_log.putExtra("username", UsernameApp);
+            startActivity(create_log);
+        }*/
+        //checkLogin();
+       // login(UsernameApp);
     }
 
     public void checkLogin(View view) {
@@ -117,6 +129,19 @@ public class LogsActivity extends AppCompatActivity {
             //user is logged in
             login(UsernameApp);
         }else{
+            //user has to create a log
+            Intent create_log = new Intent(this, CreateLogActivity.class);
+            create_log.putExtra("username", UsernameApp);
+            startActivity(create_log);
+
+        }
+    }
+    public void checkLogin() {
+        File file = new File(getFilesDir(), UsernameApp + ".txt");
+        if (file.exists()) {
+            //user is logged in
+            login(UsernameApp);
+        } else {
             //user has to create a log
             Intent create_log = new Intent(this, CreateLogActivity.class);
             create_log.putExtra("username", UsernameApp);
@@ -170,11 +195,13 @@ public class LogsActivity extends AppCompatActivity {
 
     public void addAlarm(View view){
         Intent new_alarm = new Intent(this, NewAlarmActivity.class);
+        new_alarm.putExtra("username", UsernameApp);
         startActivity(new_alarm);
     }
 
     public void newdevice(View view){
         Intent new_device = new Intent(this, AddDeviceActivity.class);
+        new_device.putExtra("username", UsernameApp);
         startActivity(new_device);
     }
 

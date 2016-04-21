@@ -11,11 +11,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class AddDeviceActivity extends AppCompatActivity {
-
+    String UsernameApp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
+        UsernameApp=getIntent().getExtras().getString("username");
+        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
     }
 
     public void RegisterNewDevice(View view){
@@ -23,7 +25,7 @@ public class AddDeviceActivity extends AppCompatActivity {
 
         try {
             String message = Device_id.getText().toString() + "\n";
-            FileOutputStream fileOutputStream = openFileOutput("logs.txt", MODE_APPEND); //no other app can open file
+            FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(AddDeviceActivity.this,

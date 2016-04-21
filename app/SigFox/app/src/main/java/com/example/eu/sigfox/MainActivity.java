@@ -22,10 +22,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void submit(View view) {
             EditText appUsername = (EditText) findViewById(R.id.appUsername);
-            String message=appUsername.getText().toString();
+            String UsernameApp=appUsername.getText().toString();
 
-            Intent logged = new Intent(this, LogsActivity.class);
-            logged.putExtra("username", message);
-            startActivity(logged);
+            File file = new File(getFilesDir(), UsernameApp+".txt");
+            if(file.exists()){
+                //user is logged in
+                Intent logged = new Intent(this, LogsActivity.class);
+                logged.putExtra("username", UsernameApp);
+                startActivity(logged);
+            }else {
+                //user has to create a log
+                Intent create_log = new Intent(this, CreateLogActivity.class);
+                create_log.putExtra("username", UsernameApp);
+                startActivity(create_log);
+            }
+
     }
+
+
+
 }

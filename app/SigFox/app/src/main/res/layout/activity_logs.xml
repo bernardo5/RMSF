@@ -27,14 +27,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/login_info"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:maxLines = "20"
         android:scrollbars = "vertical"
-        android:layout_alignBottom="@+id/login"
-        android:layout_toLeftOf="@+id/sensor_button"
-        android:layout_toStartOf="@+id/sensor_button" />
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/login"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_above="@+id/spinner" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -85,21 +84,20 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/sensor_text"
-        android:layout_below="@+id/login_info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="54dp"
         android:layout_above="@+id/add_device"
         android:layout_alignRight="@+id/sensor_button"
-        android:layout_alignEnd="@+id/sensor_button" />
+        android:layout_alignEnd="@+id/sensor_button"
+        android:layout_below="@+id/spinner" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_below="@+id/login_info"
         android:layout_toRightOf="@+id/add_device"
-        android:layout_toEndOf="@+id/add_device" />
+        android:layout_toEndOf="@+id/add_device"
+        android:layout_below="@+id/login" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,10 +118,12 @@
         android:layout_height="wrap_content"
         android:text="periodic"
         android:id="@+id/checkBox2"
-        android:layout_toLeftOf="@+id/login"
-        android:layout_alignTop="@+id/login"
-        android:layout_toRightOf="@+id/login_info"
-        android:layout_toEndOf="@+id/login_info" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView4"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
 
 
 </RelativeLayout>
