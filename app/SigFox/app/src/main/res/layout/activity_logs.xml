@@ -75,9 +75,9 @@
         android:layout_height="wrap_content"
         android:text="show sensor data"
         android:id="@+id/sensor_button"
-        android:layout_alignTop="@+id/add_device"
-        android:layout_alignRight="@+id/login"
-        android:layout_alignEnd="@+id/login" />
+        android:layout_above="@+id/logout"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Current device:"
+        android:text="Current device"
         android:gravity="center"
         android:id="@+id/textView4"
         android:layout_below="@+id/login_info"
