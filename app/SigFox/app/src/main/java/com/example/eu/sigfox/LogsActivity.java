@@ -71,7 +71,7 @@ public class LogsActivity extends AppCompatActivity {
         /**********************************/
 
         //timer.start();
-        login();
+        login(UsernameApp);
 
 ////////////////////////////////////////////////////////////////////////////////////////////
         spinner=(Spinner)findViewById(R.id.spinner);
@@ -115,7 +115,7 @@ public class LogsActivity extends AppCompatActivity {
         File file = new File(getFilesDir(), "logs.txt");
         if(file.exists()){
             //user is logged in
-            login();
+            login(UsernameApp);
         }else{
             //user has to create a log
             Intent create_log = new Intent(this, CreateLogActivity.class);
@@ -123,12 +123,12 @@ public class LogsActivity extends AppCompatActivity {
         }
     }
 
-    public void login() {
+    public void login(String userUsed) {
         int i=0;
         String type=" ";
         String message;
         try{
-            FileInputStream fileInputStream = openFileInput("logs.txt");
+            FileInputStream fileInputStream = openFileInput(userUsed+".txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
