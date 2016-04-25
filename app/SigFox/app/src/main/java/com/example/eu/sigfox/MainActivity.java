@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -120,8 +122,16 @@ public class MainActivity extends AppCompatActivity {
                     while((bufferedStrChunk = bufferedReader.readLine()) != null){
                         stringBuilder.append(bufferedStrChunk);
                     }
+                    String r=new String();
+                    Pattern pattern = Pattern.compile("\\{(.*?)\\}");
+                    Matcher matcher = pattern.matcher(stringBuilder.toString());
+                    while (matcher.find())
+                    {
+                        r+=matcher.group(0);
+                       // System.out.println(matcher.group(0));
+                    }
 
-                    return stringBuilder.toString();
+                    return r;
 
 
                 } catch (MalformedURLException e) {
