@@ -37,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     TextView textView;
     TextView debug;
+    TextView devv;
 
     private String usernameee=new String();
     private String password=new String();
+    String dev[];
     int user;
 
     @Override
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         debug = (TextView)findViewById(R.id.debug);
         debug.setVisibility(View.GONE);
+
+        devv = (TextView)findViewById(R.id.dev);
+        devv.setVisibility(View.GONE);
     }
 
     public void setUsername(String u){
@@ -79,30 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(logged);
             }else {
                 //check database
-               /* try {
-                    URL url = new URL("http://web.tecnico.ulisboa.pt/ist175573/userPass.php");
-
-                    HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-
-                    request.setURI(new URI("http://web.tecnico.ulisboa.pt/ist175573/userPass.php"));
-
-
-                    HttpResponse response = null;
-
-                    response = client.execute(request);
-
-                    BufferedReader in = new BufferedReader
-                            (new InputStreamReader(response.getEntity().getContent()));
-                    debug.setText(in.readLine().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }*/
-
-                new AskServer().execute(UsernameApp);
-
+                new AskServerUserPass().execute(UsernameApp);
+                new AskServerDev().execute(UsernameApp);
 
                 //user has to create a log
                /* Intent create_log = new Intent(this, CreateLogActivity.class);
@@ -113,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class AskServer extends AsyncTask<String, String, String> {
+    public class AskServerUserPass extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -194,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             debug.setMovementMethod(new ScrollingMovementMethod());
 
-            result = result.replaceAll("\\r\\n", "");
-
-            String aux[]= result.split(" ");
             result="Username-"+getUsername()+"\n"+"password-"+getPass();
 
             if(user==0){
@@ -205,6 +185,97 @@ public class MainActivity extends AppCompatActivity {
 
             debug.setText(result);
             debug.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public class AskServerDev extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... arg0) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            //TextView debug;
+
+            try {
+                String username = (String)arg0[0];
+                String link ="http://web.tecnico.ulisboa.pt/ist175573/userDev.php?username="+username;
+                URL url = new URL(link);
+
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet(link);
+
+                HttpResponse httpResponse = client.execute(request);
+
+                InputStream inputStream = httpResponse.getEntity().getContent();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String bufferedStrChunk = null;
+
+                while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                    stringBuilder.append(bufferedStrChunk);
+                }
+                String r=new String();
+                Pattern pattern = Pattern.compile("\\{(.*?)\\}");
+                Matcher matcher = pattern.matcher(stringBuilder.toString());
+                while (matcher.find())
+                {
+                    r+=matcher.group(0);
+                    // System.out.println(matcher.group(0));
+                }
+
+                String a=new String();
+                JSONArray jre;
+
+                jre = new JSONArray(r);
+
+                for (int i = 0; i < jre.length(); i++)
+                {
+                   a = jre.getString(i);
+                   dev[i]=a;
+                }
+
+                return stringBuilder.toString();
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                /*} catch (JSONException e) {
+                    e.printStackTrace();*/
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if ((connection) != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+
+        }
+        @Override
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+
+            /*result="Your devices are:\n";
+
+            for(String au:dev){
+                result+=au+"\n";
+            }*/
+            devv.setMovementMethod(new ScrollingMovementMethod());
+            devv.setText(result);
+            devv.setVisibility(View.VISIBLE);
         }
     }
 
