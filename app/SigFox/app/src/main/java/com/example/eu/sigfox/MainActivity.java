@@ -102,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     String username = (String)arg0[0];
                     String link ="http://web.tecnico.ulisboa.pt/ist175573/userPass.php?username="+username;
-                    URL url = new URL(link);
 
                     HttpClient client = new DefaultHttpClient();
                     HttpGet request = new HttpGet(link);
+
+                    request.setHeader("Content-Type", "application/json");
+                    request.setHeader("Accept", "application/json");
 
                     HttpResponse httpResponse = client.execute(request);
 
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    String finalJson = builder.toString();
+                    /*String finalJson = builder.toString();
 
                     JSONObject parentObject = new JSONObject(finalJson);
                     JSONArray parentArray = parentObject.getJSONArray("data");
@@ -136,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                         String usernamee = finalObject.getString("username");
                         String password = finalObject.getString("password");
                         finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee+"\n" + "password-"+password+"\n");
-                    }
-                    return finalBufferedData.toString();
+                    }*/
+                    return builder/*finalBufferedData*/.toString();
 
 
                 } catch (MalformedURLException e) {
@@ -147,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 /*} catch (JSONException e) {
                     e.printStackTrace();*/
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+               /* } catch (JSONException e) {
+                    e.printStackTrace();*/
                 } finally {
                     if ((connection) != null) {
                         connection.disconnect();

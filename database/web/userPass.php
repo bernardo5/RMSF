@@ -2,7 +2,6 @@
 
 	<body>
 		<?php
-			header('Content-Type: application/json');
 			$host = "db.ist.utl.pt";
 			$user = "ist175573";
 			$pass = "swex6595";
