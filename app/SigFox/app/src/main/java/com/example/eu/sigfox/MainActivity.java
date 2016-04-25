@@ -100,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         builder.append(bufferedStrChunk);
                     }
 
-                    String content=builder.toString();
+                   return/* String content=*/builder.toString();
 
-                    String regex = "\\s*\\bhtml\\b\\s*";
+                  /*  String regex = "\\s*\\bhtml\\b\\s*";
                     content = content.replaceAll(regex, "");
 
                     regex = "\\s*\\bbody\\b\\s*";
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
                     content=arrr[0]+" "+arrr[1]+" "+arrr[2];
 
-                    return content;
+                    return content;*/
 
 
                 } catch (MalformedURLException e) {
