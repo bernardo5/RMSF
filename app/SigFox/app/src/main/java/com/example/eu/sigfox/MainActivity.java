@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     TextView debug;
 
+    private String usernameee=new String();
+    private String password=new String();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
 
         debug = (TextView)findViewById(R.id.debug);
         debug.setVisibility(View.GONE);
+    }
+
+    public void setUsername(String u){
+        this.usernameee=u;
+    }
+
+    public void setPass(String u){
+        this.password=u;
+    }
+
+    public String getUsername(){
+        return this.usernameee;
+    }
+
+    public String getPass(){
+        return this.password;
     }
 
     public void submit(View view) {
@@ -131,7 +150,13 @@ public class MainActivity extends AppCompatActivity {
                        // System.out.println(matcher.group(0));
                     }
 
-                    return r;
+                    JSONObject jObject = new JSONObject(r);
+
+                    int user = jObject.getInt("user");
+                    String usernamee = jObject.getString("username");
+                    String password = jObject.getString("password");
+
+                    return user+" "+usernamee+" "+password;
 
 
                 } catch (MalformedURLException e) {
@@ -141,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 /*} catch (JSONException e) {
                     e.printStackTrace();*/
                 
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 } finally {
                     if ((connection) != null) {
                         connection.disconnect();
@@ -160,9 +187,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
             debug.setMovementMethod(new ScrollingMovementMethod());
+
+            result = result.replaceAll("\\r\\n", "");
+
+            String aux[]= result.split(" ");
+            result="User-"+aux[0]+"\n Username-"+aux[1]+"\n"+"password-"+aux[2];
+
             debug.setText(result);
             debug.setVisibility(View.VISIBLE);
-
         }
     }
 
