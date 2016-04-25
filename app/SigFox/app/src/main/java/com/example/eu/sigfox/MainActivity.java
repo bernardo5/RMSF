@@ -23,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -104,12 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     String link ="http://web.tecnico.ulisboa.pt/ist175573/userPass.php?username="+username;
 
                     HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet(link);
 
-                    request.setHeader("Content-Type", "application/json");
-                    request.setHeader("Accept", "application/json");
+                    HttpGet httpGet = new HttpGet(link);
+                    HttpResponse httpResponse = client.execute(httpGet);
+                    HttpEntity httpEntity = httpResponse.getEntity();
 
-                    HttpResponse httpResponse = client.execute(request);
+
+                    //HttpResponse httpResponse = client.execute(request);
 
                     InputStream inputStream = httpResponse.getEntity().getContent();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -139,19 +141,48 @@ public class MainActivity extends AppCompatActivity {
                         String password = finalObject.getString("password");
                         finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee+"\n" + "password-"+password+"\n");
                     }*/
-                    return builder/*finalBufferedData*/.toString();
+
+                    String content=builder.toString();
+
+                    String regex = "\\s*\\bhtml\\b\\s*";
+                    content = content.replaceAll(regex, "");
+
+                    regex = "\\s*\\bbody\\b\\s*";
+                    content = content.replaceAll(regex, "");
+
+                    regex = "[<>/]";
+                    content = content.replaceAll(regex, "");
+
+                    /*String finalJson = content;
+
+                    JSONObject parentObject = new JSONObject(finalJson);
+                    JSONArray parentArray = parentObject.getJSONArray("data");
+
+                    StringBuffer finalBufferedData = new StringBuffer();
+                    for(int i = 0; i < parentArray.length(); i++) {
+
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+
+                        String user = finalObject.getString("user");
+                        String usernamee = finalObject.getString("username");
+                        String password = finalObject.getString("password");
+                        finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee + "\n" + "password-" + password + "\n");
+                    }*/
+
+                    
+
+                    return content;
 
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                /*} catch (JSONException e) {
-                    e.printStackTrace();*/
+                } /*catch (JSONException e) {
+                    e.printStackTrace();
 
-               /* } catch (JSONException e) {
-                    e.printStackTrace();*/
-                } finally {
+
+                } */finally {
                     if ((connection) != null) {
                         connection.disconnect();
                     }
