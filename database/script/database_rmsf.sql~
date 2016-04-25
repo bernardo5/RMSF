@@ -1,0 +1,20 @@
+drop table if exists users;
+drop table if exists usersDevices;
+
+create table users(
+	filename varchar(40),
+	userName varchar(255),
+	password varchar(255),
+	primary key(filename));
+
+create table usersDevices(
+	filename varchar(40),
+	device varchar(40),
+	primary key(filename));
+
+create table usersAlarms(
+	filename varchar(40),
+	alarme varchar(40),
+);
+
+
