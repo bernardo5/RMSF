@@ -113,15 +113,31 @@ public class MainActivity extends AppCompatActivity {
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-                    StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder builder = new StringBuilder();
 
                     String bufferedStrChunk = null;
 
                     while((bufferedStrChunk = bufferedReader.readLine()) != null){
-                        stringBuilder.append(bufferedStrChunk);
+                        builder.append(bufferedStrChunk);
                     }
 
-                    return stringBuilder.toString();
+
+                    String finalJson = builder.toString();
+
+                    JSONObject parentObject = new JSONObject(finalJson);
+                    JSONArray parentArray = parentObject.getJSONArray("data");
+
+                    StringBuffer finalBufferedData = new StringBuffer();
+                    for(int i = 0; i < parentArray.length(); i++){
+
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+
+                        String user = finalObject.getString("user");
+                        String usernamee = finalObject.getString("username");
+                        String password = finalObject.getString("password");
+                        finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee+"\n" + "password-"+password+"\n");
+                    }
+                    return finalBufferedData.toString();
 
 
                 } catch (MalformedURLException e) {
@@ -130,7 +146,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 /*} catch (JSONException e) {
                     e.printStackTrace();*/
-                
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 } finally {
                     if ((connection) != null) {
                         connection.disconnect();
