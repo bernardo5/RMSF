@@ -105,24 +105,23 @@ public class MainActivity extends AppCompatActivity {
                     URL url = new URL(link);
 
                     HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
+                    HttpGet request = new HttpGet(link);
 
-                    request.setURI(new URI(link));
+                    HttpResponse httpResponse = client.execute(request);
 
+                    InputStream inputStream = httpResponse.getEntity().getContent();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-                    HttpResponse response = client.execute(request);
+                    StringBuilder stringBuilder = new StringBuilder();
 
-                    StringBuffer finalBufferedData = new StringBuffer();
-                    String line=new String();
-                    BufferedReader in = new BufferedReader
-                            (new InputStreamReader(response.getEntity().getContent()));
-                    // debug.setText(in.readLine().toString());
-                    while ((line = in.readLine()) != null) {
-                        finalBufferedData.append(line);
-                        break;
+                    String bufferedStrChunk = null;
+
+                    while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                        stringBuilder.append(bufferedStrChunk);
                     }
-                    in.close();
-                    return finalBufferedData.toString();
+
+                    return stringBuilder.toString();
 
 
                 } catch (MalformedURLException e) {
@@ -131,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 /*} catch (JSONException e) {
                     e.printStackTrace();*/
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                
                 } finally {
                     if ((connection) != null) {
                         connection.disconnect();

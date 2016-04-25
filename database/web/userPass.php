@@ -31,20 +31,18 @@
 			$nrows= $result->rowCount();
 
 
-			/*if($nrows!=0){//user is registered
+			if($nrows!=0){//user is registered
 				foreach($result as $row)
 					{
 						$response['user']=1;
 						$response['username']=$row['userName'];
 						$response['password']=$row['password'];
-						//echo json_encode($response);
-
+						echo json_encode($response);
 					}
 			}else{
 				$response['user']=0;
 				echo json_encode($response);
-			}*/
-			echo "Hello";
+			}
 
 		?>
 	</body>
