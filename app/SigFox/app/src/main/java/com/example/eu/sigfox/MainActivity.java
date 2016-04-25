@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String usernameee=new String();
     private String password=new String();
+    int user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,11 +153,16 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject jObject = new JSONObject(r);
 
-                    int user = jObject.getInt("user");
-                    String usernamee = jObject.getString("username");
-                    String password = jObject.getString("password");
+                    user = jObject.getInt("user");
+                    if(user==1){
+                        String usernamee = jObject.getString("username");
+                        setUsername(usernamee);
+                        String password = jObject.getString("password");
+                        setPass(password);
+                    }
 
-                    return user+" "+usernamee+" "+password;
+
+                    return "ok";
 
 
                 } catch (MalformedURLException e) {
@@ -191,7 +197,11 @@ public class MainActivity extends AppCompatActivity {
             result = result.replaceAll("\\r\\n", "");
 
             String aux[]= result.split(" ");
-            result="User-"+aux[0]+"\n Username-"+aux[1]+"\n"+"password-"+aux[2];
+            result="Username-"+getUsername()+"\n"+"password-"+getPass();
+
+            if(user==0){
+                result="You are not logged in yet";
+            }
 
             debug.setText(result);
             debug.setVisibility(View.VISIBLE);
