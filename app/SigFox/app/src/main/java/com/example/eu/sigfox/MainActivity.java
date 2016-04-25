@@ -58,28 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(logged);
             }else {
                 //check database
-               /* try {
-                    URL url = new URL("http://web.tecnico.ulisboa.pt/ist175573/userPass.php");
-
-                    HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-
-                    request.setURI(new URI("http://web.tecnico.ulisboa.pt/ist175573/userPass.php"));
-
-
-                    HttpResponse response = null;
-
-                    response = client.execute(request);
-
-                    BufferedReader in = new BufferedReader
-                            (new InputStreamReader(response.getEntity().getContent()));
-                    debug.setText(in.readLine().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }*/
-
                 new AskServer().execute(UsernameApp);
 
 
@@ -110,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     HttpResponse httpResponse = client.execute(httpGet);
                     HttpEntity httpEntity = httpResponse.getEntity();
 
-
-                    //HttpResponse httpResponse = client.execute(request);
-
                     InputStream inputStream = httpResponse.getEntity().getContent();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -125,23 +100,6 @@ public class MainActivity extends AppCompatActivity {
                         builder.append(bufferedStrChunk);
                     }
 
-
-                    /*String finalJson = builder.toString();
-
-                    JSONObject parentObject = new JSONObject(finalJson);
-                    JSONArray parentArray = parentObject.getJSONArray("data");
-
-                    StringBuffer finalBufferedData = new StringBuffer();
-                    for(int i = 0; i < parentArray.length(); i++){
-
-                        JSONObject finalObject = parentArray.getJSONObject(i);
-
-                        String user = finalObject.getString("user");
-                        String usernamee = finalObject.getString("username");
-                        String password = finalObject.getString("password");
-                        finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee+"\n" + "password-"+password+"\n");
-                    }*/
-
                     String content=builder.toString();
 
                     String regex = "\\s*\\bhtml\\b\\s*";
@@ -150,26 +108,23 @@ public class MainActivity extends AppCompatActivity {
                     regex = "\\s*\\bbody\\b\\s*";
                     content = content.replaceAll(regex, "");
 
-                    regex = "[<>/]";
+                    regex = "[{}\"<>/]";
                     content = content.replaceAll(regex, "");
 
-                    /*String finalJson = content;
+                    String arr[] = content.split(",", 3);
 
-                    JSONObject parentObject = new JSONObject(finalJson);
-                    JSONArray parentArray = parentObject.getJSONArray("data");
+                    content=arr[0]+" "+arr[1]+" "+arr[2];
 
-                    StringBuffer finalBufferedData = new StringBuffer();
-                    for(int i = 0; i < parentArray.length(); i++) {
+                    regex = "\\s*\\buser\\b\\s*";
+                    content = content.replaceAll(regex, "");
+                    regex = "\\s*\\busername\\b\\s*";
+                    content = content.replaceAll(regex, "");
+                    regex = "\\s*\\bpassword\\b\\s*";
+                    content = content.replaceAll(regex, "");
 
-                        JSONObject finalObject = parentArray.getJSONObject(i);
+                   String arrr[] = content.split(":", 3);
 
-                        String user = finalObject.getString("user");
-                        String usernamee = finalObject.getString("username");
-                        String password = finalObject.getString("password");
-                        finalBufferedData.append("User - " + user + "\n" + "username - " + usernamee + "\n" + "password-" + password + "\n");
-                    }*/
-
-                    
+                    content=arrr[0]+" "+arrr[1]+" "+arrr[2];
 
                     return content;
 
