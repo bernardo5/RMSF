@@ -1,6 +1,7 @@
 package com.example.eu.sigfox;
 
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);*/
+
         debug = (TextView)findViewById(R.id.debug);
         debug.setVisibility(View.GONE);
 
@@ -87,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 new AskServerUserPass().execute(UsernameApp);
 
                 Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
-
-                new AskServerDev().execute(UsernameApp);
+                /*devv.setText("oi");
+                devv.setVisibility(View.VISIBLE);*/
+               new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
                 //user has to create a log
                /* Intent create_log = new Intent(this, CreateLogActivity.class);
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
                     stringBuilder1.append(bufferedStrChunk1);
                 }
-                String r1=new String();
+                /*String r1=new String();
                 Pattern pattern1 = Pattern.compile("\\{(.*?)\\}");
                 Matcher matcher1 = pattern1.matcher(stringBuilder1.toString());
                 while (matcher1.find())
@@ -238,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                    a1 = jre1.getString(i);
                    dev[i]=a1;
-                }
+                }*/
 
                 return stringBuilder1.toString();
 
@@ -250,9 +255,9 @@ public class MainActivity extends AppCompatActivity {
                 /*} catch (JSONException e) {
                     e.printStackTrace();*/
 
-            } catch (JSONException e) {
+            } /*catch (JSONException e) {
                 e.printStackTrace();
-            } finally {
+            }*/ finally {
                 if ((connection) != null) {
                     connection.disconnect();
                 }
