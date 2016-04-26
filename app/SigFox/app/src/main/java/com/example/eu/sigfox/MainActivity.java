@@ -86,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent logged = new Intent(this, LogsActivity.class);
                 logged.putExtra("username", UsernameApp);
                 startActivity(logged);
-            }else {
+            }
+
+
                 //check database
                 new AskServerUserPass().execute(UsernameApp);
 
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                /* Intent create_log = new Intent(this, CreateLogActivity.class);
                 create_log.putExtra("username", UsernameApp);
                 startActivity(create_log);*/
-            }
+
 
     }
 
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... arg0) {
-            HttpURLConnection connection = null; 
+            HttpURLConnection connection = null;
             BufferedReader reader = null;
             //TextView debug;
 
