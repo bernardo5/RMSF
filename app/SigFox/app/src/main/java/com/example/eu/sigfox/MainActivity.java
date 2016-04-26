@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     TextView debug;
     TextView devv;
+    String UsernameApp;
 
     private String usernameee=new String();
     private String password=new String();
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void submit(View view) {
             EditText appUsername = (EditText) findViewById(R.id.appUsername);
-            String UsernameApp=appUsername.getText().toString();
+            UsernameApp=appUsername.getText().toString();
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
                 /*devv.setText("oi");
                 devv.setVisibility(View.VISIBLE);*/
-               new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+              // new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
                 //user has to create a log
                /* Intent create_log = new Intent(this, CreateLogActivity.class);
@@ -173,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         }catch(IOException e){
                             e.printStackTrace();
                         }
+
                     }
 
 
@@ -214,6 +216,8 @@ public class MainActivity extends AppCompatActivity {
 
             if(user==0){
                 result="You are not logged in yet";
+            }else{
+                new AskServerDev().execute(UsernameApp);
             }
 
             debug.setText(result);
@@ -254,25 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 String r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("["), stringBuilder1.toString().indexOf("]")+1);
-               /* String r1=new String();
-                Pattern pattern1 = Pattern.compile("\\[(.*?)\\]");
-                Matcher matcher1 = pattern1.matcher(stringBuilder1.toString());
-                while (matcher1.find())
-                {
-                    r1+=matcher1.group(0);
-                    // System.out.println(matcher.group(0));
-                }
 
-                String a1=new String();
-                JSONArray jre1;
-
-                jre1 = new JSONArray(r1);
-
-                for (int i = 0; i < jre1.length(); i++)
-                {
-                   a1 = jre1.getString(i);
-                   dev[i]=a1;
-                }*/
                 String teste=new String();
                 int i=0, j=0;
                while(r.indexOf("\"", j+1)!=(-1)){
@@ -288,12 +274,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                /*} catch (JSONException e) {
-                    e.printStackTrace();*/
-
-            } /*catch (JSONException e) {
-                e.printStackTrace();
-            } */finally {
+            }finally {
                 if ((connection) != null) {
                     connection.disconnect();
                 }
