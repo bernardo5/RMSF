@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... arg0) {
-            HttpURLConnection connection = null;
+            HttpURLConnection connection = null; 
             BufferedReader reader = null;
             //TextView debug;
 
