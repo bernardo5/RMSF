@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                while(r.indexOf("\"", j+1)!=(-1)){
                     i=r.indexOf("\"", j+1);
                    j=r.indexOf("\"", i+1);
-                   teste+=r.substring(i,j+1)+" ";
+                   teste+=r.substring(i+1,j)+" ";
                }
 
                 return teste;
