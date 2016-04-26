@@ -225,8 +225,8 @@ public class MainActivity extends AppCompatActivity {
                 while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
                     stringBuilder1.append(bufferedStrChunk1);
                 }
-                /*String r1=new String();
-                Pattern pattern1 = Pattern.compile("\\{(.*?)\\}");
+               /* String r1=new String();
+                Pattern pattern1 = Pattern.compile("\\[(.*?)\\]");
                 Matcher matcher1 = pattern1.matcher(stringBuilder1.toString());
                 while (matcher1.find())
                 {
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
             } /*catch (JSONException e) {
                 e.printStackTrace();
-            }*/ finally {
+            } */finally {
                 if ((connection) != null) {
                     connection.disconnect();
                 }
@@ -275,11 +275,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
+            Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
+           // result="Your devices are:\n";
 
-            /*result="Your devices are:\n";
-
-            for(String au:dev){
+           /* for(String au:dev){
                 result+=au+"\n";
+            }*/
+           /* for (int i = 0; i < dev.length; i++)
+            {
+                result += dev[i];
             }*/
             devv.setMovementMethod(new ScrollingMovementMethod());
             devv.setText(result);
