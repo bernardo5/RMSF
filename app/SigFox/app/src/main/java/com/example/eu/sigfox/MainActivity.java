@@ -302,6 +302,16 @@ public class MainActivity extends AppCompatActivity {
                 disp+=s+"\n";
             }
 
+            try {
+                FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
+                fileOutputStream.write(disp.getBytes());
+                fileOutputStream.close();
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+
             devv.setMovementMethod(new ScrollingMovementMethod());
             devv.setText(disp);
             devv.setVisibility(View.VISIBLE);
