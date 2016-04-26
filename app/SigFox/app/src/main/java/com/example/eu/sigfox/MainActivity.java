@@ -225,6 +225,9 @@ public class MainActivity extends AppCompatActivity {
                 while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
                     stringBuilder1.append(bufferedStrChunk1);
                 }
+
+
+                String r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("["), stringBuilder1.toString().indexOf("]")+1);
                /* String r1=new String();
                 Pattern pattern1 = Pattern.compile("\\[(.*?)\\]");
                 Matcher matcher1 = pattern1.matcher(stringBuilder1.toString());
@@ -245,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                    dev[i]=a1;
                 }*/
 
-                return stringBuilder1.toString();
+                return r;
 
 
             } catch (MalformedURLException e) {
