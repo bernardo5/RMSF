@@ -15,6 +15,8 @@ import android.content.Intent;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -82,10 +84,18 @@ public class MainActivity extends AppCompatActivity {
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){
-                //user is logged in
+                /*//user is logged in
                 Intent logged = new Intent(this, LogsActivity.class);
                 logged.putExtra("username", UsernameApp);
-                startActivity(logged);
+                startActivity(logged);*/
+
+
+
+                File dir = getFilesDir();
+                File f = new File(dir, UsernameApp+".txt");
+                boolean deleted = f.delete();
+
+
             }
 
 
@@ -152,6 +162,17 @@ public class MainActivity extends AppCompatActivity {
                         setUsername(usernamee);
                         String password = jObject.getString("password");
                         setPass(password);
+
+                        try {
+                            String message=usernamee+"\n"+ password+"\n";
+                            FileOutputStream fileOutputStream = openFileOutput(arg0[0]+".txt", MODE_PRIVATE); //no other app can open file
+                            fileOutputStream.write(message.getBytes());
+                            fileOutputStream.close();
+                        }catch(FileNotFoundException e){
+                            e.printStackTrace();
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
 
 
@@ -178,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+
                 }
                 return null;
 
@@ -195,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
             debug.setText(result);
             debug.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Username and password file successfully updated!", Toast.LENGTH_LONG).show();
         }
     }
 
