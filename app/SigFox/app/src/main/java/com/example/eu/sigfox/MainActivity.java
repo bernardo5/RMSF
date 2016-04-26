@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 //check database
                 new AskServerUserPass().execute(UsernameApp);
+
+                Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
+
                 new AskServerDev().execute(UsernameApp);
 
                 //user has to create a log
@@ -198,46 +201,46 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 String username = (String)arg0[0];
-                String link ="http://web.tecnico.ulisboa.pt/ist175573/userDev.php?username="+username;
-                URL url = new URL(link);
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/userDev.php?username="+username;
+                URL url1 = new URL(link1);
 
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet(link);
+                HttpClient client1 = new DefaultHttpClient();
+                HttpGet request1 = new HttpGet(link1);
 
-                HttpResponse httpResponse = client.execute(request);
+                HttpResponse httpResponse1 = client1.execute(request1);
 
-                InputStream inputStream = httpResponse.getEntity().getContent();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                InputStream inputStream1 = httpResponse1.getEntity().getContent();
+                InputStreamReader inputStreamReader1 = new InputStreamReader(inputStream1);
+                BufferedReader bufferedReader1 = new BufferedReader(inputStreamReader1);
 
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder1 = new StringBuilder();
 
-                String bufferedStrChunk = null;
+                String bufferedStrChunk1 = null;
 
-                while((bufferedStrChunk = bufferedReader.readLine()) != null){
-                    stringBuilder.append(bufferedStrChunk);
+                while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
+                    stringBuilder1.append(bufferedStrChunk1);
                 }
-                String r=new String();
-                Pattern pattern = Pattern.compile("\\{(.*?)\\}");
-                Matcher matcher = pattern.matcher(stringBuilder.toString());
-                while (matcher.find())
+                String r1=new String();
+                Pattern pattern1 = Pattern.compile("\\{(.*?)\\}");
+                Matcher matcher1 = pattern1.matcher(stringBuilder1.toString());
+                while (matcher1.find())
                 {
-                    r+=matcher.group(0);
+                    r1+=matcher1.group(0);
                     // System.out.println(matcher.group(0));
                 }
 
-                String a=new String();
-                JSONArray jre;
+                String a1=new String();
+                JSONArray jre1;
 
-                jre = new JSONArray(r);
+                jre1 = new JSONArray(r1);
 
-                for (int i = 0; i < jre.length(); i++)
+                for (int i = 0; i < jre1.length(); i++)
                 {
-                   a = jre.getString(i);
-                   dev[i]=a;
+                   a1 = jre1.getString(i);
+                   dev[i]=a1;
                 }
 
-                return stringBuilder.toString();
+                return stringBuilder1.toString();
 
 
             } catch (MalformedURLException e) {
