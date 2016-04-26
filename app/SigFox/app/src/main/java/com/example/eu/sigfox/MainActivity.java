@@ -247,8 +247,15 @@ public class MainActivity extends AppCompatActivity {
                    a1 = jre1.getString(i);
                    dev[i]=a1;
                 }*/
+                String teste=new String();
+                int i=0, j=0;
+               while(r.indexOf("\"", j+1)!=(-1)){
+                    i=r.indexOf("\"", j+1);
+                   j=r.indexOf("\"", i+1);
+                   teste+=r.substring(i,j+1)+" ";
+               }
 
-                return r;
+                return teste;
 
 
             } catch (MalformedURLException e) {
