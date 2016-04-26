@@ -85,12 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){
-                /*//user is logged in
-                Intent logged = new Intent(this, LogsActivity.class);
-                logged.putExtra("username", UsernameApp);
-                startActivity(logged);*/
-
-
 
                 File dir = getFilesDir();
                 File f = new File(dir, UsernameApp+".txt");
@@ -103,15 +97,21 @@ public class MainActivity extends AppCompatActivity {
                 //check database
                 new AskServerUserPass().execute(UsernameApp);
 
-                Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
-                /*devv.setText("oi");
-                devv.setVisibility(View.VISIBLE);*/
-              // new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                Toast.makeText(getBaseContext(), "Database read successfully", Toast.LENGTH_LONG).show();
 
-                //user has to create a log
-               /* Intent create_log = new Intent(this, CreateLogActivity.class);
-                create_log.putExtra("username", UsernameApp);
-                startActivity(create_log);*/
+                String loggedd = debug.getText().toString();
+                loggedd=loggedd.replaceAll("\n", "");
+                if(loggedd.equals("You are not logged in yet")){/*needs to create log*/
+                    //user has to create a log
+                    Intent create_log = new Intent(this, CreateLogActivity.class);
+                    create_log.putExtra("username", UsernameApp);
+                    startActivity(create_log);
+                }else{
+                    //user is logged in
+                    Intent logged = new Intent(this, LogsActivity.class);
+                    logged.putExtra("username", UsernameApp);
+                    startActivity(logged);
+                }
 
 
     }
@@ -302,6 +302,12 @@ public class MainActivity extends AppCompatActivity {
                 disp+=s+"\n";
             }
 
+            devv.setMovementMethod(new ScrollingMovementMethod());
+            devv.setText(disp);
+            devv.setVisibility(View.VISIBLE);
+
+            disp = disp.replace("Your devices are:\n","");
+
             try {
                 FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
                 fileOutputStream.write(disp.getBytes());
@@ -312,9 +318,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            devv.setMovementMethod(new ScrollingMovementMethod());
-            devv.setText(disp);
-            devv.setVisibility(View.VISIBLE);
+
         }
     }
 
