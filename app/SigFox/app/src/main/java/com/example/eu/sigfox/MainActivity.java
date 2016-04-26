@@ -286,17 +286,17 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
             Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
-           // result="Your devices are:\n";
 
-           /* for(String au:dev){
-                result+=au+"\n";
-            }*/
-           /* for (int i = 0; i < dev.length; i++)
-            {
-                result += dev[i];
-            }*/
+            String disp="Your devices are:\n";
+
+            dev=result.split("\\s+");
+
+            for(String s:dev){
+                disp+=s+"\n";
+            }
+
             devv.setMovementMethod(new ScrollingMovementMethod());
-            devv.setText(result);
+            devv.setText(disp);
             devv.setVisibility(View.VISIBLE);
         }
     }
