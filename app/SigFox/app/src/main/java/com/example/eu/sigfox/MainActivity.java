@@ -82,24 +82,30 @@ public class MainActivity extends AppCompatActivity {
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){
-                //user is logged in
+               /* //user is logged in
                 Intent logged = new Intent(this, LogsActivity.class);
                 logged.putExtra("username", UsernameApp);
-                startActivity(logged);
-            }else {
-                //check database
-                new AskServerUserPass().execute(UsernameApp);
-
-                Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
-                /*devv.setText("oi");
-                devv.setVisibility(View.VISIBLE);*/
-               new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-
-                //user has to create a log
-               /* Intent create_log = new Intent(this, CreateLogActivity.class);
-                create_log.putExtra("username", UsernameApp);
-                startActivity(create_log);*/
+                startActivity(logged);*/
+                File dir = getFilesDir();
+                File f = new File(dir, UsernameApp+".txt");
+                boolean deleted = f.delete();
             }
+             //check database
+             new AskServerUserPass().execute(UsernameApp);
+             Toast.makeText(getBaseContext(), "log: "+user, Toast.LENGTH_LONG).show();
+
+            if (user!=0) {
+                Toast.makeText(getBaseContext(), "Got user and pass from database", Toast.LENGTH_LONG).show();
+
+                new AskServerDev().execute(UsernameApp);//executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+
+            }/*else{
+                //user has to create a log
+                 Intent create_log = new Intent(this, CreateLogActivity.class);
+                 create_log.putExtra("username", UsernameApp);
+                 startActivity(create_log);
+            }*/
 
     }
 
@@ -262,12 +268,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                /*} catch (JSONException e) {
-                    e.printStackTrace();*/
-
-            } /*catch (JSONException e) {
-                e.printStackTrace();
-            } */finally {
+            }finally {
                 if ((connection) != null) {
                     connection.disconnect();
                 }
