@@ -218,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 result="You are not logged in yet";
             }else{
                 new AskServerDev().execute(UsernameApp);
+                Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();
             }
 
             debug.setText(result);
@@ -312,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
                 fileOutputStream.write(disp.getBytes());
                 fileOutputStream.close();
+                Toast.makeText(getApplicationContext(), "File written!", Toast.LENGTH_LONG).show();
             }catch(FileNotFoundException e){
                 e.printStackTrace();
             }catch(IOException e){
