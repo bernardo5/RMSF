@@ -20,7 +20,8 @@ create table usersAlarms(
 
 
 insert into users values('Bernardo', '56c47b4c9336adb5ba39c9b6', 'dd6bd147da1dcc9e34b4674b0f0be948');
+insert into usersDevices values('Bernardo', '4teste');
 insert into usersDevices values('Bernardo', '56bdd1da9336b182b106d3b0');
-insert into usersDevices values('Bernardo', 'teste');
+
 
 
