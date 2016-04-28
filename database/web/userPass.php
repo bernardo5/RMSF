@@ -43,6 +43,8 @@
 				$response['user']=0;
 				echo json_encode($response);
 			}
+			
+			$connection=null;
 
 		?>
 	</body>

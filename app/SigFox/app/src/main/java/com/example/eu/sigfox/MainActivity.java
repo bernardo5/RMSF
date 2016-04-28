@@ -216,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
 
             if(user==0){
                 result="You are not logged in yet";
+                Intent create_log = new Intent(getBaseContext(), CreateLogActivity.class);
+                create_log.putExtra("username", UsernameApp);
+                startActivity(create_log);
             }else{
                 new AskServerDev().execute(UsernameApp);
                 Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();

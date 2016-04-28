@@ -39,6 +39,7 @@
 					}
 					echo json_encode($response);
 			}
+			$connection=null;
 
 		?>
 	</body>
