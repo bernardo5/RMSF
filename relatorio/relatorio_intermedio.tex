@@ -32,18 +32,18 @@ O sistema, deverá ser baseado num sensor de temperatura associado a um disposit
 Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
 
 
-
-
 \section{Solução encontrada}
 
 Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{cloud SigFox} como intermediária.
 
+Por forma a que os dados de cada utilizador sejam independentes do dispositivo utilizado, foi construída uma base de dados adicional, que guarda informação de \textit{login} bem como dos \textit{devices} e os \textit{thresholds} de alarme de cada utilizador.
+
 A arquitectura será então a apresentada na figura \ref{fig:general}:
-\vspace{5mm}
+\vspace{2mm}
 
 \begin{figure}[hb]
   \centering
-  \includegraphics[scale=0.30]{general.png}
+  \includegraphics[scale=0.45]{general.png}
   \caption{Arquitectura geral}
   \label{fig:general}
 \end{figure}
@@ -53,14 +53,12 @@ A arquitectura será então a apresentada na figura \ref{fig:general}:
 A aplicação \textit{Android}, com a qual o utilizador irá ter contacto directo, será constituída por cinco actividades:
 
 \begin{itemize}
-\item \textit{Welcome Screen};
-\item \textit{New First User};
-\item \textit{Logs};
-\item \textit{New Alarm};
-\item \textit{Add Device}.
+\item \textit{MainActivity};
+\item \textit{CreateLogActivity};
+\item \textit{LogsActivity};
+\item \textit{NewAlarmActivity};
+\item \textit{AddDeviceActivity}.
 \end{itemize}
-
-\vspace{35mm}
 
 As relações entre as actividades descritas, encontram-se representadas na figura \ref{fig:app_android_geral}.
 
@@ -73,19 +71,17 @@ As relações entre as actividades descritas, encontram-se representadas na figu
   \label{fig:app_android_geral}
 \end{figure}
 
-A actividade \textit{Welcome Screen} terá apenas o intuito de iniciar a aplicação, de forma mais \textit{user friendly}, garantindo que a actividade inicial não tenha logo um conjunto elevado de informação. Após esta actividade será lançada a \textit{Logs}, que irá averiguar a existência de um utilizador na aplicação. No caso de não existir registo, o utilizador deverá realizá-lo, bem como o registo do \textit{device} que pretende monitorizar.
+A \textit{MainActivity} tem como objectivo perguntar ao utilizador o nome com o qual está registado na rede, realizando \textit{queries} à base de dados com as informações do utilzador. No caso de existir registo prévio, as informações são armazenadas num ficheiro que irá funcionar como \textit{cache} na aplicação e é lançada a \textit{LogsActivity}. Caso o utilizador na tenha registo, é lançada a \textit{CreateLogActivity} para registar o novo utilizador. 
 
-A averiguação do \textit{login} de um utilizador será feita mediante a existência de um ficheiro armazenado na aplicação.
+A actividade de registo de um utilizador (\textit{CreateLogActivity}), terá apenas três campos de inserção de texto: \textit{username, password} e \textit{devicetype-id}. Estes parâmetros são gravados no ficheiro de texto descrito anteriormente, bem como na base de dados central. De seguida, a aplicação irá lançar a \textit{LogsActivity}.
 
-A actividade de registo de um primeiro utilizador (\textit{New First User}), terá apenas três campos de inserção de texto: \textit{user name, password} e \textit{devicetype-id}. Estes parâmetros deverão ser gravados no ficheiro de texto descrito anteriormente. De seguida, a aplicação irá retornar à actividade \textit{Logs}.
+A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), é constituída por duas \textit{threads} principais. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador e que é actividada por uma \textit{checkbox}. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. No caso de a \textit{checkbox} não estar activa, os pedidos podem ser efectuados apenas ao clicar no botão de pedido de informação. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
 
-A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), irá ser constituída por duas \textit{threads}. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
+Esta actividade tem ainda a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de um \textit{threshold} de temperatura, lido da base de dados no início da aplicação, ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
 
-Esta actividade irá ainda ter a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de o \textit{threshold} de temperatura ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
+À semelhança da actividade \textit{CreateLogActivity}, as actividades \textit{AddDeviceActivity} e \textit{NewAlarmActivity} serão apenas compostas por campos de texto. Após o registo num ficheiro e na base de dados das informações recolhidas, estas actividades irão retornar no \textit{stack}, voltando à actividade anterior.
 
-À semelhança da actividade \textit{New First User}, as actividades \textit{Add Device} e \textit{Set Alarm} serão apenas compostas por campos de texto. Após o registo num ficheiro das informações recolhidas, estas irão retornar no \textit{stack}, voltando à actividade anterior.
-
-No caso de o utilizador pretender fazer \textit{logout}, o seu ficheiro de registo é eliminado do sistema de armazenamento interno, sendo lançada a actividade \textit{New First User}, por forma a que seja efectuado um novo registo. Neste caso, perdem-se também todos os alarmes gravados pelo utilizador.
+No caso de o utilizador pretender fazer \textit{logout}, é lançada a \textit{MainActivity}, por forma a que seja possível iniciar a sessão com outro \textit{username}.
 
 \begin{figure}[H]
   \centering
