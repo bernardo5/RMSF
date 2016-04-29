@@ -1,0 +1,194 @@
+\documentclass[a4paper]{article}
+
+\usepackage[portuguese]{babel}
+\usepackage{comment}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\usepackage[hypcap]{caption} % makes \ref point to top of figures and tables
+
+\begin{document}
+
+\input{./rosto.tex}
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+\pagenumbering{arabic}
+
+\section*{Objectivo}
+
+O objectivo do projecto é o desenvolvimento de um sistema de monitorização de temperatura. 
+
+O sistema, deverá ser baseado num sensor de temperatura associado a um dispositivo \textit{arduino (akeru 3.3)}, que irá comunicar as suas medições a um servidor \textit{SigFox}, armazenando-as na \textit{cloud}.
+
+Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
+
+\section*{Solução proposta}
+
+Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{cloud SigFox} como intermediária.
+
+A arquitectura será então a apresentada na figura \ref{fig:general}:
+\vspace{5mm}
+
+\begin{figure}[hb]
+  \centering
+  \includegraphics[scale=0.30]{general.png}
+  \caption{Arquitectura geral}
+  \label{fig:general}
+\end{figure}
+
+\subsection*{Aplicação \textit{Android}}
+
+A aplicação \textit{Android}, com a qual o utilizador irá ter contacto directo, será constituída por cinco actividades:
+
+\begin{itemize}
+\item \textit{Welcome Screen};
+\item \textit{New First User};
+\item \textit{Logs};
+\item \textit{New Alarm};
+\item \textit{Add Device}.
+\end{itemize}
+
+\vspace{35mm}
+
+As relações entre as actividades descritas, encontram-se representadas na figura \ref{fig:app_android_geral}.
+
+\vspace{5mm}
+
+\begin{figure}[hb]
+  \centering
+  \includegraphics[scale=0.40]{App_geral.png}
+  \caption{Arquitectura da aplicação \textit{Android}}
+  \label{fig:app_android_geral}
+\end{figure}
+
+A actividade \textit{Welcome Screen} terá apenas o intuito de iniciar a aplicação, de forma mais \textit{user friendly}, garantindo que a actividade inicial não tenha logo um conjunto elevado de informação. Após esta actividade será lançada a \textit{Logs}, que irá averiguar a existência de um utilizador na aplicação. No caso de não existir registo, o utilizador deverá realizá-lo, bem como o registo do \textit{device} que pretende monitorizar.
+
+A averiguação do \textit{login} de um utilizador será feita mediante a existência de um ficheiro armazenado na aplicação.
+
+A actividade de registo de um primeiro utilizador (\textit{New First User}), terá apenas três campos de inserção de texto: \textit{user name, password} e \textit{devicetype-id}. Estes parâmetros deverão ser gravados no ficheiro de texto descrito anteriormente. De seguida, a aplicação irá retornar à actividade \textit{Logs}.
+
+A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), irá ser constituída por duas \textit{threads}. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
+
+Esta actividade irá ainda ter a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de o \textit{threshold} de temperatura ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
+
+À semelhança da actividade \textit{New First User}, as actividades \textit{Add Device} e \textit{Set Alarm} serão apenas compostas por campos de texto. Após o registo num ficheiro das informações recolhidas, estas irão retornar no \textit{stack}, voltando à actividade anterior.
+
+No caso de o utilizador pretender fazer \textit{logout}, o seu ficheiro de registo é eliminado do sistema de armazenamento interno, sendo lançada a actividade \textit{New First User}, por forma a que seja efectuado um novo registo. Neste caso, perdem-se também todos os alarmes gravados pelo utilizador.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.40]{ShowLogs.png}
+  \caption{Arquitectura da actividade \textit{Logs}}
+  \label{fig:app_logs}
+\end{figure}
+
+\subsection*{Servidor \textit{SigFox}}
+
+O papel deste servidor será o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
+
+Em termos de implementação para o projecto, foi apenas necessário conhecer a forma como os pedidos devem ser realizados bem como o formato de resposta.
+
+\subsection*{Sensor Arduino}
+
+O sensor deverá realizar medições periodicamente enviando-as para a \textit{cloud SigFox}, via rádio.
+
+\section*{Detalhes técnicos}
+
+Para a implementação da solução descrita anteriormente, para os diferentes módulos recorreu-se às seguintes tecnologias:
+
+Para a aplicação \textit{Android}:
+\begin{itemize}
+\item \textbf{Welcome Screen, New First User, Set Alarm e Add Device} - Nestes módulos, pensa-se utilizar a abertura, leitura e escrita de ficheiros, por forma a efectuar/consultar registos (utilizador, dispositivo ou alarme). Para tal, ir-se-á utilizar a Classe \textit{FILE} presente em \textit{android};
+
+\item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a \textit{User Interface} (UI) principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, a primeira acção será a abertura de uma \textit{thread}, com recurso à classe \textit{Thread}. 
+
+Para efectuar os pedidos HTTPS, usar-se-á uma de duas classes: \textit{URLConnection} ou \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
+
+Ao receber a resposta, a \textit{thread} deverá ser processada com \textit{parsing} de \textit{JSON} com recurso à classe \textit{JsonReader}. Após o processamento da resposta, irá ser verificado se a temperatura recebida ultrapassa algum \textit{threshold} definido pelo utilizador. Em caso afirmativo, irá ser gerada uma notificação com recurso a um objecto \textit{Notification}.
+\end{itemize}
+
+Para a implementação do sensor de temperatura, recorrer-se-á às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}.
+
+\section*{Trabalho realizado}
+
+Do planeamento atrás referido, foi já adiantado parte do trabalho referente à programação da aplicação, nomeadamente as actividades \textit{Welcome Screen, New First User, Set Alarm e Add Device}. De seguida são apresentadas algumas capturas de ecrã destas actividades em versão \textit{beta}.
+
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{welcome.png}
+  \caption{Welcome Screen}\label{fig:welcome}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{newUser.png}
+  \caption{Registo de um novo utilizador}\label{fig:newUser}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{AddDevice.png}
+  \caption{Registo de um novo dispositivo}\label{fig:newdev}
+\endminipage
+\end{figure}
+
+\begin{figure}[H]
+\minipage{0.29\textwidth}
+  \includegraphics[width=\linewidth]{newalarm.png}
+  \caption{Registo de um novo alarme}\label{fig:newalarm}
+\endminipage\hfill
+\minipage{0.29\textwidth}
+  \includegraphics[width=\linewidth]{logs.png}
+  \caption{Actividade \textit{Logs}}\label{fig:logs}
+\endminipage\hfill
+\minipage{0.29\textwidth}%
+  \includegraphics[width=\linewidth]{login.png}
+  \caption{Actividade \textit{Logs} com \textit{login}}\label{fig:login}
+\endminipage
+\end{figure}
+
+Relativamente à obtenção das leituras do sensor de arduíno a partir da \textit{cloud Sigfox}, foi realizado um programa à parte por forma a testar apenas esta funcionalidade, tal como representado nas figuras abaixo. O programa, além de recolher os dados, realiza o \textit{parse} do \textit{JSON}.
+
+\begin{figure}[H]
+\minipage{0.40\textwidth}
+  \includegraphics[width=\linewidth]{get.jpg}
+  \caption{Botão para obtenção da informação da \textit{cloud}}\label{fig:get}
+\endminipage\hfill
+\minipage{0.40\textwidth}
+  \includegraphics[width=\linewidth]{json.jpg}
+  \caption{Recolha da informação com \textit{parse}}\label{fig:json}
+\endminipage\hfill
+\end{figure}
+
+Será agora necessária a interligação dos dois programas e a activação das notificações, por forma a que a aplicação fique terminada.
+
+Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo iniciada a implementação quando a aplicação estiver concluída.
+
+\begin{thebibliography}{9}
+
+\bibitem{ficheiros}
+  [FILE16] \texttt{http://developer.android.com/reference/java/io/File.html}, Março 2016
+  
+\bibitem{thread}
+  [THREAD16] \texttt{http://developer.android.com/reference/java/lang/Thread.html}, Março 2016
+  
+\bibitem{get}
+  [HTTPURLCONNECTION16] \begin{sloppypar} \texttt{http://developer.android.com/reference/java/net/HttpURLConnection.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{get_}
+  [URLCONNECTION16] \begin{sloppypar}\texttt{http://developer.android.com/reference/java/net/URLConnection.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{jason}
+  [JSON16] \texttt{http://developer.android.com/reference/android/util/JsonReader.html}, Março 2016
+  
+\bibitem{notifications}
+  [NOTIFICATION16] \begin{sloppypar}\texttt{http://developer.android.com/training/notify-user/build-notification.html}, Março 2016 \end{sloppypar}
+  
+\bibitem{Akeru}
+  [AKERU16] \texttt{https://github.com/Snootlab/Akeru}, Fevereiro 2016
+
+
+\end{thebibliography}
+
+\end{document}
