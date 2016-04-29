@@ -92,13 +92,17 @@ No caso de o utilizador pretender fazer \textit{logout}, é lançada a \textit{M
 
 \subsection{Servidor \textit{SigFox}}
 
-O papel deste servidor será o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
+O papel deste servidor é o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
 
 Em termos de implementação para o projecto, foi apenas necessário conhecer a forma como os pedidos devem ser realizados bem como o formato de resposta.
 
 \subsection{Sensor Arduino}
 
 O sensor deverá realizar medições periodicamente enviando-as para a \textit{cloud SigFox}, via rádio.
+
+\subsection{Web Server}
+
+Por forma a realizar pedidos à base de dados, quer de leitura quer de escrita, é utilizado um \textit{Web Server} que recolhe a informação do utilizador recebida pela aplicação através do método \textit{GET} e realiza as operações respectivas na base de dados. No caso de ser realizado um pedido de informação, esta é colocado num \textit{array} que é retornado à aplicação em \textit{JSON}.
 
 \section{Detalhes técnicos}
 
