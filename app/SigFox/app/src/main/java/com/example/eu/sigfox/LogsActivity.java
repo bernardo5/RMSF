@@ -19,6 +19,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -172,6 +177,7 @@ public class LogsActivity extends AppCompatActivity {
         int i=0;
         String type=" ";
         String message;
+        new  getAlarms().execute(UsernameApp);
         try{
             FileInputStream fileInputStream = openFileInput(userUsed+".txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -314,6 +320,101 @@ public class LogsActivity extends AppCompatActivity {
                 }});
         }
 
+    }
+
+    public class getAlarms extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... arg0) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            //TextView debug;
+
+            try {
+                String username = (String)arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/userAlarms.php?username="+username;
+                URL url1 = new URL(link1);
+
+                HttpClient client1 = new DefaultHttpClient();
+                HttpGet request1 = new HttpGet(link1);
+
+                HttpResponse httpResponse1 = client1.execute(request1);
+
+                InputStream inputStream1 = httpResponse1.getEntity().getContent();
+                InputStreamReader inputStreamReader1 = new InputStreamReader(inputStream1);
+                BufferedReader bufferedReader1 = new BufferedReader(inputStreamReader1);
+
+                StringBuilder stringBuilder1 = new StringBuilder();
+
+                String bufferedStrChunk1 = null;
+
+                while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
+                    stringBuilder1.append(bufferedStrChunk1);
+                }
+
+
+                String r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("["), stringBuilder1.toString().indexOf("]")+1);
+
+                String teste=new String();
+                int i=0, j=0;
+                while(r.indexOf("\"", j+1)!=(-1)){
+                    i=r.indexOf("\"", j+1);
+                    j=r.indexOf("\"", i+1);
+                    teste+=r.substring(i+1,j)+" ";
+                }
+
+
+                String disp=new String();
+
+                String alarms[]=teste.split("\\s+");
+
+                for(String s:alarms){
+                    disp+=s+"\n";
+                }
+
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput(arg0[0]+"-alarms.txt", MODE_PRIVATE); //no other app can open file
+                    fileOutputStream.write(disp.getBytes());
+                    fileOutputStream.close();
+                }catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+
+                return teste;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                if ((connection) != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+
+        }
+        @Override
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
+
+
+            Toast.makeText(getApplicationContext(), "Current alarms: "+result, Toast.LENGTH_LONG).show();
+
+
+
+        }
     }
 
 
