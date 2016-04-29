@@ -2,6 +2,16 @@
 
 	<body>
 		<?php
+			
+			//Verificação de erros durante a Query
+			function QueryCheck($query){
+				if ($query == FALSE){
+					$info = $connection->errorInfo();
+					echo("<p>Error: {$info[2]}</p>");
+					exit();
+				}
+			}
+			
 			$host = "db.ist.utl.pt";
 			$user = "ist175573";
 			$pass = "swex6595";
@@ -17,16 +27,13 @@
 				echo("</p>");
 				exit();
 			}
-			$username = $_GET['username'];
+		
+			$username = htmlentities($_GET['username'], ENT_QUOTES);
 
-			$result = $connection->query("select userName, password from users where fileName='$username';");
-
-			if ($result == FALSE)
-			{
-				$info = $connection->errorInfo();
-				echo("<p>Error: {$info[2]}</p>");
-				exit();
-			}
+			$result = $connection->prepare("select userName, password from users where fileName = :username;");
+			$result->bindParam(':username', $username);
+			$result->execute();
+			QueryCheck($result);
 
 			$nrows= $result->rowCount();
 

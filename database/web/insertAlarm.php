@@ -2,6 +2,14 @@
 
 	<body>
 		<?php
+			//Verificação de erros durante a Query
+			function QueryCheck($query){
+				if ($query == FALSE){
+					$info = $connection->errorInfo();
+					echo("<p>Error: {$info[2]}</p>");
+					exit();
+				}
+			}
 			$host = "db.ist.utl.pt";
 			$user = "ist175573";
 			$pass = "swex6595";
@@ -18,12 +26,15 @@
 				exit();
 			}
 			
-			$user=$_GET['user'];
-			$alarm = $_GET['Alarm'];
+			$user=htmlentities($_GET['user'], ENT_QUOTES);
+			$alarm = htmlentities($_GET['Alarm'], ENT_QUOTES);
 			
+			$result = $connection->prepare("insert into usersAlarms values(:user, :alarm);");
+			$result->bindParam(':username', $username);
+			$result->bindParam(':alarm', $alarm);
+			$result->execute();
+			QueryCheck($result);
 			
-			$result = $connection->exec("insert into usersAlarms values('$user', '$alarm');");
-
 			$connection=null;
 
 		?>
