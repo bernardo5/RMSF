@@ -19,7 +19,7 @@
 			}
 			$username = $_GET['username'];
 
-			$result = $connection->query("select alarme from usersAlarms where filename='$username';");
+			$result = $connection->query("select alarm from usersAlarms where filename='$username';");
 
 			if ($result == FALSE)
 			{
@@ -34,11 +34,12 @@
 			if($nrows!=0){//user is registered
 				foreach($result as $row)
 					{
-						$response[$num]=$row['alarme'];
+						$response[$num]=$row['alarm'];
 						$num=$num+1;
 					}
-					echo json_encode($response);
+					
 			}
+			echo json_encode($response);
 			$connection=null;
 
 		?>

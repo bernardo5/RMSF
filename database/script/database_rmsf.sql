@@ -15,8 +15,8 @@ create table usersDevices(
 
 create table usersAlarms(
 	filename varchar(40),
-	alarme varchar(40),
-	primary key(filename));
+	alarm varchar(40),
+	primary key(filename, alarm));
 
 
 insert into users values('Bernardo', '56c47b4c9336adb5ba39c9b6', 'dd6bd147da1dcc9e34b4674b0f0be948');

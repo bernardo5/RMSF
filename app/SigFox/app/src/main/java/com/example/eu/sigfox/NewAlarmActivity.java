@@ -51,7 +51,7 @@ public class NewAlarmActivity extends AppCompatActivity {
 
     public void createAlarm(View view){
         EditText alarm_threshold = (EditText) findViewById(R.id.temperatureThreshold);
-        File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
+       /* File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
         if(file.exists()){
             RegisterNewAlarm(alarm_threshold);
         }else{
@@ -66,7 +66,7 @@ public class NewAlarmActivity extends AppCompatActivity {
             }catch(IOException e){
                 e.printStackTrace();
             }
-        }
+        }*/
         new CreateLogDB().execute(UsernameApp,alarm_threshold.getText().toString());
         finish();
     }

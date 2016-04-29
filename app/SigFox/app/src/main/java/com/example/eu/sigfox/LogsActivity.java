@@ -331,8 +331,8 @@ public class LogsActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/userAlarms.php?username="+username;
+                String username = (String) arg0[0];
+                String link1 = "http://web.tecnico.ulisboa.pt/ist175573/userAlarms.php?username=" + username;
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();
@@ -348,41 +348,47 @@ public class LogsActivity extends AppCompatActivity {
 
                 String bufferedStrChunk1 = null;
 
-                while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
+                while ((bufferedStrChunk1 = bufferedReader1.readLine()) != null) {
                     stringBuilder1.append(bufferedStrChunk1);
                 }
+                String disp = new String();
+                String teste = new String();
+                String r=new String();
+
+                if (!stringBuilder1.toString().toLowerCase().contains("null")){
+
+                    r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("["), stringBuilder1.toString().indexOf("]") + 1);
 
 
-                String r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("["), stringBuilder1.toString().indexOf("]")+1);
 
-                String teste=new String();
-                int i=0, j=0;
-                while(r.indexOf("\"", j+1)!=(-1)){
-                    i=r.indexOf("\"", j+1);
-                    j=r.indexOf("\"", i+1);
-                    teste+=r.substring(i+1,j)+" ";
+                    int i = 0, j = 0;
+                    while (r.indexOf("\"", j + 1) != (-1)) {
+                        i = r.indexOf("\"", j + 1);
+                        j = r.indexOf("\"", i + 1);
+                        teste += r.substring(i + 1, j) + " ";
+                    }
+
+
+
+
+                    String alarms[] = teste.split("\\s+");
+
+                    for (String s : alarms) {
+                        disp += s + "\n";
+                    }
+
+                    try {
+                        FileOutputStream fileOutputStream = openFileOutput(arg0[0] + "-alarms.txt", MODE_PRIVATE); //no other app can open file
+                        fileOutputStream.write(disp.getBytes());
+                        fileOutputStream.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
-
-                String disp=new String();
-
-                String alarms[]=teste.split("\\s+");
-
-                for(String s:alarms){
-                    disp+=s+"\n";
-                }
-
-                try {
-                    FileOutputStream fileOutputStream = openFileOutput(arg0[0]+"-alarms.txt", MODE_PRIVATE); //no other app can open file
-                    fileOutputStream.write(disp.getBytes());
-                    fileOutputStream.close();
-                }catch(FileNotFoundException e){
-                    e.printStackTrace();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-
-                return teste;
+                return disp;
 
 
             } catch (MalformedURLException e) {
