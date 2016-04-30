@@ -1,5 +1,9 @@
 package com.example.eu.sigfox;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -230,7 +234,7 @@ public class LogsActivity extends AppCompatActivity {
         new_device.putExtra("username", UsernameApp);
         startActivity(new_device);
     }
-
+    @TargetApi(11)
     public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
@@ -301,6 +305,20 @@ public class LogsActivity extends AppCompatActivity {
             tvData.setMovementMethod(new ScrollingMovementMethod());
             tvData.setText(result);
             tvData.setVisibility(View.VISIBLE);
+
+            Intent intent=new Intent();
+            PendingIntent pIntent= PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+           //
+            Notification noti=new Notification.Builder(getBaseContext())
+                    .setTicker("Threshold")
+                    .setContentTitle("Threshold ultrapassed")
+                    .setContentText("New messages")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pIntent).getNotification();
+            NotificationManager notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.notify(0, noti);
+
+
 
         }
     }

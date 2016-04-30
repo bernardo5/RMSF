@@ -1,3 +1,8 @@
 User: 56c47b4c9336adb5ba39c9b6
 pass: dd6bd147da1dcc9e34b4674b0f0be948
 device id : 56bdd1da9336b182b106d3b0
+
+
+
+GET -C "56c47b4c9336adb5ba39c9b6:dd6bd147da1dcc9e34b4674b0f0be948" https://backend.sigfox.com/api/devicetypes/56bdd1da9336b182b106d3b0/messages?after=1456152137
+
