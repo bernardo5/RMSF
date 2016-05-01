@@ -9,17 +9,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.eu.sigfox.LogsActivity">
 
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        android:src="@drawable/ic_action_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text=""
         android:id="@+id/login"
         android:onClick="checkLogin"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"/>
 
     <TextView
         android:layout_width="wrap_content"
