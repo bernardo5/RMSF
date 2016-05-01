@@ -10,6 +10,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,6 +52,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -81,6 +84,7 @@ public class LogsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        messageTime="null";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logs);
         textView=(TextView)findViewById(R.id.login_info);
@@ -218,6 +222,7 @@ public class LogsActivity extends AppCompatActivity {
             textView.setMovementMethod(new ScrollingMovementMethod());
             textView.setText(stringBuffer.toString());
             textView.setVisibility(View.VISIBLE);
+            fileInputStream.close();
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
@@ -234,7 +239,6 @@ public class LogsActivity extends AppCompatActivity {
 
     public void addAlarm(View view){
         Intent new_alarm = new Intent(this, NewAlarmActivity.class);
-        new_alarm.putExtra("username", UsernameApp);
         new_alarm.putExtra("username", UsernameApp);
         startActivity(new_alarm);
     }
@@ -292,7 +296,7 @@ public class LogsActivity extends AppCompatActivity {
                     String data = finalObject.getString("data");
                     byte[] bytes = Hex.decodeHex(data.toCharArray());
                     time=new java.util.Date((long)timestamp*1000);
-                    finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+new String(bytes, "UTF-8")+"\n"+"at "+time+"\n\n");
+                    finalBufferedData.append("message at: "+time+"\n"+"linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+new String(bytes, "UTF-8")+"\n"+"delimiter");
                 }
                 return finalBufferedData.toString() + " # "+timeRecent;
 
@@ -330,33 +334,150 @@ public class LogsActivity extends AppCompatActivity {
                 String part1 = parts[0]; // 004
                 String part2 = parts[1];
 
+                String[] reads=part1.split("delimiter");
+                String toPrint=new String();
+                //prepare text to print
+                for(String s:reads){
+                    toPrint+=s+"\n\n";
+                }
+                ////////////////////////
+                //print text
                 tvData.setMovementMethod(new ScrollingMovementMethod());
-                tvData.setText(part1);
+                tvData.setText(toPrint);
                 tvData.setVisibility(View.VISIBLE);
+                ///////////////////////
 
-                Intent intent = new Intent();
-                PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
-
-
-                messageTime = part2;
-                //condicao alarme
-                Notification noti = new Notification.Builder(getBaseContext())
-                        .setTicker("Threshold")
-                        .setContentTitle("Threshold ultrapassed")
-                        .setContentText("New messages")
-                        .setSmallIcon(R.drawable.ic_alert)
-                        .setContentIntent(pIntent).getNotification();
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
-                notificationManager.notify(0, noti);
-
+                //gets alarms
+                FileInputStream fileInputStream = null;
                 try {
-                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                    r.play();
-                } catch (Exception e) {
+                    fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuffer stringBuffer = new StringBuffer();
+
+                String line;
+                float bigger=0;
+                ArrayList<Float> alarms=new ArrayList<Float>();
+
+                try {
+                    while ((line = bufferedReader.readLine()) != null) {
+                        line = line.replace("\n", "").replace("\r", "");
+                        Float number=Float.parseFloat(line);
+                        alarms.add(number);
+                    }
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Collections.sort(alarms);
+                int x=0;
+                //condicao alarme
+                if(messageTime=="null"){
+                    Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
+                    for(String s1:reads){
+                       // "SNR - " + SNR + "\n"+"Message-"+
+                        String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
+                        aux = aux.replace("\n", "").replace("\r", "");
+
+                       /* File sdcard = Environment.getExternalStorageDirectory();
+                        File file = new File(sdcard,UsernameApp+"-alarms.txt");
+                        StringBuilder text = new StringBuilder();*/
+                        for(float f:alarms){
+                            x++;
+                            if(Float.parseFloat(aux)>=f) {
+                                Toast.makeText(getBaseContext(), aux, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), Float.toString(f), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent();
+                                    PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+
+                                    NotificationManager nnotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    nnotificationManager.cancelAll();
+
+                                    Notification noti = new Notification.Builder(getBaseContext())
+                                            .setTicker("ALERT!!!!")
+                                            .setContentTitle("Threshold ultrapassed")
+                                            .setContentText("The threshold of " + Float.toString(f) + " was violated!")
+                                            .setSmallIcon(R.drawable.ic_alert)
+                                            .setContentIntent(pIntent).getNotification();
+                                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
+                                    notificationManager.notify(0+x, noti);
+                                    try {
+                                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                        r.play();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                            }
+                        }
+                    }
+                }else/*{
+                    Toast.makeText(getBaseContext(), "else", Toast.LENGTH_LONG).show();
+                    for(String s1:reads){
+                        // "SNR - " + SNR + "\n"+"Message-"+
+                        String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
+
+                        FileInputStream fileInputStream = null;
+                        try {
+                            fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        StringBuffer stringBuffer = new StringBuffer();
+
+                        String line;
+
+                        try {
+                            while ((line = bufferedReader.readLine()) != null) {
+                                Float number=Float.parseFloat(line);
+                                Toast.makeText(getBaseContext(), number.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), aux, Toast.LENGTH_LONG).show();
+                                if(Float.parseFloat(aux)>=number){
+                                    //throw alarm
+                                    Intent intent = new Intent();
+                                    PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+
+                                    Notification noti = new Notification.Builder(getBaseContext())
+                                            .setTicker("ALERT!!!!")
+                                            .setContentTitle("Threshold ultrapassed")
+                                            .setContentText("The threshold of "+number.toString()+" was violated!")
+                                            .setSmallIcon(R.drawable.ic_alert)
+                                            .setContentIntent(pIntent).getNotification();
+                                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
+                                    notificationManager.notify(0, noti);
+
+                                    try {
+                                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                        r.play();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                            fileInputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }*/
+
+                /////////////////////////
+
+
+
+                //update most recent time
+                messageTime = part2;
             }else{
                 tvData.setText("Current device does not have messages...");
                 tvData.setVisibility(View.VISIBLE);
@@ -398,6 +519,14 @@ public class LogsActivity extends AppCompatActivity {
                 HttpGet request1 = new HttpGet(link1);
 
                 HttpResponse httpResponse1 = client1.execute(request1);
+
+                File file = new File(getFilesDir(), UsernameApp+".txt");
+                if(file.exists()){
+                    File dir = getFilesDir();
+                    File f = new File(dir, arg0[0] + "-alarms.txt");
+                    boolean deleted = f.delete();
+                }
+
 
                 InputStream inputStream1 = httpResponse1.getEntity().getContent();
                 InputStreamReader inputStreamReader1 = new InputStreamReader(inputStream1);
