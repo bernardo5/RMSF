@@ -92,6 +92,26 @@ public class LogsActivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.login_info);
         textView.setVisibility(View.GONE);
 
+        File recentTime = new File(getFilesDir(), UsernameApp + "-time.txt");
+
+        if(!recentTime.exists()){
+            messageTime="0";
+        }else{
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = openFileInput(UsernameApp + "-time.txt");
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuffer stringBuffer = new StringBuffer();
+                messageTime= bufferedReader.readLine();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         stringArray = new ArrayList<String>();
        /* stringArray.add("56bdd1da9336b182b106d3b0");
         stringArray.add("othersssDevice");*/
@@ -141,7 +161,7 @@ public class LogsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
-                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
              //   Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
             }
         });
@@ -345,7 +365,7 @@ public class LogsActivity extends AppCompatActivity {
                 ////////////////////////
                 //print text
                 tvData.setMovementMethod(new ScrollingMovementMethod());
-                tvData.setText(toPrint);
+                tvData.append(toPrint);
                 tvData.setVisibility(View.VISIBLE);
                 ///////////////////////
 
@@ -378,7 +398,7 @@ public class LogsActivity extends AppCompatActivity {
                 Collections.sort(alarms);
                 int x=0;
                 //condicao alarme
-                if(messageTime=="null"){
+
                     Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
                     for(String s1:reads){
                        // "SNR - " + SNR + "\n"+"Message-"+
@@ -427,66 +447,19 @@ public class LogsActivity extends AppCompatActivity {
                             }
                         }
                     }
-                }else/*{
-                    Toast.makeText(getBaseContext(), "else", Toast.LENGTH_LONG).show();
-                    for(String s1:reads){
-                        // "SNR - " + SNR + "\n"+"Message-"+
-                        String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
-
-                        FileInputStream fileInputStream = null;
-                        try {
-                            fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        StringBuffer stringBuffer = new StringBuffer();
-
-                        String line;
-
-                        try {
-                            while ((line = bufferedReader.readLine()) != null) {
-                                Float number=Float.parseFloat(line);
-                                Toast.makeText(getBaseContext(), number.toString(), Toast.LENGTH_LONG).show();
-                                Toast.makeText(getBaseContext(), aux, Toast.LENGTH_LONG).show();
-                                if(Float.parseFloat(aux)>=number){
-                                    //throw alarm
-                                    Intent intent = new Intent();
-                                    PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
-
-                                    Notification noti = new Notification.Builder(getBaseContext())
-                                            .setTicker("ALERT!!!!")
-                                            .setContentTitle("Threshold ultrapassed")
-                                            .setContentText("The threshold of "+number.toString()+" was violated!")
-                                            .setSmallIcon(R.drawable.ic_alert)
-                                            .setContentIntent(pIntent).getNotification();
-                                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
-                                    notificationManager.notify(0, noti);
-
-                                    try {
-                                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                                        r.play();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                            fileInputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }*/
-
-                /////////////////////////
-
-
 
                 //update most recent time
+                FileOutputStream overWrite = null;
+                try {
+                    overWrite = new FileOutputStream(getFilesDir()+ UsernameApp + "-time.txt", false);
+                    overWrite.write(part2.getBytes());
+                    overWrite.flush();
+                    overWrite.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 messageTime = part2;
             }else{
                 tvData.setText("Current device does not have messages...");
