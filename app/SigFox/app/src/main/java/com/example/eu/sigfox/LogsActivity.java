@@ -453,21 +453,21 @@ public class LogsActivity extends AppCompatActivity {
                 t+=1;
                 //update most recent time
                 //FileOutputStream overWrite = null;
-
+                messageTime = Integer.toString(t);
                 FileWriter fWriter;
                 File sdCardFile = new File(getFilesDir() + UsernameApp+"-time.txt");
                 Log.d("TAG", sdCardFile.getPath()); //<-- check the log to make sure the path is correct.
-                try{
-                    fWriter = new FileWriter(sdCardFile, true);
-                    fWriter.write(Integer.toString(t));
-                    fWriter.flush();
-                   // fWriter.sync();
-                    fWriter.close();
-                }catch(Exception e){
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput(UsernameApp + "-time.txt", MODE_PRIVATE); //no other app can open file
+                    fileOutputStream.write(messageTime.getBytes());
+                    fileOutputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                messageTime = Integer.toString(t);
+
               //  Toast.makeText(getBaseContext(), messageTime, Toast.LENGTH_LONG).show();
             }else{
                 tvData.append("Current device does not have new messages...\n");
@@ -487,7 +487,7 @@ public class LogsActivity extends AppCompatActivity {
                 public void run() {
                     Toast.makeText(LogsActivity.this,
                             "thread update!", Toast.LENGTH_SHORT).show();
-                    new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+                    new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
                 }});
         }
 
