@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
@@ -15,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
@@ -248,7 +250,7 @@ public class LogsActivity extends AppCompatActivity {
         new_device.putExtra("username", UsernameApp);
         startActivity(new_device);
     }
-    @TargetApi(11)
+    @TargetApi(16)
     public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
@@ -391,28 +393,36 @@ public class LogsActivity extends AppCompatActivity {
                             if(Float.parseFloat(aux)>=f) {
                                 Toast.makeText(getBaseContext(), aux, Toast.LENGTH_LONG).show();
                                 Toast.makeText(getBaseContext(), Float.toString(f), Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent();
-                                    PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+                                NotificationCompat.Builder mBuilder =
+                                        (NotificationCompat.Builder) new NotificationCompat.Builder(getBaseContext())
+                                                .setSmallIcon(R.drawable.ic_alert)
+                                                .setContentTitle("Threshold overflow!")
+                                                .setContentText("Threshold violated: "+f);
 
-                                    NotificationManager nnotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                    nnotificationManager.cancelAll();
-
-                                    Notification noti = new Notification.Builder(getBaseContext())
-                                            .setTicker("ALERT!!!!")
-                                            .setContentTitle("Threshold ultrapassed")
-                                            .setContentText("The threshold of " + Float.toString(f) + " was violated!")
-                                            .setSmallIcon(R.drawable.ic_alert)
-                                            .setContentIntent(pIntent).getNotification();
-                                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
-                                    notificationManager.notify(0+x, noti);
-                                    try {
-                                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                                        r.play();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                Intent resultIntent = new Intent(getBaseContext(), LogsActivity.class);
+                                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                                // Adds the back stack for the Intent (but not the Intent itself)
+                                stackBuilder.addParentStack(LogsActivity.class);
+                                // Adds the Intent that starts the Activity to the top of the stack
+                                stackBuilder.addNextIntent(resultIntent);
+                                PendingIntent resultPendingIntent =
+                                        stackBuilder.getPendingIntent(
+                                                0,
+                                                PendingIntent.FLAG_UPDATE_CURRENT
+                                        );
+                                mBuilder.setContentIntent(resultPendingIntent);
+                                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                                NotificationManager mNotificationManager =
+                                        (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                                //Id allows you to update the notification later on.
+                                mNotificationManager.notify(100+x, mBuilder.build());
+                                try {
+                                  Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                  Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                  r.play();
+                                } catch (Exception e) {
+                                  e.printStackTrace();
+                                }
 
                             }
                         }
