@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     TextView debug;
     TextView devv;
     String UsernameApp;
+    Button cont;
+    Button sub;
 
     private String usernameee=new String();
     private String password=new String();
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         devv = (TextView)findViewById(R.id.dev);
         devv.setVisibility(View.GONE);
+
+        cont = (Button) findViewById(R.id.continuee);
+        cont.setVisibility(View.GONE);
     }
 
     public void setUsername(String u){
@@ -80,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
+            sub = (Button) findViewById(R.id.button);
+            sub.setVisibility(View.GONE);
             EditText appUsername = (EditText) findViewById(R.id.appUsername);
             UsernameApp=appUsername.getText().toString();
 
@@ -92,28 +99,28 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-
-
                 //check database
                 new AskServerUserPass().execute(UsernameApp);
 
                 Toast.makeText(getBaseContext(), "Database read successfully", Toast.LENGTH_LONG).show();
 
-                String loggedd = debug.getText().toString();
-                loggedd=loggedd.replaceAll("\n", "");
-                if(loggedd.equals("You are not logged in yet")){/*needs to create log*/
-                    //user has to create a log
-                    Intent create_log = new Intent(this, CreateLogActivity.class);
-                    create_log.putExtra("username", UsernameApp);
-                    startActivity(create_log);
-                }else{
-                    //user is logged in
-                    Intent logged = new Intent(this, LogsActivity.class);
-                    logged.putExtra("username", UsernameApp);
-                    startActivity(logged);
-                }
 
+    }
 
+    public void nextActivity(View view){
+        String loggedd = debug.getText().toString();
+        loggedd=loggedd.replaceAll("\n", "");
+        if(loggedd.equals("You are not logged in yet")){/*needs to create log*/
+            //user has to create a log
+            Intent create_log = new Intent(this, CreateLogActivity.class);
+            create_log.putExtra("username", UsernameApp);
+            startActivity(create_log);
+        }else{
+            //user is logged in
+            Intent logged = new Intent(this, LogsActivity.class);
+            logged.putExtra("username", UsernameApp);
+            startActivity(logged);
+        }
     }
 
 
@@ -216,9 +223,11 @@ public class MainActivity extends AppCompatActivity {
 
             if(user==0){
                 result="You are not logged in yet";
-                Intent create_log = new Intent(getBaseContext(), CreateLogActivity.class);
+               /* Intent create_log = new Intent(getBaseContext(), CreateLogActivity.class);
                 create_log.putExtra("username", UsernameApp);
-                startActivity(create_log);
+                startActivity(create_log);*/
+                cont.setVisibility(View.VISIBLE);
+
             }else{
                 new AskServerDev().execute(UsernameApp);
                 Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();
@@ -322,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
             }catch(IOException e){
                 e.printStackTrace();
             }
-
+            cont.setVisibility(View.VISIBLE);
 
         }
     }
