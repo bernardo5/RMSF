@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -267,15 +269,19 @@ public class LogsActivity extends AppCompatActivity {
                 JSONArray parentArray = parentObject.getJSONArray("data");
 
                 StringBuffer finalBufferedData = new StringBuffer();
+                String time=new String();
                 for(int i = 0; i < parentArray.length(); i++){
 
                     JSONObject finalObject = parentArray.getJSONObject(i);
 
                     String link_quality = finalObject.getString("linkQuality");
                     double SNR = finalObject.getDouble("snr");
-                    finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n");
+                    time = finalObject.getString("time");
+                    String data = finalObject.getString("data");
+                    byte[] bytes = Hex.decodeHex(data.toCharArray());
+                    finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+new String(bytes, "UTF-8")+"\n"+"at "+time+"\n\n");
                 }
-                return finalBufferedData.toString();
+                return finalBufferedData.toString() + " | "+ time;
 
 
             } catch (MalformedURLException e) {
@@ -283,6 +289,8 @@ public class LogsActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (DecoderException e) {
                 e.printStackTrace();
             } finally {
                 if((connection) != null) {
