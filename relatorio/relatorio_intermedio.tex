@@ -27,9 +27,9 @@
 
 O objectivo do projecto é o desenvolvimento de um sistema de monitorização de temperatura. 
 
-O sistema, deverá ser baseado num sensor de temperatura associado a um dispositivo \textit{arduino (akeru 3.3)}, que irá comunicar as suas medições a um servidor \textit{SigFox}, armazenando-as na \textit{cloud}.
+O sistema, deverá ser baseado num sensor de temperatura associado a um dispositivo \textit{Arduino (Akeru 3.3)}, que irá comunicar as suas medições a um servidor \textit{SigFox}, armazenando-as na \textit{cloud}.
 
-Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
+Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{Android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
 
 
 \section{Solução encontrada}
@@ -110,14 +110,35 @@ Para a implementação da solução descrita anteriormente, para os diferentes m
 
 Para a aplicação \textit{Android}:
 \begin{itemize}
-\item \textbf{Welcome Screen, New First User, Set Alarm e Add Device} - Nestes módulos, pensa-se utilizar a abertura, leitura e escrita de ficheiros, por forma a efectuar/consultar registos (utilizador, dispositivo ou alarme). Para tal, ir-se-á utilizar a Classe \textit{FILE} presente em \textit{android};
+\item \textbf{MainAcitivity, CreateLogActivity, NewAlarmActivity e AddDeviceActivity} - Nestes módulos, realizam-se pedidos a um \textit{Web Server} relativamente aos dados de um dado utilizador. Assim, na \textit{MainActivity}, com base nos dados recolhidos da base de dados, é escrito um ficheiro, por forma a efectuar/consultar registos (utilizador, dispositivo ou alarme) noutras actividades. Nas restantes, o objectivo de contacto com o servidor \textit{web} é o de acrescentar informação à base de dados, sendo também o ficheiro interno actualizado. 
 
-\item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a \textit{User Interface} (UI) principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, a primeira acção será a abertura de uma \textit{thread}, com recurso à classe \textit{Thread}. 
+Para este efeito, utiliza-se a Classe \textit{FILE} presente em \textit{Android} para o armazenamento interno (\textit{cache}) e por cada pedido ao servidor, é necessária a abertura de \textit{threads} por forma a não bloquear a \textit{User Interface} (UI), recorrendo à classe \textit{AsyncTask};
 
-Para efectuar os pedidos HTTPS, usar-se-á uma de duas classes: \textit{URLConnection} ou \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
+\item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a UI principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, caso o utiizador queira realizar pedidos periódicos, esta \textit{thread} será aberta (recurrendo à classe \textit{Thread}). Caso contrário, será apenas necessário utilizar novamente a classe \textit{AsyncTask} para os pedidos, que apenas serão realzados mediante a pressão de um botão na aplicação.
 
-Ao receber a resposta, a \textit{thread} deverá ser processada com \textit{parsing} de \textit{JSON} com recurso à classe \textit{JsonReader}. Após o processamento da resposta, irá ser verificado se a temperatura recebida ultrapassa algum \textit{threshold} definido pelo utilizador. Em caso afirmativo, irá ser gerada uma notificação com recurso a um objecto \textit{Notification}.
+Para efectuar os pedidos HTTPS, utiliza-se a classe \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
+
+Ao receber a resposta, a \textit{thread} é processada com \textit{parsing} de \textit{JSON} com recurso à classe \textit{JsonReader}. Após o processamento da resposta, é verificado se a temperatura recebida ultrapassa algum \textit{threshold} definido pelo utilizador. Em caso afirmativo, é gerada uma notificação escrita e sonora com recurso a um objecto \textit{Notification} e \textit{Ringtone}.
 \end{itemize}
+
+Para a implementação da base de dados para armazenar os registos de cada utilizador, foi seguido o seguinte modelo:
+
+%E-R
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.40]{DB-ER.png}
+  \caption{Arquitectura da base de dados}
+  \label{fig:db-er}
+\end{figure}
+
+Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no \textit{script}, colocado na figura \ref{fig:db-script}, utilizado para a sua criação.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.40]{DB-script.png}
+  \caption{Script utilizado para a criação da base de dados}
+  \label{fig:db-script}
+\end{figure}
 
 Para a implementação do sensor de temperatura, recorrer-se-á às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}.
 
