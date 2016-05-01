@@ -338,7 +338,7 @@ public class LogsActivity extends AppCompatActivity {
                     .setTicker("Threshold")
                     .setContentTitle("Threshold ultrapassed")
                     .setContentText("New messages")
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_alert)
                     .setContentIntent(pIntent).getNotification();
             NotificationManager notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(0, noti);
