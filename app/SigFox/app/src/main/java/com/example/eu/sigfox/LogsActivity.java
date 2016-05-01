@@ -71,6 +71,8 @@ public class LogsActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> stringArray;
 
+    String messageTime;
+
     private String UsernameApp;
 
     @Override
@@ -128,7 +130,9 @@ public class LogsActivity extends AppCompatActivity {
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
                 new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+             //   Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -269,19 +273,24 @@ public class LogsActivity extends AppCompatActivity {
                 JSONArray parentArray = parentObject.getJSONArray("data");
 
                 StringBuffer finalBufferedData = new StringBuffer();
-                String time=new String();
+                int timestamp;
+                java.util.Date time=null;
+               // java.util.Date recentTime=null;
+                int timeRecent=0;
                 for(int i = 0; i < parentArray.length(); i++){
 
                     JSONObject finalObject = parentArray.getJSONObject(i);
 
                     String link_quality = finalObject.getString("linkQuality");
                     double SNR = finalObject.getDouble("snr");
-                    time = finalObject.getString("time");
+                    timestamp = finalObject.getInt("time");
+                    if(i==0)timeRecent=timestamp;
                     String data = finalObject.getString("data");
                     byte[] bytes = Hex.decodeHex(data.toCharArray());
+                    time=new java.util.Date((long)timestamp*1000);
                     finalBufferedData.append("linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+new String(bytes, "UTF-8")+"\n"+"at "+time+"\n\n");
                 }
-                return finalBufferedData.toString() + " | "+ time;
+                return finalBufferedData.toString() + " # "+timeRecent;
 
 
             } catch (MalformedURLException e) {
@@ -310,12 +319,20 @@ public class LogsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
+
+            String[] parts = result.split(" # ");
+            String part1 = parts[0]; // 004
+            String part2 = parts[1];
+
             tvData.setMovementMethod(new ScrollingMovementMethod());
-            tvData.setText(result);
+            tvData.setText(part1);
             tvData.setVisibility(View.VISIBLE);
 
             Intent intent=new Intent();
             PendingIntent pIntent= PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+
+
+            messageTime=part2;
            //
             Notification noti=new Notification.Builder(getBaseContext())
                     .setTicker("Threshold")
