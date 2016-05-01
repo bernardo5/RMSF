@@ -405,12 +405,12 @@ public class LogsActivity extends AppCompatActivity {
                                 stackBuilder.addParentStack(LogsActivity.class);
                                 // Adds the Intent that starts the Activity to the top of the stack
                                 stackBuilder.addNextIntent(resultIntent);
-                                PendingIntent resultPendingIntent =
+                               /* PendingIntent resultPendingIntent =
                                         stackBuilder.getPendingIntent(
                                                 0,
                                                 PendingIntent.FLAG_UPDATE_CURRENT
                                         );
-                                mBuilder.setContentIntent(resultPendingIntent);
+                                mBuilder.setContentIntent(resultPendingIntent);*/
                                 mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                                 NotificationManager mNotificationManager =
                                         (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
