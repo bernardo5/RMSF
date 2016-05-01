@@ -321,41 +321,46 @@ public class LogsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            String[] parts = result.split(" # ");
-            String part1 = parts[0]; // 004
-            String part2 = parts[1];
+            if (result!=null){
 
-            tvData.setMovementMethod(new ScrollingMovementMethod());
-            tvData.setText(part1);
-            tvData.setVisibility(View.VISIBLE);
+                String[] parts = result.split(" # ");
+                String part1 = parts[0]; // 004
+                String part2 = parts[1];
 
-            Intent intent=new Intent();
-            PendingIntent pIntent= PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+                tvData.setMovementMethod(new ScrollingMovementMethod());
+                tvData.setText(part1);
+                tvData.setVisibility(View.VISIBLE);
+
+                Intent intent = new Intent();
+                PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
 
 
-            messageTime=part2;
-           //condicao alarme
-            Notification noti=new Notification.Builder(getBaseContext())
-                    .setTicker("Threshold")
-                    .setContentTitle("Threshold ultrapassed")
-                    .setContentText("New messages")
-                    .setSmallIcon(R.drawable.ic_alert)
-                    .setContentIntent(pIntent).getNotification();
-            NotificationManager notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
-            notificationManager.notify(0, noti);
+                messageTime = part2;
+                //condicao alarme
+                Notification noti = new Notification.Builder(getBaseContext())
+                        .setTicker("Threshold")
+                        .setContentTitle("Threshold ultrapassed")
+                        .setContentText("New messages")
+                        .setSmallIcon(R.drawable.ic_alert)
+                        .setContentIntent(pIntent).getNotification();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
+                notificationManager.notify(0, noti);
 
-            try {
-                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                r.play();
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                    r.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                tvData.setText("Current device does not have messages...");
+                tvData.setVisibility(View.VISIBLE);
             }
-
         }
     }
 

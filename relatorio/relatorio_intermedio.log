@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.18)  1 MAY 2016 14:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.18)  1 MAY 2016 18:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,11 +590,11 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 111.
  [3 <./ShowLogs.png>]
-<DB-ER.png, id=96, 623.50589pt x 308.91882pt>
+<DB-ER.png, id=96, 685.85648pt x 308.91882pt>
 File: DB-ER.png Graphic file (type png)
  <use DB-ER.png>
 Package pdftex.def Info: DB-ER.png used on input line 129.
-(pdftex.def)             Requested size: 249.39793pt x 123.56534pt.
+(pdftex.def)             Requested size: 274.33772pt x 123.56534pt.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 135.
 Package babel Info: Redefining portuges shorthand "|
@@ -748,7 +748,7 @@ ype1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on relatorio_intermedio.pdf (10 pages, 469533 bytes).
+Output written on relatorio_intermedio.pdf (10 pages, 470253 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  155 compressed objects within 2 object streams
