@@ -6,6 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -241,7 +244,7 @@ public class LogsActivity extends AppCompatActivity {
         new_device.putExtra("username", UsernameApp);
         startActivity(new_device);
     }
-    @TargetApi(16)
+    @TargetApi(11)
     public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
@@ -344,6 +347,14 @@ public class LogsActivity extends AppCompatActivity {
             NotificationManager notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             noti.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify(0, noti);
+
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }
