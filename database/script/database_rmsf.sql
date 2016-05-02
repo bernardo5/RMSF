@@ -6,6 +6,7 @@ create table users(
 	filename varchar(40),
 	userName varchar(255),
 	password varchar(255),
+	lastMessageTime varchar(40),
 	primary key(filename));
 
 create table usersDevices(
@@ -19,7 +20,7 @@ create table usersAlarms(
 	primary key(filename, alarm));
 
 
-insert into users values('Bernardo', '56c47b4c9336adb5ba39c9b6', 'dd6bd147da1dcc9e34b4674b0f0be948');
+insert into users values('Bernardo', '56c47b4c9336adb5ba39c9b6', 'dd6bd147da1dcc9e34b4674b0f0be948', '0');
 insert into usersDevices values('Bernardo', '56bdd1da9336b182b106d3b0');
 insert into usersDevices values('Bernardo', 'teste');
 

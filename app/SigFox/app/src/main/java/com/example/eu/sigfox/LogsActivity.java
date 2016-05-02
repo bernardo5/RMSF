@@ -88,33 +88,12 @@ public class LogsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        messageTime="null";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logs);
         textView=(TextView)findViewById(R.id.login_info);
         textView.setVisibility(View.GONE);
 
-        File recentTime = new File(getFilesDir(), UsernameApp + "-time.txt");
-
-        if(!recentTime.exists()){
-            messageTime="0";
-            Toast.makeText(getBaseContext(), "Not exists", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(getBaseContext(), "exists", Toast.LENGTH_LONG).show();
-            FileInputStream fileInputStream = null;
-            try {
-                fileInputStream = openFileInput(UsernameApp + "-time.txt");
-                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuffer stringBuffer = new StringBuffer();
-                messageTime= bufferedReader.readLine();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
+       messageTime=getIntent().getExtras().getString("messagetime");
 
         stringArray = new ArrayList<String>();
        /* stringArray.add("56bdd1da9336b182b106d3b0");
@@ -385,7 +364,6 @@ public class LogsActivity extends AppCompatActivity {
                 StringBuffer stringBuffer = new StringBuffer();
 
                 String line;
-                float bigger=0;
                 ArrayList<Float> alarms=new ArrayList<Float>();
 
                 try {
@@ -454,19 +432,8 @@ public class LogsActivity extends AppCompatActivity {
                 //update most recent time
                 //FileOutputStream overWrite = null;
                 messageTime = Integer.toString(t);
-                FileWriter fWriter;
-                File sdCardFile = new File(getFilesDir() + UsernameApp+"-time.txt");
-                Log.d("TAG", sdCardFile.getPath()); //<-- check the log to make sure the path is correct.
-                try {
-                    FileOutputStream fileOutputStream = openFileOutput(UsernameApp + "-time.txt", MODE_PRIVATE); //no other app can open file
-                    fileOutputStream.write(messageTime.getBytes());
-                    fileOutputStream.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+               //update database with t value!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                new UpdateLastRead().execute(UsernameApp, messageTime);
 
               //  Toast.makeText(getBaseContext(), messageTime, Toast.LENGTH_LONG).show();
             }else{
@@ -599,6 +566,56 @@ public class LogsActivity extends AppCompatActivity {
 
 
 
+        }
+    }
+
+
+    public class UpdateLastRead extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... arg0) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            //TextView debug;
+
+            try {
+                String username = (String)arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/insertLastTime.php?user="+arg0[0]+"&time="+arg0[1];
+                URL url1 = new URL(link1);
+
+                HttpClient client1 = new DefaultHttpClient();
+                HttpGet request1 = new HttpGet(link1);
+
+                HttpResponse httpResponse1 = client1.execute(request1);
+
+
+
+                return "ok";
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                if ((connection) != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+
+        }
+        @Override
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            Toast.makeText(getBaseContext(), "Time updated in server", Toast.LENGTH_LONG).show();
         }
     }
 

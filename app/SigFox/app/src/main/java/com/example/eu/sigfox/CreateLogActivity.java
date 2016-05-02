@@ -54,6 +54,7 @@ public class CreateLogActivity extends AppCompatActivity {
         }
         Intent logged = new Intent(this, LogsActivity.class);
         logged.putExtra("username", UsernameApp);
+        logged.putExtra("messagetime", "0");
         startActivity(logged);
     }
 

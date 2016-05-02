@@ -19,7 +19,7 @@
 			}
 			$username = $_GET['username'];
 
-			$result = $connection->query("select userName, password from users where fileName='$username';");
+			$result = $connection->query("select userName, password, lastMessageTime from users where fileName='$username';");
 
 			if ($result == FALSE)
 			{
@@ -37,6 +37,7 @@
 						$response['user']=1;
 						$response['username']=$row['userName'];
 						$response['password']=$row['password'];
+						$response['lastMessageTime']=$row['lastMessageTime'];
 						echo json_encode($response);
 					}
 			}else{

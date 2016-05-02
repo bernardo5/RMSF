@@ -19,19 +19,13 @@
 			}
 			
 			$user=$_GET['user'];
-			$username = $_GET['username'];
-			$pass = $_GET['pass'];
-			$device = $_GET['device'];
+			$time = $_GET['time'];
 			
 
-			$result = $connection->exec("insert into users values('$user', '$username', '$pass', '0');");
-			
-			$result = $connection->exec("insert into usersDevices values('$user', '$device');");
+			$result = $connection->exec("update users set lastMessageTime='$time' where filename='$user';");
 
 			$connection=null;
 
 		?>
 	</body>
-</html>					
-
-					
+</html>	

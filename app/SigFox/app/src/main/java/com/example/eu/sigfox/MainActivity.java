@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String UsernameApp;
     Button cont;
     Button sub;
+    private String messageTime;
 
     private String usernameee=new String();
     private String password=new String();
@@ -84,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
         return this.password;
     }
 
+    public void setMessageTime(String u){
+        this.messageTime=u;
+    }
+
+    public String getMessageTime(){
+        return this.messageTime;
+    }
+
     public void submit(View view) {
             sub = (Button) findViewById(R.id.button);
             sub.setVisibility(View.GONE);
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             //user is logged in
             Intent logged = new Intent(this, LogsActivity.class);
             logged.putExtra("username", UsernameApp);
+            logged.putExtra("messagetime", getMessageTime());
             startActivity(logged);
         }
     }
@@ -170,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
                         setUsername(usernamee);
                         String password = jObject.getString("password");
                         setPass(password);
+                        String messageTimee = jObject.getString("lastMessageTime");
+                        setMessageTime(messageTimee);
 
                         try {
                             String message=usernamee+"\n"+ password+"\n";
