@@ -353,37 +353,39 @@ public class LogsActivity extends AppCompatActivity {
                 ///////////////////////
 
                 //gets alarms
-                FileInputStream fileInputStream = null;
-                try {
-                    fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuffer stringBuffer = new StringBuffer();
-
-                String line;
-                ArrayList<Float> alarms=new ArrayList<Float>();
-
-                try {
-                    while ((line = bufferedReader.readLine()) != null) {
-                        line = line.replace("\n", "").replace("\r", "");
-                        Float number=Float.parseFloat(line);
-                        alarms.add(number);
+                File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
+                if(file.exists()){
+                    FileInputStream fileInputStream = null;
+                    try {
+                        fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    StringBuffer stringBuffer = new StringBuffer();
 
-                Collections.sort(alarms);
-                int x=0;
-                //condicao alarme
+                    String line;
+                    ArrayList<Float> alarms=new ArrayList<Float>();
+
+                    try {
+                        while ((line = bufferedReader.readLine()) != null) {
+                            line = line.replace("\n", "").replace("\r", "");
+                            Float number=Float.parseFloat(line);
+                            alarms.add(number);
+                        }
+                        fileInputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Collections.sort(alarms);
+                    int x=0;
+                    //condicao alarme
 
                     Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
                     for(String s1:reads){
-                       // "SNR - " + SNR + "\n"+"Message-"+
+                        // "SNR - " + SNR + "\n"+"Message-"+
                         String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
                         aux = aux.replace("\n", "").replace("\r", "");
 
@@ -417,16 +419,18 @@ public class LogsActivity extends AppCompatActivity {
                                 //Id allows you to update the notification later on.
                                 mNotificationManager.notify(100+x, mBuilder.build());
                                 try {
-                                  Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                  Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                                  r.play();
+                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                    r.play();
                                 } catch (Exception e) {
-                                  e.printStackTrace();
+                                    e.printStackTrace();
                                 }
 
                             }
                         }
                     }
+                }
+
                 int t=Integer.parseInt(part2);
                 t+=1;
                 //update most recent time
