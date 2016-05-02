@@ -3,7 +3,6 @@ package com.example.eu.sigfox;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
@@ -11,16 +10,12 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,15 +35,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,15 +51,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 public class LogsActivity extends AppCompatActivity {
     private TextView tvData;
@@ -94,10 +77,6 @@ boolean all=false;
        messageTime=getIntent().getExtras().getString("messagetime");
 
         stringArray = new ArrayList<String>();
-       /* stringArray.add("56bdd1da9336b182b106d3b0");
-        stringArray.add("othersssDevice");*/
-
-        /*get username from last activity*/
         UsernameApp=getIntent().getExtras().getString("username");
         Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
         /**********************************/
@@ -145,20 +124,8 @@ boolean all=false;
                 if(all==false)
                     new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
                 else  new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
-
-                //   Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
             }
         });
-
-        /*t = new Timer();
-        t.schedule(new TimerTask() {
-
-            public void run() {
-                Log.d("MyApp", "I am here");
-                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
-            }
-        }, 1000);*/
-
 
 
 
@@ -169,12 +136,6 @@ boolean all=false;
                 if(t != null){
                     t.cancel();
                 }
-
-                //re-schedule timer here
-                //otherwise, IllegalStateException of
-                //"TimerTask is scheduled already"
-                //will be thrown
-
                 if (isChecked) {
                     t = new Timer();
                     timerTask = new MyTimerTask();
@@ -300,7 +261,6 @@ boolean all=false;
                 StringBuffer finalBufferedData = new StringBuffer();
                 int timestamp;
                 java.util.Date time=null;
-               // java.util.Date recentTime=null;
                 int timeRecent=0;
                 for(int i = 0; i < parentArray.length(); i++){
 
@@ -400,10 +360,6 @@ boolean all=false;
                         // "SNR - " + SNR + "\n"+"Message-"+
                         String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
                         aux = aux.replace("\n", "").replace("\r", "");
-
-                       /* File sdcard = Environment.getExternalStorageDirectory();
-                        File file = new File(sdcard,UsernameApp+"-alarms.txt");
-                        StringBuilder text = new StringBuilder();*/
                         for(float f:alarms){
                             x++;
                             if(Float.parseFloat(aux)>=f) {
@@ -419,12 +375,6 @@ boolean all=false;
                                 stackBuilder.addParentStack(LogsActivity.class);
                                 // Adds the Intent that starts the Activity to the top of the stack
                                 stackBuilder.addNextIntent(resultIntent);
-                               /* PendingIntent resultPendingIntent =
-                                        stackBuilder.getPendingIntent(
-                                                0,
-                                                PendingIntent.FLAG_UPDATE_CURRENT
-                                        );
-                                mBuilder.setContentIntent(resultPendingIntent);*/
                                 mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                                 NotificationManager mNotificationManager =
                                         (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
