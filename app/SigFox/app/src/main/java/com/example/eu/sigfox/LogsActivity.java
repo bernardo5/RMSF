@@ -411,7 +411,7 @@ boolean all=false;
                                         (NotificationCompat.Builder) new NotificationCompat.Builder(getBaseContext())
                                                 .setSmallIcon(R.drawable.ic_alert)
                                                 .setContentTitle("Threshold overflow!")
-                                                .setContentText("Threshold violated: "+f);
+                                                .setContentText("Threshold violated: "+f+" with temperature "+aux);
 
                                 Intent resultIntent = new Intent(getBaseContext(), LogsActivity.class);
                                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
