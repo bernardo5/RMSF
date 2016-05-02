@@ -320,13 +320,14 @@ boolean all=false;
                 ////////////////////////
                 //print text
                 tvData.setMovementMethod(new ScrollingMovementMethod());
-                tvData.append(toPrint);
+                if(!all) tvData.append(toPrint);
+                else tvData.setText(toPrint);
                 tvData.setVisibility(View.VISIBLE);
                 ///////////////////////
 
                 //gets alarms
                 File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
-                if(file.exists()){
+                if(file.exists()&&(!all)){
                     FileInputStream fileInputStream = null;
                     try {
                         fileInputStream = openFileInput(UsernameApp+"-alarms.txt");
