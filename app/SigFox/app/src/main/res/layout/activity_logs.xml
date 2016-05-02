@@ -20,20 +20,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/login_info"
-        android:maxLines = "20"
-        android:scrollbars = "vertical"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/login"
-        android:layout_alignLeft="@+id/spinner"
-        android:layout_alignStart="@+id/spinner"
-        android:layout_above="@+id/spinner" />
-
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -105,12 +91,12 @@
         android:text="Current device:"
         android:gravity="center"
         android:id="@+id/textView4"
-        android:layout_below="@+id/login_info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/spinner"
         android:layout_alignRight="@+id/add_device"
-        android:layout_alignEnd="@+id/add_device" />
+        android:layout_alignEnd="@+id/add_device"
+        android:layout_alignTop="@+id/spinner" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -120,9 +106,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/textView4"
         android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4" />
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignBottom="@+id/checkBox" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get all messages"
+        android:id="@+id/checkBox"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/login"
+        android:layout_alignBottom="@+id/login"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
 
 
 </RelativeLayout>

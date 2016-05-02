@@ -70,7 +70,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class LogsActivity extends AppCompatActivity {
-    TextView textView;
     private TextView tvData;
     private String user;
     private String pass;
@@ -81,7 +80,7 @@ public class LogsActivity extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<String> adapter;
     ArrayList<String> stringArray;
-
+boolean all=false;
     String messageTime;
 
     private String UsernameApp;
@@ -90,8 +89,7 @@ public class LogsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logs);
-        textView=(TextView)findViewById(R.id.login_info);
-        textView.setVisibility(View.GONE);
+
 
        messageTime=getIntent().getExtras().getString("messagetime");
 
@@ -144,7 +142,10 @@ public class LogsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
-                new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
+                if(all==false)
+                    new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
+                else  new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+
                 //   Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
             }
         });
@@ -181,6 +182,19 @@ public class LogsActivity extends AppCompatActivity {
                 }else{
                     t.cancel();
                     t=null;
+                }
+
+            }
+        });
+
+        CheckBox allmessages = (CheckBox) findViewById( R.id.checkBox);
+        allmessages.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if (isChecked) {
+                   all=true;
+                }else{
+                   all=false;
                 }
 
             }
@@ -224,9 +238,7 @@ public class LogsActivity extends AppCompatActivity {
                 stringBuffer.append(type + message + "\n");
                 i++;
             }
-            textView.setMovementMethod(new ScrollingMovementMethod());
-            textView.setText(stringBuffer.toString());
-            textView.setVisibility(View.VISIBLE);
+
             fileInputStream.close();
         }catch(FileNotFoundException e){
             e.printStackTrace();
@@ -458,7 +470,10 @@ public class LogsActivity extends AppCompatActivity {
                 public void run() {
                     Toast.makeText(LogsActivity.this,
                             "thread update!", Toast.LENGTH_SHORT).show();
-                    new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
+                    if(all==false)
+                        new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
+                    else  new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
+
                 }});
         }
 
@@ -622,7 +637,4 @@ public class LogsActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Time updated in server", Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }
