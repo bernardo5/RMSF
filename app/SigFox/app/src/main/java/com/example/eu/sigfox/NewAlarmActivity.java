@@ -24,13 +24,14 @@ import java.net.URL;
 
 public class NewAlarmActivity extends AppCompatActivity {
     String UsernameApp;
-
+String messageTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_alarm);
         UsernameApp=getIntent().getExtras().getString("username");
         Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
+        messageTime=getIntent().getExtras().getString("messagetime");
     }
 
     public void RegisterNewAlarm(EditText alarm_threshold){
@@ -51,23 +52,11 @@ public class NewAlarmActivity extends AppCompatActivity {
 
     public void createAlarm(View view){
         EditText alarm_threshold = (EditText) findViewById(R.id.temperatureThreshold);
-       /* File file = new File(getFilesDir(), UsernameApp+"-alarms.txt");
-        if(file.exists()){
-            RegisterNewAlarm(alarm_threshold);
-        }else{
-            try {
-                String message=alarm_threshold.getText().toString()+"\n";
-                FileOutputStream fileOutputStream = openFileOutput(UsernameApp+"-alarms.txt", MODE_PRIVATE); //no other app can open file
-                fileOutputStream.write(message.getBytes());
-                fileOutputStream.close();
-                Toast.makeText(getApplicationContext(), "Alarm successfully created!", Toast.LENGTH_LONG).show();
-            }catch(FileNotFoundException e){
-                e.printStackTrace();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }*/
         new CreateLogDB().execute(UsernameApp,alarm_threshold.getText().toString());
+        Intent logged = new Intent(this, LogsActivity.class);
+        logged.putExtra("username", UsernameApp);
+        logged.putExtra("messagetime", messageTime);
+        startActivity(logged);
         finish();
     }
 

@@ -218,7 +218,9 @@ boolean all=false;
     public void addAlarm(View view){
         Intent new_alarm = new Intent(this, NewAlarmActivity.class);
         new_alarm.putExtra("username", UsernameApp);
+        new_alarm.putExtra("messagetime", messageTime);
         startActivity(new_alarm);
+        finish();
     }
 
     public void newdevice(View view){
