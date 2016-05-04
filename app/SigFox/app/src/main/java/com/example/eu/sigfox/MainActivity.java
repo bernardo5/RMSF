@@ -143,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
             //TextView debug;
 
                 try {
-                    String username = (String)arg0[0];
-                    String link ="http://web.tecnico.ulisboa.pt/ist175573/userPass.php?username="+username;
+                    String username = arg0[0];
+                    String link ="http://web.tecnico.ulisboa.pt/ist175462/userPass.php?username="+username;
                     URL url = new URL(link);
 
                     HttpClient client = new DefaultHttpClient();
@@ -260,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/userDev.php?username="+username;
+                String username = arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/userDev.php?username="+username;
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();

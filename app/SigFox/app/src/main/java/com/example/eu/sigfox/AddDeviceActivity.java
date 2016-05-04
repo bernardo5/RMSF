@@ -58,8 +58,8 @@ public class AddDeviceActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/insertDevice.php?user="+arg0[0]+"&device="+arg0[1];
+                String username = arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertDevice.php?user="+arg0[0]+"&device="+arg0[1];
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();

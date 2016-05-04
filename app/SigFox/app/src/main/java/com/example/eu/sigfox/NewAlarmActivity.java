@@ -69,8 +69,8 @@ String messageTime;
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/insertAlarm.php?user="+arg0[0]+"&Alarm="+arg0[1];
+                String username = arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertAlarm.php?user="+arg0[0]+"&Alarm="+arg0[1];
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();

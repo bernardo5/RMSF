@@ -67,8 +67,8 @@ public class CreateLogActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/insertUser.php?user="+arg0[0]+"&username="+arg0[1]+"&pass="+arg0[2]+"&device="+arg0[3];
+                String username = arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertUser.php?user="+arg0[0]+"&username="+arg0[1]+"&pass="+arg0[2]+"&device="+arg0[3];
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();

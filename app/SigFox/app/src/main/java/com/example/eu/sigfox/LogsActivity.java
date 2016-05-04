@@ -116,7 +116,7 @@ boolean all=false;
 
         tvData = (TextView)findViewById(R.id.sensor_text);
         tvData.setVisibility(View.GONE);
-
+        Toast.makeText(getBaseContext(), "Initial message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,11 +152,7 @@ boolean all=false;
         allmessages.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if (isChecked) {
-                   all=true;
-                }else{
-                   all=false;
-                }
+                all = isChecked;
 
             }
         });
@@ -264,26 +260,35 @@ boolean all=false;
                 int timestamp;
                 java.util.Date time=null;
                 int timeRecent=0;
-                for(int i = 0; i < parentArray.length(); i++){
+                for(int i = 0; i < parentArray.length(); i++) {
 
                     JSONObject finalObject = parentArray.getJSONObject(i);
 
                     String link_quality = finalObject.getString("linkQuality");
                     double SNR = finalObject.getDouble("snr");
                     timestamp = finalObject.getInt("time");
-                    if(i==0)timeRecent=timestamp;
+                    if (i == 0) timeRecent = timestamp;
                     String data = finalObject.getString("data");
-                    String rev_data = new StringBuffer(data).reverse().toString();
-                    String pair1 = new StringBuffer(rev_data.substring(0, 2)).reverse().toString();
-                    String pair2 = new StringBuffer(rev_data.substring(2, 4)).reverse().toString();
-                    String pair3 = new StringBuffer(rev_data.substring(4, 6)).reverse().toString();
-                    String pair4 = new StringBuffer(rev_data.substring(6, 8)).reverse().toString();
-                    String final_data = pair1 + pair2 + pair3 + pair4;
-                    Long in = Long.parseLong(final_data, 16);
-                    Float f = Float.intBitsToFloat(in.intValue());
-                    String print_data = Float.toString(f);
-                    time=new java.util.Date((long)timestamp*1000);
-                    finalBufferedData.append("message at: "+time+"\n"+"linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+ print_data + "ºC" +"\n"+"delimiter");
+                    if (data.length() >= 8) {
+                        String rev_data = new StringBuffer(data).reverse().toString();
+                        String pair1 = new StringBuffer(rev_data.substring(0, 2)).reverse().toString();
+                        String pair2 = new StringBuffer(rev_data.substring(2, 4)).reverse().toString();
+                        String pair3 = new StringBuffer(rev_data.substring(4, 6)).reverse().toString();
+                        String pair4 = new StringBuffer(rev_data.substring(6, 8)).reverse().toString();
+                        String final_data = pair1 + pair2 + pair3 + pair4;
+                        Long in = Long.parseLong(final_data, 16);
+                        Float f = Float.intBitsToFloat(in.intValue());
+                        if(f>= 1E-3 && f<=50 ) {
+                            String print_data = Float.toString(f);
+                            time = new java.util.Date((long) timestamp * 1000);
+                            finalBufferedData.append("message at: " + time + "\n" + "linkQuality: " + link_quality + "\n" + "SNR: " + SNR + "\n" + "Message: " + print_data + "ºC" + "\n" + "delimiter");
+
+                        }else{
+                            String print_data = "Temperature out of sensor range";
+                            time = new java.util.Date((long) timestamp * 1000);
+                            finalBufferedData.append("message at: " + time + "\n" + "linkQuality: " + link_quality + "\n" + "SNR: " + SNR + "\n" + "Message: " + print_data + "\n" + "delimiter");
+                        }
+                    }
                 }
                 return finalBufferedData.toString() + " # "+timeRecent;
 
@@ -369,8 +374,9 @@ boolean all=false;
                     Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
                     for(String s1:reads){
                         // "SNR - " + SNR + "\n"+"Message-"+
-                        String aux = s1.substring(s1.indexOf("SNR - ")+6, s1.indexOf("Message-"));
+                        String aux = s1.substring(s1.indexOf("Message: ") + 8, s1.indexOf("ºC"));
                         aux = aux.replace("\n", "").replace("\r", "");
+                        Toast.makeText(getBaseContext(), "AUX - " + aux, Toast.LENGTH_LONG).show();
                         for(float f:alarms){
                             x++;
                             if(Float.parseFloat(aux)>=f) {
@@ -449,8 +455,8 @@ boolean all=false;
             //TextView debug;
 
             try {
-                String username = (String) arg0[0];
-                String link1 = "http://web.tecnico.ulisboa.pt/ist175573/userAlarms.php?username=" + username;
+                String username = arg0[0];
+                String link1 = "http://web.tecnico.ulisboa.pt/ist175462/userAlarms.php?username=" + username;
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();
@@ -559,8 +565,8 @@ boolean all=false;
             //TextView debug;
 
             try {
-                String username = (String)arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175573/insertLastTime.php?user="+arg0[0]+"&time="+arg0[1];
+                String username = arg0[0];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertLastTime.php?user="+arg0[0]+"&time="+arg0[1];
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();
