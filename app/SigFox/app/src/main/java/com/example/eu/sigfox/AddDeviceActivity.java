@@ -1,5 +1,6 @@
 package com.example.eu.sigfox;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,12 +23,14 @@ import java.net.URL;
 
 public class AddDeviceActivity extends AppCompatActivity {
     String UsernameApp;
+    String messageTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
         UsernameApp=getIntent().getExtras().getString("username");
         Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
+        messageTime=getIntent().getExtras().getString("messagetime");
     }
 
     public void RegisterNewDevice(View view){
@@ -41,6 +44,10 @@ public class AddDeviceActivity extends AppCompatActivity {
             Toast.makeText(AddDeviceActivity.this,
                     "Successfully added a new device!", Toast.LENGTH_SHORT).show();
             new AddNewDevice().execute(UsernameApp, Device_id.getText().toString());
+            Intent logged = new Intent(this, LogsActivity.class);
+            logged.putExtra("username", UsernameApp);
+            logged.putExtra("messagetime", messageTime);
+            startActivity(logged);
             finish();
         }catch(FileNotFoundException e){
             e.printStackTrace();

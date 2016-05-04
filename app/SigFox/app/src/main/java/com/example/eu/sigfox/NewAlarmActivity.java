@@ -24,7 +24,7 @@ import java.net.URL;
 
 public class NewAlarmActivity extends AppCompatActivity {
     String UsernameApp;
-String messageTime;
+    String messageTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

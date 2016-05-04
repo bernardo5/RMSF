@@ -376,7 +376,6 @@ boolean all=false;
                         // "SNR - " + SNR + "\n"+"Message-"+
                         String aux = s1.substring(s1.indexOf("Message: ") + 8, s1.indexOf("ºC"));
                         aux = aux.replace("\n", "").replace("\r", "");
-                        Toast.makeText(getBaseContext(), "AUX - " + aux, Toast.LENGTH_LONG).show();
                         for(float f:alarms){
                             x++;
                             if(Float.parseFloat(aux)>=f) {
