@@ -273,9 +273,17 @@ boolean all=false;
                     timestamp = finalObject.getInt("time");
                     if(i==0)timeRecent=timestamp;
                     String data = finalObject.getString("data");
-                    byte[] bytes = Hex.decodeHex(data.toCharArray());
+                    String rev_data = new StringBuffer(data).reverse().toString();
+                    String pair1 = new StringBuffer(rev_data.substring(0, 2)).reverse().toString();
+                    String pair2 = new StringBuffer(rev_data.substring(2, 4)).reverse().toString();
+                    String pair3 = new StringBuffer(rev_data.substring(4, 6)).reverse().toString();
+                    String pair4 = new StringBuffer(rev_data.substring(6, 8)).reverse().toString();
+                    String final_data = pair1 + pair2 + pair3 + pair4;
+                    Long in = Long.parseLong(final_data, 16);
+                    Float f = Float.intBitsToFloat(in.intValue());
+                    String print_data = Float.toString(f);
                     time=new java.util.Date((long)timestamp*1000);
-                    finalBufferedData.append("message at: "+time+"\n"+"linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+new String(bytes, "UTF-8")+"\n"+"delimiter");
+                    finalBufferedData.append("message at: "+time+"\n"+"linkQuality - " + link_quality + "\n" + "SNR - " + SNR + "\n"+"Message-"+ print_data + "ºC" +"\n"+"delimiter");
                 }
                 return finalBufferedData.toString() + " # "+timeRecent;
 
@@ -286,8 +294,8 @@ boolean all=false;
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
-            } catch (DecoderException e) {
-                e.printStackTrace();
+            /*} catch (DecoderException e) {
+                e.printStackTrace();*/
             } finally {
                 if((connection) != null) {
                     connection.disconnect();
