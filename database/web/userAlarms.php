@@ -6,6 +6,13 @@
 			$user = "ist175462";
 			$pass = "ipka6868";;
 			$dsn = "mysql:host=$host;dbname=$user";
+			function QueryCheck($query){
+				if ($query == FALSE){
+					$info = $connection->errorInfo();
+					echo("<p>Error: {$info[2]}</p>");
+					exit();
+				}
+			}
 			try
 			{
 				$connection = new PDO($dsn, $user, $pass);
@@ -17,16 +24,13 @@
 				echo("</p>");
 				exit();
 			}
-			$username = $_GET['username'];
-
-			$result = $connection->query("select alarm from usersAlarms where filename='$username';");
-
-			if ($result == FALSE)
-			{
-				$info = $connection->errorInfo();
-				echo("<p>Error: {$info[2]}</p>");
-				exit();
-			}
+			
+			
+			$username = htmlentities($_GET['username'], ENT_QUOTES);
+			$result = $connection->prepare("select alarm from usersAlarms where filename = :username;");
+			$result->bindParam(':username', $username);
+			$result->execute();
+			QueryCheck($result);
 
 			$nrows= $result->rowCount();
 
