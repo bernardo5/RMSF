@@ -9,7 +9,7 @@
 #define STARTUP_DELAY 2000
 #define SIGFOX_LED_PIN 13
 #define SIGFOX_POWER 5
-#define LOOP_DELAY 600000
+#define LOOP_DELAY 720000 //send message every 12 minutes
 
 //sigfox data struct
 struct sigfoxData{
@@ -22,8 +22,7 @@ void dht11_wrapper(); // must be declared before the lib initialization
 // Lib instantiate
 idDHT11 DHT11(DHT11_PIN,INTERRUPT_NUMBER,dht11_wrapper);
 
-void setup()
-{
+void setup(){
   Serial.begin(SERIAL_BAUD);
   delay(STARTUP_DELAY); //let the modem wake-up gently
 
@@ -38,8 +37,7 @@ void setup()
 void dht11_wrapper() {
   DHT11.isrCallback();
 }
-void loop()
-{
+void loop(){
   Serial.print("\nRetrieving information from sensor: ");
   Serial.print("Read sensor: ");
   

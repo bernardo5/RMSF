@@ -142,7 +142,7 @@ Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no 
 
 Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}, o tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
 
-Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{millis()} presente em ambiente \textit{Arduino}.
+Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{delay()} presente em ambiente \textit{Arduino}.
 
 \section{Verificações da solução encontrada}
 
