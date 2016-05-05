@@ -27,14 +27,14 @@
 
 O objectivo do projecto é o desenvolvimento de um sistema de monitorização de temperatura. 
 
-O sistema, deverá ser baseado num sensor de temperatura associado a um dispositivo \textit{Arduino (Akeru 3.3)}, que irá comunicar as suas medições a um servidor \textit{SigFox}, armazenando-as na \textit{cloud}.
+O sistema, deverá ser baseado num sensor de temperatura associado a um dispositivo \textit{Arduino (Akeru 3.3)}, que irá comunicar as suas medições a um servidor \textit{SigFox}, armazenando-as na \textit{Cloud}.
 
-Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{Android}, que fornecerá os dados presentes na \textit{cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
+Na óptica do utilizador, irá ser desenvolvida uma aplicação em ambiente \textit{Android}, que fornecerá os dados presentes na \textit{Cloud} com uma apresentação \textit{user friendly}. Pretende-se ainda que seja possível que o utilizador registe um novo dispositivo a monitorizar na aplicação, bem como definir alarmes para certos valores de temperatura.
 
 
 \section{Solução encontrada}
 
-Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{cloud SigFox} como intermediária.
+Tal como referido na secção anterior, a monitorização da temperatura e da qualidade de medição do sensor, irá ser feita pelo utilizador com recurso à aplicação, mas tendo a \textit{Cloud SigFox} como intermediária.
 
 Por forma a que os dados de cada utilizador sejam independentes do dispositivo utilizado, foi construída uma base de dados adicional, que guarda informação de \textit{login} bem como dos \textit{devices} e os \textit{thresholds} de alarme de cada utilizador.
 
@@ -92,13 +92,13 @@ No caso de o utilizador pretender fazer \textit{logout}, é lançada a \textit{M
 
 \subsection{Servidor \textit{SigFox}}
 
-O papel deste servidor é o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
+O papel deste servidor é o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{Android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
 
 Em termos de implementação para o projecto, foi apenas necessário conhecer a forma como os pedidos devem ser realizados bem como o formato de resposta.
 
 \subsection{Sensor Arduino}
 
-O sensor deverá realizar medições periodicamente enviando-as para a \textit{cloud SigFox}, via rádio.
+O sensor deverá realizar medições periodicamente enviando-as para a \textit{Cloud SigFox}, via rádio. Sendo possível enviar 120 mensagens para a \textit{Cloud SigFox} por dia, envia-se 5 mensagens por hora logo 1 mensagem a cada 12 minutos.
 
 \subsection{Web Server}
 
@@ -140,9 +140,9 @@ Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no 
   \label{fig:db-script}
 \end{figure}
 
-Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}.
+Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}, o tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
 
-Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}.
+Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{millis()} presente em ambiente \textit{Arduino}.
 
 \section{Verificações da solução encontrada}
 
@@ -178,12 +178,12 @@ Do planeamento atrás referido, foi já adiantado parte do trabalho referente à
 \endminipage
 \end{figure}
 
-Relativamente à obtenção das leituras do sensor de arduíno a partir da \textit{cloud Sigfox}, foi realizado um programa à parte por forma a testar apenas esta funcionalidade, tal como representado nas figuras abaixo. O programa, além de recolher os dados, realiza o \textit{parse} do \textit{JSON}.
+Relativamente à obtenção das leituras do sensor de arduíno a partir da \textit{Cloud Sigfox}, foi realizado um programa à parte por forma a testar apenas esta funcionalidade, tal como representado nas figuras abaixo. O programa, além de recolher os dados, realiza o \textit{parse} do \textit{JSON}.
 
 \begin{figure}[H]
 \minipage{0.40\textwidth}
   \includegraphics[width=\linewidth]{get.jpg}
-  \caption{Botão para obtenção da informação da \textit{cloud}}\label{fig:get}
+  \caption{Botão para obtenção da informação da \textit{Cloud}}\label{fig:get}
 \endminipage\hfill
 \minipage{0.40\textwidth}
   \includegraphics[width=\linewidth]{json.jpg}
