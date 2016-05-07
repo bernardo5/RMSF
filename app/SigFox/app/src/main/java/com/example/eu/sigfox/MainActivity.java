@@ -39,8 +39,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     EditText editText;
     TextView textView;
-    TextView debug;
-    TextView devv;
+    TextView log;
     String UsernameApp;
     Button cont;
     Button sub;
@@ -56,14 +55,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);*/
-
-        debug = (TextView)findViewById(R.id.debug);
-        debug.setVisibility(View.GONE);
-
-        devv = (TextView)findViewById(R.id.dev);
-        devv.setVisibility(View.GONE);
+        log = (TextView)findViewById(R.id.log);
+        log.setVisibility(View.GONE);
 
         cont = (Button) findViewById(R.id.continuee);
         cont.setVisibility(View.GONE);
@@ -111,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
                 //check database
                 new AskServerUserPass().execute(UsernameApp);
 
-                Toast.makeText(getBaseContext(), "Database read successfully", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getBaseContext(), "Database read successfully", Toast.LENGTH_LONG).show();
 
 
     }
 
     public void nextActivity(View view){
-        String loggedd = debug.getText().toString();
+        String loggedd = log.getText().toString();
         loggedd=loggedd.replaceAll("\n", "");
         if(loggedd.equals("You are not logged in yet")){/*needs to create log*/
             //user has to create a log
@@ -169,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                     while (matcher.find())
                     {
                         r+=matcher.group(0);
-                       // System.out.println(matcher.group(0));
                     }
 
                     JSONObject jObject = new JSONObject(r);
@@ -204,9 +196,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                /*} catch (JSONException e) {
-                    e.printStackTrace();*/
-                
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -229,25 +218,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            debug.setMovementMethod(new ScrollingMovementMethod());
+            log.setMovementMethod(new ScrollingMovementMethod());
 
-            result="Username-"+getUsername()+"\n"+"password-"+getPass();
+            result="You are registered as:\n"+getUsername()+"\n"+"*****************************************\n";
 
             if(user==0){
                 result="You are not logged in yet";
-               /* Intent create_log = new Intent(getBaseContext(), CreateLogActivity.class);
-                create_log.putExtra("username", UsernameApp);
-                startActivity(create_log);*/
                 cont.setVisibility(View.VISIBLE);
 
             }else{
                 new AskServerDev().execute(UsernameApp);
-                Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();
             }
 
-            debug.setText(result);
-            debug.setVisibility(View.VISIBLE);
-            Toast.makeText(getApplicationContext(), "Username and password file successfully updated!", Toast.LENGTH_LONG).show();
+            log.setText(result);
+            log.setVisibility(View.VISIBLE);
+          //  Toast.makeText(getApplicationContext(), "Username and password file successfully updated!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -257,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... arg0) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-            //TextView debug;
 
             try {
                 String username = arg0[0];
@@ -317,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
 
             String disp="Your devices are:\n";
 
@@ -327,9 +312,8 @@ public class MainActivity extends AppCompatActivity {
                 disp+=s+"\n";
             }
 
-            devv.setMovementMethod(new ScrollingMovementMethod());
-            devv.setText(disp);
-            devv.setVisibility(View.VISIBLE);
+            log.setMovementMethod(new ScrollingMovementMethod());
+            log.append(disp);
 
             disp = disp.replace("Your devices are:\n","");
 
@@ -337,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
                 FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
                 fileOutputStream.write(disp.getBytes());
                 fileOutputStream.close();
-                Toast.makeText(getApplicationContext(), "File written!", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "File written!", Toast.LENGTH_LONG).show();
             }catch(FileNotFoundException e){
                 e.printStackTrace();
             }catch(IOException e){

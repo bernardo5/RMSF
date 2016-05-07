@@ -32,7 +32,7 @@ public class CreateLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_log);
         UsernameApp=getIntent().getExtras().getString("username");
-        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Hi "+UsernameApp, Toast.LENGTH_LONG).show();
     }
 
     public void createLog(View view) {
@@ -103,7 +103,7 @@ public class CreateLogActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "Log created in server", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Log created", Toast.LENGTH_LONG).show();
         }
     }
 

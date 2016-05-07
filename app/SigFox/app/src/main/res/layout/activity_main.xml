@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/debug"
+        android:id="@+id/log"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"
         android:layout_below="@+id/button"
@@ -49,7 +49,7 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/continuee" />
 
-    <TextView
+    TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
@@ -62,11 +62,13 @@
         android:layout_below="@+id/continuee" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Continue"
         android:onClick="nextActivity"
         android:id="@+id/continuee"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="53dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

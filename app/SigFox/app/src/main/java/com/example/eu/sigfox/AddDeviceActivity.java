@@ -29,7 +29,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
         UsernameApp=getIntent().getExtras().getString("username");
-        Toast.makeText(getBaseContext(), "Welcome "+UsernameApp, Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Hi "+UsernameApp, Toast.LENGTH_LONG).show();
         messageTime=getIntent().getExtras().getString("messagetime");
     }
 
@@ -101,7 +101,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "Successfully added a new device in database!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Successfully added a new device!", Toast.LENGTH_LONG).show();
         }
     }
 }

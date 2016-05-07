@@ -116,11 +116,11 @@ boolean all=false;
 
         tvData = (TextView)findViewById(R.id.sensor_text);
         tvData.setVisibility(View.GONE);
-        Toast.makeText(getBaseContext(), "Initial message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), "Initial message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
+               // Toast.makeText(getBaseContext(), "Last message timestamp: "+messageTime, Toast.LENGTH_LONG).show();
                 if(all==false)
                     new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
                 else  new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
@@ -139,7 +139,7 @@ boolean all=false;
                 if (isChecked) {
                     t = new Timer();
                     timerTask = new MyTimerTask();
-                    t.schedule(timerTask, 1000, 5000);
+                    t.schedule(timerTask, 1000, 600000);
                 }else{
                     t.cancel();
                     t=null;
@@ -161,10 +161,8 @@ boolean all=false;
 
     }
 
-    public void checkLogin(View view) {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
+    public void deleteInfo(View view) {
+        tvData.setText(" ");
     }
 
     public void login(String userUsed) {
@@ -206,7 +204,7 @@ boolean all=false;
 
     public void logout(View view){
         Toast.makeText(LogsActivity.this,
-                "Logout successfully!", Toast.LENGTH_SHORT).show();
+                "Logout successfull!", Toast.LENGTH_SHORT).show();
         Intent new_log = new Intent(this, MainActivity.class);
         startActivity(new_log);
     }
@@ -216,12 +214,13 @@ boolean all=false;
         new_alarm.putExtra("username", UsernameApp);
         new_alarm.putExtra("messagetime", messageTime);
         startActivity(new_alarm);
-        finish();
+        //finish();
     }
 
     public void newdevice(View view){
         Intent new_device = new Intent(this, AddDeviceActivity.class);
         new_device.putExtra("username", UsernameApp);
+        new_device.putExtra("messagetime", messageTime);
         startActivity(new_device);
     }
     @TargetApi(16)
@@ -371,7 +370,7 @@ boolean all=false;
                     int x=0;
                     //condicao alarme
 
-                    Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
                     for(String s1:reads){
                         // "SNR - " + SNR + "\n"+"Message-"+
                         String aux = s1.substring(s1.indexOf("Message: ") + 8, s1.indexOf("ºC"));
@@ -435,7 +434,7 @@ boolean all=false;
                 @Override
                 public void run() {
                     Toast.makeText(LogsActivity.this,
-                            "thread update!", Toast.LENGTH_SHORT).show();
+                            "Update!", Toast.LENGTH_SHORT).show();
                     if(all==false)
                         new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);
                     else  new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages");
@@ -544,10 +543,10 @@ boolean all=false;
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
+           /* Toast.makeText(getBaseContext(), "processing", Toast.LENGTH_LONG).show();
 
 
-            Toast.makeText(getApplicationContext(), "Current alarms: "+result, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Current alarms: "+result, Toast.LENGTH_LONG).show();*/
 
 
 
@@ -600,7 +599,7 @@ boolean all=false;
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "Time updated in server", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), "Time updated in server", Toast.LENGTH_LONG).show();
         }
     }
 }
