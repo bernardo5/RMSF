@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogsActivity" />
+        <activity android:name=".MonitorActivity" />
         <activity android:name=".CreateLogActivity" />
         <activity android:name=".AddDeviceActivity" />
         <activity android:name=".NewAlarmActivity"></activity>

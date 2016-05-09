@@ -52,7 +52,7 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LogsActivity extends AppCompatActivity {
+public class MonitorActivity extends AppCompatActivity {
     private TextView tvData;
     private String user;
     private String pass;
@@ -203,7 +203,7 @@ boolean all=false;
     }
 
     public void logout(View view){
-        Toast.makeText(LogsActivity.this,
+        Toast.makeText(MonitorActivity.this,
                 "Logout successfull!", Toast.LENGTH_SHORT).show();
         Intent new_log = new Intent(this, MainActivity.class);
         startActivity(new_log);
@@ -384,10 +384,10 @@ boolean all=false;
                                                 .setContentTitle("Threshold overflow!")
                                                 .setContentText("Threshold violated: "+f+" with temperature "+aux);
 
-                                Intent resultIntent = new Intent(getBaseContext(), LogsActivity.class);
+                                Intent resultIntent = new Intent(getBaseContext(), MonitorActivity.class);
                                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
                                 // Adds the back stack for the Intent (but not the Intent itself)
-                                stackBuilder.addParentStack(LogsActivity.class);
+                                stackBuilder.addParentStack(MonitorActivity.class);
                                 // Adds the Intent that starts the Activity to the top of the stack
                                 stackBuilder.addNextIntent(resultIntent);
                                 mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
@@ -433,7 +433,7 @@ boolean all=false;
 
                 @Override
                 public void run() {
-                    Toast.makeText(LogsActivity.this,
+                    Toast.makeText(MonitorActivity.this,
                             "Update!", Toast.LENGTH_SHORT).show();
                     if(all==false)
                         new JSONTask().execute("https://backend.sigfox.com/api/devicetypes/" + Device + "/messages?since="+messageTime);

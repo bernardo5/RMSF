@@ -56,7 +56,7 @@ A aplicação \textit{Android}, com a qual o utilizador irá ter contacto direct
 \begin{itemize}
 \item \textit{MainActivity};
 \item \textit{CreateLogActivity};
-\item \textit{LogsActivity};
+\item \textit{MonitorActivity};
 \item \textit{NewAlarmActivity};
 \item \textit{AddDeviceActivity}.
 \end{itemize}
@@ -72,22 +72,28 @@ As relações entre as actividades descritas, encontram-se representadas na figu
   \label{fig:app_android_geral}
 \end{figure}
 
-A \textit{MainActivity} tem como objectivo perguntar ao utilizador o nome com o qual está registado na rede, realizando \textit{queries} à base de dados com as informações do utilzador. No caso de existir registo prévio, as informações são armazenadas num ficheiro que irá funcionar como \textit{cache} na aplicação e é lançada a \textit{LogsActivity}. Caso o utilizador na tenha registo, é lançada a \textit{CreateLogActivity} para registar o novo utilizador. 
+A \textit{MainActivity} tem como objectivo perguntar ao utilizador o nome com o qual está registado na rede, realizando \textit{queries} à base de dados com as informações do utilzador. No caso de existir registo prévio, as informações são armazenadas num ficheiro que irá funcionar como \textit{cache} na aplicação e é lançada a \textit{MonitorActivity}. Caso o utilizador na tenha registo, é lançada a \textit{CreateLogActivity} para registar o novo utilizador. 
 
-A actividade de registo de um utilizador (\textit{CreateLogActivity}), terá apenas três campos de inserção de texto: \textit{username, password} e \textit{devicetype-id}. Estes parâmetros são gravados no ficheiro de texto descrito anteriormente, bem como na base de dados central. De seguida, a aplicação irá lançar a \textit{LogsActivity}.
+A actividade de registo de um utilizador (\textit{CreateLogActivity}), terá cinco campos de inserção de texto: dois para a aplicação/base de dados(\textit{App Username, Password}) e três para o \textit{Backend SigFox}(\textit{SigFox Name, SigFox Password, Device-id}). Os parâmetros da aplicação, são guardados na base de dados e serão utilizados para diferenciar os utilizadores da aplicação, enquanto que os parâmetros do \textit{Backend} são gravados no ficheiro de texto descrito anteriormente, bem como na base de dados central. De seguida, a aplicação irá lançar a \textit{MonitorActivity}.
 
-A actividade de visualização da informação da \textit{Cloud} (\textit{Logs}), é constituída por duas \textit{threads} principais. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador e que é actividada por uma \textit{checkbox}. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. No caso de a \textit{checkbox} não estar activa, os pedidos podem ser efectuados apenas ao clicar no botão de pedido de informação. O esquema desta actividade está descrito na figura \autoref{fig:app_logs}.
+A actividade de visualização da informação da \textit{Cloud} (\textit{Monitor}), é constituída por duas \textit{threads} principais. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador e que é actividada por uma \textit{checkbox}. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. No caso de a \textit{checkbox "periodic"} não estar activa, os pedidos podem ser efectuados apenas ao clicar no botão de pedido de informação.
+
+Por defeito, as mensagens recebidas na aplicação serão apenas as medidas após a última leitura efectuada pelo utilizador. No entanto, o utilizador terá a opção de visualizar todas as mensagens armazenadas, seleccionando a \textit{checkbox "get all messages"}, abdicando no entanto da recepção dos alarmes. 
+
+Será ainda possível apagar o ecrã, carregando no botão do termómetro, situado no canto superior direito da actividade.
+
+ O \textit{layout} desta actividade encontra-se na \autoref{fig:app_logs}.
 
 Esta actividade tem ainda a opção de registar um novo dispositivo para monitorização, bem como adicionar um novo alarme de temperatura. No caso de um \textit{threshold} de temperatura, lido da base de dados no início da aplicação, ser ultrapassado, a \textit{thread} que realiza o \textit{parsing} da informação deverá lançar uma notificação ao utilizador.
 
-À semelhança da actividade \textit{CreateLogActivity}, as actividades \textit{AddDeviceActivity} e \textit{NewAlarmActivity} serão apenas compostas por campos de texto. Após o registo num ficheiro e na base de dados das informações recolhidas, estas actividades irão retornar no \textit{stack}, voltando à actividade anterior.
+As actividades \textit{AddDeviceActivity} e \textit{NewAlarmActivity} serão apenas compostas por campos de texto. Após o registo num ficheiro e na base de dados das informações recolhidas, estas actividades irão regressar à actividade principal.
 
 No caso de o utilizador pretender fazer \textit{logout}, é lançada a \textit{MainActivity}, por forma a que seja possível iniciar a sessão com outro \textit{username}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.40]{ShowLogs.png}
-  \caption{Arquitectura da actividade \textit{Logs}}
+  \includegraphics[scale=0.55]{ShowLogs.png}
+  \caption{\textit{Layout} da actividade \textit{Monitor}}
   \label{fig:app_logs}
 \end{figure}
 
@@ -115,7 +121,7 @@ Para a aplicação \textit{Android}:
 
 Para este efeito, utiliza-se a Classe \textit{FILE} presente em \textit{Android} para o armazenamento interno (\textit{cache}) e por cada pedido ao servidor, é necessária a abertura de \textit{threads} por forma a não bloquear a \textit{User Interface} (UI), recorrendo à classe \textit{AsyncTask};
 
-\item \textbf{Logs} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a UI principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, caso o utiizador queira realizar pedidos periódicos, esta \textit{thread} será aberta (recurrendo à classe \textit{Thread}). Caso contrário, será apenas necessário utilizar novamente a classe \textit{AsyncTask} para os pedidos, que apenas serão realzados mediante a pressão de um botão na aplicação.
+\item \textbf{Monitor} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a UI principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, caso o utiizador queira realizar pedidos periódicos, esta \textit{thread} será aberta (recurrendo à classe \textit{Thread}). Caso contrário, será apenas necessário utilizar novamente a classe \textit{AsyncTask} para os pedidos, que apenas serão realzados mediante a pressão de um botão na aplicação.
 
 Para efectuar os pedidos HTTPS, utiliza-se a classe \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
 
@@ -141,34 +147,39 @@ Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no 
   \label{fig:db-script}
 \end{figure}
 
-Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}, o tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
+Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}. O tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
 
 Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{delay()} presente em ambiente \textit{Arduino}.
 O sensor de temperatura usado foi o DHT11, sensor que pode medir tanto temperatura como humidade.
 
 \section{Verificações da solução encontrada}
 
-Do planeamento atrás referido, foi já adiantado parte do trabalho referente à programação da aplicação, nomeadamente as actividades \textit{Welcome Screen, New First User, Set Alarm e Add Device}. De seguida são apresentadas algumas capturas de ecrã destas actividades em versão \textit{beta}.
+A secção que se segue, pretende mostrar algumas sequências de comandos que demonstram o bom funcionamento da aplicação, explicando as acções tomadas em cada fase.
+
+\subsection{Registo do primeiro utilizador}
+
+A sequência seguinte demonstra o funcionamento do registo do primeiro utilizador:
+
 
 \begin{figure}[H]
 \minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{welcome.png}
-  \caption{Welcome Screen}\label{fig:welcome}
+  \includegraphics[width=\linewidth]{welcomee.png}
+  \caption{Abertura da App}\label{fig:welcome}
 \endminipage\hfill
 \minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{newUser.png}
-  \caption{Registo de um novo utilizador}\label{fig:newUser}
+  \includegraphics[width=\linewidth]{welcome.png}
+  \caption{Tentativa de \textit{login} (\textit{user} não existente)}\label{fig:newUser}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
   \includegraphics[width=\linewidth]{AddDevice.png}
-  \caption{Registo de um novo dispositivo}\label{fig:newdev}
+  \caption{\textit{Layout} de registo de um novo \textit{user}}\label{fig:newdev}
 \endminipage
 \end{figure}
 
 \begin{figure}[H]
 \minipage{0.29\textwidth}
   \includegraphics[width=\linewidth]{newalarm.png}
-  \caption{Registo de um novo alarme}\label{fig:newalarm}
+  \caption{Registo de um novo \textit{user}}\label{fig:newalarm}
 \endminipage\hfill
 \minipage{0.29\textwidth}
   \includegraphics[width=\linewidth]{logs.png}

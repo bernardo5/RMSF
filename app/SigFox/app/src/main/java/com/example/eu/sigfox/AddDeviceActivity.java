@@ -44,7 +44,7 @@ public class AddDeviceActivity extends AppCompatActivity {
             Toast.makeText(AddDeviceActivity.this,
                     "Successfully added a new device!", Toast.LENGTH_SHORT).show();
             new AddNewDevice().execute(UsernameApp, Device_id.getText().toString());
-            Intent logged = new Intent(this, LogsActivity.class);
+            Intent logged = new Intent(this, MonitorActivity.class);
             logged.putExtra("username", UsernameApp);
             logged.putExtra("messagetime", messageTime);
             startActivity(logged);

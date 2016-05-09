@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         loggedd=loggedd.replaceAll("\n", "");
 
         //user is logged in
-         Intent logged = new Intent(this, LogsActivity.class);
+         Intent logged = new Intent(this, MonitorActivity.class);
          logged.putExtra("username", UsernameApp);
          logged.putExtra("messagetime", getMessageTime());
          startActivity(logged);

@@ -4,8 +4,9 @@
 \contentsline {subsection}{\numberline {2.1}Aplica\IeC {\c c}\IeC {\~a}o \textit {Android}}{1}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Servidor \textit {SigFox}}{3}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Sensor Arduino}{3}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Web Server}{3}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.4}Web Server}{4}{subsection.2.4}
 \contentsline {section}{\numberline {3}Detalhes t\IeC {\'e}cnicos}{4}{section.3}
 \contentsline {section}{\numberline {4}Verifica\IeC {\c c}\IeC {\~o}es da solu\IeC {\c c}\IeC {\~a}o encontrada}{5}{section.4}
+\contentsline {subsection}{\numberline {4.1}Registo do primeiro utilizador}{6}{subsection.4.1}
 \contentsline {section}{\numberline {5}Altera\IeC {\c c}\IeC {\~o}es face ao planeamento inicial}{7}{section.5}
 \contentsline {section}{\numberline {6}Pontos cr\IeC {\'\i }ticos}{7}{section.6}

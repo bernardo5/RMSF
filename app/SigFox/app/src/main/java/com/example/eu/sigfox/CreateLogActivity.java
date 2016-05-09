@@ -57,7 +57,7 @@ public class CreateLogActivity extends AppCompatActivity {
         }catch(IOException e){
             e.printStackTrace();
         }
-        Intent logged = new Intent(this, LogsActivity.class);
+        Intent logged = new Intent(this, MonitorActivity.class);
         logged.putExtra("username", UsernameApp);
         logged.putExtra("messagetime", "0");
         startActivity(logged);

@@ -61,7 +61,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     public void createAlarm(View view){
         EditText alarm_threshold = (EditText) findViewById(R.id.temperatureThreshold);
         new CreateLogDB().execute(UsernameApp,alarm_threshold.getText().toString());
-        Intent logged = new Intent(this, LogsActivity.class);
+        Intent logged = new Intent(this, MonitorActivity.class);
         logged.putExtra("username", UsernameApp);
         logged.putExtra("messagetime", messageTime);
         startActivity(logged);
