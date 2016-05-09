@@ -25,12 +25,16 @@
 			
 			
 			$user=htmlentities($_GET['user'], ENT_QUOTES);
+			//$hash = password_hash($_GET['filePass'] PASSWORD_DEFAULT);
+			$hash = htmlentities($_GET['filePass'], ENT_QUOTES);
+			
 			$username = htmlentities($_GET['username'], ENT_QUOTES);
 			$pass = htmlentities($_GET['pass'], ENT_QUOTES);
 			$device = htmlentities($_GET['device'], ENT_QUOTES);
 			
-			$result = $connection->prepare("insert into users values(:user, :username, :pass, '0');");
+			$result = $connection->prepare("insert into users values(:user, :hash, :username, :pass, '0');");
 			$result->bindParam(':user', $user);
+			$result->bindParam(':hash', password_hash($hash, PASSWORD_DEFAULT));
 			$result->bindParam(':username', $username);
 			$result->bindParam(':pass', $pass);
 			$result->execute();

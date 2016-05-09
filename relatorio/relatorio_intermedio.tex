@@ -12,6 +12,7 @@
 \usepackage[hypcap]{caption} % makes \ref point to top of figures and tables
 
 \begin{document}
+\hyphenation{base-Admin-Configuration}
 
 \input{./rosto.tex}
 \hypersetup{%
@@ -143,6 +144,7 @@ Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no 
 Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}, o tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
 
 Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{delay()} presente em ambiente \textit{Arduino}.
+O sensor de temperatura usado foi o DHT11, sensor que pode medir tanto temperatura como humidade.
 
 \section{Verificações da solução encontrada}
 
@@ -216,7 +218,7 @@ Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo inic
 \bibitem{get_}
   [URLCONNECTION16] \begin{sloppypar}\texttt{http://developer.android.com/reference/java/net/URLConnection.html}, Março 2016 \end{sloppypar}
   
-\bibitem{jason}
+\bibitem{json}
   [JSON16] \texttt{http://developer.android.com/reference/android/util/JsonReader.html}, Março 2016
   
 \bibitem{notifications}
@@ -224,6 +226,10 @@ Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo inic
   
 \bibitem{Akeru}
   [AKERU16] \texttt{https://github.com/Snootlab/Akeru}, Fevereiro 2016
+  
+\bibitem{DHT11} 
+  [DHT1110] \texttt{http://www.micropik.com/PDF/dht11.pdf}, Julho 2010
+  [DHT1115] \begin{sloppypar} \texttt{https://github.com/nicolsc/connected-temperature-sensor/blob/master/connected-temperature-sensor.ino}, Fevereiro 2015  \end{sloppypar}
 
 
 \end{thebibliography}

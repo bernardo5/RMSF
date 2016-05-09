@@ -25,22 +25,35 @@
 				exit();
 			}
 			$username = htmlentities($_GET['username'], ENT_QUOTES);
-			$result = $connection->prepare("select userName, password, lastMessageTime from users where fileName = :username;");
-			$result->bindParam(':username', $username);
-			$result->execute();
-			QueryCheck($result);
-
-			$nrows= $result->rowCount();
-
-			if($nrows!=0){//user is registered
-				foreach($result as $row)
-					{
+			$password = htmlentities($_GET['password'], ENT_QUOTES);
+			
+			$getpass = $connection->prepare("select filePass from users where fileName = :username;");
+			$getpass->bindParam(':username', $username);
+			$getpass->execute();
+			QueryCheck($getpass);
+			
+			foreach($getpass as $hash_row){
+				$hash = $hash_row['filePass'];	
+			}
+			
+			if(password_verify($password, $hash)){
+				$result = $connection->prepare("select userName, password, lastMessageTime from users where fileName = :username;");
+				$result->bindParam(':username', $username);
+				$result->execute();
+				QueryCheck($result);
+				$nrows= $result->rowCount();
+				if($nrows!=0){//user is registered
+					foreach($result as $row){
 						$response['user']=1;
 						$response['username']=$row['userName'];
 						$response['password']=$row['password'];
 						$response['lastMessageTime']=$row['lastMessageTime'];
 						echo json_encode($response);
 					}
+				}else{
+					$response['user']=0;
+					echo json_encode($response);
+				}
 			}else{
 				$response['user']=0;
 				echo json_encode($response);
