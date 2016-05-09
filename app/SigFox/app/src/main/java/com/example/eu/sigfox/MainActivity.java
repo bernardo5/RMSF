@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String UsernameApp;
     Button cont;
     Button sub;
+    Button sign;
     private String messageTime;
 
     private String usernameee=new String();
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         log.setVisibility(View.GONE);
 
         cont = (Button) findViewById(R.id.continuee);
+        sign=(Button) findViewById(R.id.signup);
         cont.setVisibility(View.GONE);
     }
 
@@ -88,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void submit(View view) {
             sub = (Button) findViewById(R.id.button);
-            sub.setVisibility(View.GONE);
+
             EditText appUsername = (EditText) findViewById(R.id.appUsername);
+            EditText userpass = (EditText) findViewById(R.id.userpassapp);
             UsernameApp=appUsername.getText().toString();
+            String pass=userpass.getText().toString();
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
                 //check database
-                new AskServerUserPass().execute(UsernameApp);
+                new AskServerUserPass().execute(UsernameApp, pass);
 
               //  Toast.makeText(getBaseContext(), "Database read successfully", Toast.LENGTH_LONG).show();
 
@@ -112,18 +116,20 @@ public class MainActivity extends AppCompatActivity {
     public void nextActivity(View view){
         String loggedd = log.getText().toString();
         loggedd=loggedd.replaceAll("\n", "");
-        if(loggedd.equals("You are not logged in yet")){/*needs to create log*/
-            //user has to create a log
-            Intent create_log = new Intent(this, CreateLogActivity.class);
-            create_log.putExtra("username", UsernameApp);
-            startActivity(create_log);
-        }else{
-            //user is logged in
-            Intent logged = new Intent(this, LogsActivity.class);
-            logged.putExtra("username", UsernameApp);
-            logged.putExtra("messagetime", getMessageTime());
-            startActivity(logged);
-        }
+
+        //user is logged in
+         Intent logged = new Intent(this, LogsActivity.class);
+         logged.putExtra("username", UsernameApp);
+         logged.putExtra("messagetime", getMessageTime());
+         startActivity(logged);
+
+    }
+
+    public void create_log(View view){
+        //user has to create a log
+        Intent create_log = new Intent(this, CreateLogActivity.class);
+        //create_log.putExtra("username", UsernameApp);
+        startActivity(create_log);
     }
 
 
@@ -137,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     String username = arg0[0];
-                    String link ="http://web.tecnico.ulisboa.pt/ist175462/userPass.php?username="+username;
+                    String p=arg0[1];
+                    String link ="http://web.tecnico.ulisboa.pt/ist175462/userPass.php?username="+username+"&password="+p;
                     URL url = new URL(link);
 
                     HttpClient client = new DefaultHttpClient();
@@ -224,16 +231,16 @@ public class MainActivity extends AppCompatActivity {
 
             if(user==0){
                 result="You are not logged in yet";
-                cont.setVisibility(View.VISIBLE);
-
+                //sign.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "You are not logged in yet. Please try again or sign up!", Toast.LENGTH_LONG).show();
             }else{
                 new AskServerDev().execute(UsernameApp);
-               // Toast.makeText(getApplicationContext(), " devices!", Toast.LENGTH_LONG).show();
+                sub.setVisibility(View.GONE);
+                sign.setVisibility(View.GONE);
             }
 
             log.setText(result);
             log.setVisibility(View.VISIBLE);
-          //  Toast.makeText(getApplicationContext(), "Username and password file successfully updated!", Toast.LENGTH_LONG).show();
         }
     }
 

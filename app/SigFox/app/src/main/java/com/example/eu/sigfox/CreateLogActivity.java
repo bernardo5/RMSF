@@ -31,22 +31,25 @@ public class CreateLogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_log);
-        UsernameApp=getIntent().getExtras().getString("username");
-        Toast.makeText(getBaseContext(), "Hi "+UsernameApp, Toast.LENGTH_LONG).show();
+        //UsernameApp=getIntent().getExtras().getString("username");
+        //Toast.makeText(getBaseContext(), "Hi "+UsernameApp, Toast.LENGTH_LONG).show();
     }
 
     public void createLog(View view) {
         EditText Name = (EditText) findViewById(R.id.Name);
         EditText Pass = (EditText) findViewById(R.id.password);
         EditText Device_id = (EditText) findViewById(R.id.device_id);
-
+        EditText AppUser = (EditText) findViewById(R.id.editText);
+        EditText AppPass = (EditText) findViewById(R.id.editText2);
+        UsernameApp=AppUser.getText().toString();
+        String password=AppPass.getText().toString();
         try {/************AQUIIIIII*/
             String message=Name.getText().toString()+"\n"+ Pass.getText().toString()+"\n"+Device_id.getText().toString()+"\n";
             FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_PRIVATE); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();
-            new CreateLogDB().execute(UsernameApp, Name.getText().toString(), Pass.getText().toString(), Device_id.getText().toString());
+            new CreateLogDB().execute(UsernameApp, Name.getText().toString(), Pass.getText().toString(), Device_id.getText().toString(), password);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
@@ -68,7 +71,7 @@ public class CreateLogActivity extends AppCompatActivity {
 
             try {
                 String username = arg0[0];
-                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertUser.php?user="+arg0[0]+"&username="+arg0[1]+"&pass="+arg0[2]+"&device="+arg0[3];
+                String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertUser.php?user="+arg0[0]+"&username="+arg0[1]+"&pass="+arg0[2]+"&device="+arg0[3]+"&filePass="+arg0[4];
                 URL url1 = new URL(link1);
 
                 HttpClient client1 = new DefaultHttpClient();
