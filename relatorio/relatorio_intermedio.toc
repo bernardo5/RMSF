@@ -8,5 +8,4 @@
 \contentsline {section}{\numberline {3}Detalhes t\IeC {\'e}cnicos}{4}{section.3}
 \contentsline {section}{\numberline {4}Verifica\IeC {\c c}\IeC {\~o}es da solu\IeC {\c c}\IeC {\~a}o encontrada}{5}{section.4}
 \contentsline {subsection}{\numberline {4.1}Registo do primeiro utilizador}{6}{subsection.4.1}
-\contentsline {section}{\numberline {5}Altera\IeC {\c c}\IeC {\~o}es face ao planeamento inicial}{7}{section.5}
-\contentsline {section}{\numberline {6}Pontos cr\IeC {\'\i }ticos}{7}{section.6}
+\contentsline {subsection}{\numberline {4.2}Database}{8}{subsection.4.2}

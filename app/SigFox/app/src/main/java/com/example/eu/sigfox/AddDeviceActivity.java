@@ -37,13 +37,13 @@ public class AddDeviceActivity extends AppCompatActivity {
         EditText Device_id = (EditText) findViewById(R.id.newDeviceid);
 
         try {
-            String message = Device_id.getText().toString() + "\n";
+            String message = Device_id.getText().toString().replaceAll(" ", "") + "\n";
             FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_APPEND); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(AddDeviceActivity.this,
                     "Successfully added a new device!", Toast.LENGTH_SHORT).show();
-            new AddNewDevice().execute(UsernameApp, Device_id.getText().toString());
+            new AddNewDevice().execute(UsernameApp, Device_id.getText().toString().replaceAll(" ", ""));
             Intent logged = new Intent(this, MonitorActivity.class);
             logged.putExtra("username", UsernameApp);
             logged.putExtra("messagetime", messageTime);

@@ -182,38 +182,89 @@ A sequência seguinte demonstra o funcionamento do registo do primeiro utilizado
   \caption{Registo de um novo \textit{user}}\label{fig:newalarm}
 \endminipage\hfill
 \minipage{0.29\textwidth}
-  \includegraphics[width=\linewidth]{logs.png}
-  \caption{Actividade \textit{Logs}}\label{fig:logs}
+  \includegraphics[width=\linewidth]{login.png}
+  \caption{Actividade \textit{Monitor}}\label{fig:logs}
 \endminipage\hfill
 \minipage{0.29\textwidth}%
-  \includegraphics[width=\linewidth]{login.png}
-  \caption{Actividade \textit{Logs} com \textit{login}}\label{fig:login}
+  \includegraphics[width=\linewidth]{drop.png}
+  \caption{Diferentes dispositivos}\label{fig:login}
 \endminipage
 \end{figure}
 
-Relativamente à obtenção das leituras do sensor de arduíno a partir da \textit{Cloud Sigfox}, foi realizado um programa à parte por forma a testar apenas esta funcionalidade, tal como representado nas figuras abaixo. O programa, além de recolher os dados, realiza o \textit{parse} do \textit{JSON}.
+Tal como verificado na figura \ref{fig:login} quando é adicionado um novo \textit{device}, é possível seleccionar o dispositivo pretendido através de uma \textit{drop-down list}. O processo de adicionar um novo dispositivo é o descrito na seguinte sequência:
 
 \begin{figure}[H]
-\minipage{0.40\textwidth}
-  \includegraphics[width=\linewidth]{get.jpg}
-  \caption{Botão para obtenção da informação da \textit{Cloud}}\label{fig:get}
+\minipage{0.29\textwidth}
+  \includegraphics[width=\linewidth]{addDev.png}
+  \caption{Registo de um novo \textit{device}}\label{fig:addDev}
 \endminipage\hfill
-\minipage{0.40\textwidth}
-  \includegraphics[width=\linewidth]{json.jpg}
-  \caption{Recolha da informação com \textit{parse}}\label{fig:json}
+\minipage{0.29\textwidth}
+  \includegraphics[width=\linewidth]{dropdown.png}
+  \caption{Dispositivo adicionado}\label{fig:dropdown}
+\endminipage\hfill
+\minipage{0.29\textwidth}%
+  \includegraphics[width=\linewidth]{addAlarm.png}
+  \caption{Adição de um novo \textit{threshold}}\label{fig:addAlarm}
+\endminipage
+\end{figure}
+
+Na figura \ref{fig:addAlarm} é representada a actividade onde se adicionam novos \textit{thresholds} de temperatura. No caso de não existirem alarmes a mensagem de \textit{Current alarms} aparece vazia. No caso da figura, um alarme para vinte e quatro graus já estava definido. Ao pedir os valores armazenados na \textit{cloud}, são indicados os valores ainda não lidos e são feitas notificações para os valores que ultrapassam os \textit{thresholds}.
+
+\begin{figure}[H]
+\minipage{0.39\textwidth}
+  \includegraphics[width=\linewidth]{alarmss.png}
+  \caption{Registo de um novo \textit{device}}\label{fig:a}
+\endminipage\hfill
+\minipage{0.39\textwidth}
+  \includegraphics[width=\linewidth]{logss.png}
+  \caption{Dispositivo adicionado}\label{fig:b}
 \endminipage\hfill
 \end{figure}
 
-Será agora necessária a interligação dos dois programas e a activação das notificações, por forma a que a aplicação fique terminada.
+Ao realizar o \textit{logout}, a aplicação voltará à actividade inicial, pelo que se se colocar o \textit{username} e \textit{password} anteriores será um processo equivalente a ligar a aplicação pela segunda vez. Assim:
 
-Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo iniciada a implementação quando a aplicação estiver concluída.
+\begin{figure}[H]
+\minipage{0.39\textwidth}
+  \includegraphics[width=\linewidth]{login2.png}
+  \caption{\textit{Login} pela n-ésima vez}\label{fig:2}
+\endminipage\hfill
+\minipage{0.39\textwidth}
+  \includegraphics[width=\linewidth]{show.png}
+  \caption{Informações actuais}\label{fig:15}
+\endminipage\hfill
+\end{figure}
 
-\section{Alterações face ao planeamento inicial}
 
+\subsection{Database}
 
+Ao realizar as acções anteriores, a base de dados irá ser atualizada em conformidade, por intermédio dos \textit{requests} da aplicação ao servidor \textit{web}. Desta forma, a \textit{database} que numa fase inicial tinha as tabelas vazias (\textit{empty set}), sofrerá as seguintes alterações:
 
-\section{Pontos críticos}
+\begin{itemize}
+\item Ao realizar a acção da figura \ref{fig:newalarm}, a tabela \textit{users} terá as seguintes entradas:
 
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{logfirst.png}
+  \caption{Entrada correspondente ao registo de um utilizador}\label{fig:db-first}
+\end{figure}
+
+\item Ao adicionar um alarme (acção da figura \ref{fig:addAlarm}), irá ser alterada a tabela \textit{usersAlarms}, como se pode observar de seguida.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{newalarmm.png}
+  \caption{Registo de um novo \textit{threshold} de alarme}\label{fig:newalarmm}
+\end{figure}
+
+\item Ao fazer um pedido de informação do sensor, é alterado o tempo correspondente à última leitura, de forma a que não sejam novamente enviadas sem o consenso do utilizador (opção \textit{get all messages}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{newtime.png}
+  \caption{Alteração do valor de \textit{lastMessageTime}}\label{fig:newtime}
+\end{figure}
+\end{itemize}
+
+%inserir os prints
 
 \begin{thebibliography}{9}
 
@@ -240,6 +291,7 @@ Relativamente ao sensor, foi apenas realizado o trabalho de pesquisa, sendo inic
   
 \bibitem{DHT11} 
   [DHT1110] \texttt{http://www.micropik.com/PDF/dht11.pdf}, Julho 2010
+ \bibitem{DHT12} 
   [DHT1115] \begin{sloppypar} \texttt{https://github.com/nicolsc/connected-temperature-sensor/blob/master/connected-temperature-sensor.ino}, Fevereiro 2015  \end{sloppypar}
 
 

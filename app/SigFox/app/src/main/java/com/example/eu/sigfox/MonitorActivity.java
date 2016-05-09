@@ -358,6 +358,7 @@ boolean all=false;
                     try {
                         while ((line = bufferedReader.readLine()) != null) {
                             line = line.replace("\n", "").replace("\r", "");
+                            line=line.replaceAll("ºC", "");
                             Float number=Float.parseFloat(line);
                             alarms.add(number);
                         }
@@ -371,38 +372,40 @@ boolean all=false;
                     //condicao alarme
 
                    // Toast.makeText(getBaseContext(), "if", Toast.LENGTH_LONG).show();
-                    for(String s1:reads){
+                    for(String s1:reads) {
                         // "SNR - " + SNR + "\n"+"Message-"+
-                        String aux = s1.substring(s1.indexOf("Message: ") + 8, s1.indexOf("ºC"));
-                        aux = aux.replace("\n", "").replace("\r", "");
-                        for(float f:alarms){
-                            x++;
-                            if(Float.parseFloat(aux)>=f) {
-                                NotificationCompat.Builder mBuilder =
-                                        (NotificationCompat.Builder) new NotificationCompat.Builder(getBaseContext())
-                                                .setSmallIcon(R.drawable.ic_alert)
-                                                .setContentTitle("Threshold overflow!")
-                                                .setContentText("Threshold violated: "+f+" with temperature "+aux);
+                        if (s1.indexOf("ºC") > 0){
+                            String aux = s1.substring(s1.indexOf("Message: ") + 8, s1.indexOf("ºC"));
+                            aux = aux.replace("\n", "").replace("\r", "");
+                            for (float f : alarms) {
+                                x++;
+                                if (Float.parseFloat(aux) >= f) {
+                                    NotificationCompat.Builder mBuilder =
+                                            (NotificationCompat.Builder) new NotificationCompat.Builder(getBaseContext())
+                                                    .setSmallIcon(R.drawable.ic_alert)
+                                                    .setContentTitle("Threshold overflow!")
+                                                    .setContentText("Threshold violated: " + f + " with temperature " + aux);
 
-                                Intent resultIntent = new Intent(getBaseContext(), MonitorActivity.class);
-                                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
-                                // Adds the back stack for the Intent (but not the Intent itself)
-                                stackBuilder.addParentStack(MonitorActivity.class);
-                                // Adds the Intent that starts the Activity to the top of the stack
-                                stackBuilder.addNextIntent(resultIntent);
-                                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                                NotificationManager mNotificationManager =
-                                        (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                                //Id allows you to update the notification later on.
-                                mNotificationManager.notify(100+x, mBuilder.build());
-                                try {
-                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                                    r.play();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                    Intent resultIntent = new Intent(getBaseContext(), MonitorActivity.class);
+                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                                    // Adds the back stack for the Intent (but not the Intent itself)
+                                    stackBuilder.addParentStack(MonitorActivity.class);
+                                    // Adds the Intent that starts the Activity to the top of the stack
+                                    stackBuilder.addNextIntent(resultIntent);
+                                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                                    NotificationManager mNotificationManager =
+                                            (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                                    //Id allows you to update the notification later on.
+                                    mNotificationManager.notify(100 + x, mBuilder.build());
+                                    try {
+                                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                        r.play();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
                                 }
-
                             }
                         }
                     }
