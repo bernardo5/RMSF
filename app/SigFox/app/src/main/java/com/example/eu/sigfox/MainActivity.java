@@ -94,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
             EditText appUsername = (EditText) findViewById(R.id.appUsername);
             EditText userpass = (EditText) findViewById(R.id.userpassapp);
             UsernameApp=appUsername.getText().toString();
+            UsernameApp=UsernameApp.replaceAll(" ","");
             String pass=userpass.getText().toString();
+            pass=pass.replaceAll(" ","");
 
             File file = new File(getFilesDir(), UsernameApp+".txt");
             if(file.exists()){

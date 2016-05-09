@@ -42,14 +42,16 @@ public class CreateLogActivity extends AppCompatActivity {
         EditText AppUser = (EditText) findViewById(R.id.editText);
         EditText AppPass = (EditText) findViewById(R.id.editText2);
         UsernameApp=AppUser.getText().toString();
+        UsernameApp=UsernameApp.replaceAll(" ","");
         String password=AppPass.getText().toString();
+        password=password.replaceAll(" ","");
         try {/************AQUIIIIII*/
-            String message=Name.getText().toString()+"\n"+ Pass.getText().toString()+"\n"+Device_id.getText().toString()+"\n";
+            String message=Name.getText().toString().replaceAll(" ","")+"\n"+ Pass.getText().toString().replaceAll(" ","")+"\n"+Device_id.getText().toString().replaceAll(" ","")+"\n";
             FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_PRIVATE); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
             Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();
-            new CreateLogDB().execute(UsernameApp, Name.getText().toString(), Pass.getText().toString(), Device_id.getText().toString(), password);
+            new CreateLogDB().execute(UsernameApp, Name.getText().toString().replaceAll(" ",""), Pass.getText().toString().replaceAll(" ",""), Device_id.getText().toString().replaceAll(" ",""), password);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
