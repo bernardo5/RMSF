@@ -50,17 +50,13 @@ public class CreateLogActivity extends AppCompatActivity {
             FileOutputStream fileOutputStream = openFileOutput(UsernameApp+".txt", MODE_PRIVATE); //no other app can open file
             fileOutputStream.write(message.getBytes());
             fileOutputStream.close();
-            Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), "Log successfully created", Toast.LENGTH_LONG).show();
             new CreateLogDB().execute(UsernameApp, Name.getText().toString().replaceAll(" ",""), Pass.getText().toString().replaceAll(" ",""), Device_id.getText().toString().replaceAll(" ",""), password);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
             e.printStackTrace();
         }
-        Intent logged = new Intent(this, MonitorActivity.class);
-        logged.putExtra("username", UsernameApp);
-        logged.putExtra("messagetime", "0");
-        startActivity(logged);
     }
 
     public class CreateLogDB extends AsyncTask<String, String, String> {
@@ -81,9 +77,22 @@ public class CreateLogActivity extends AppCompatActivity {
 
                 HttpResponse httpResponse1 = client1.execute(request1);
 
+                InputStream inputStream1 = httpResponse1.getEntity().getContent();
+                InputStreamReader inputStreamReader1 = new InputStreamReader(inputStream1);
+                BufferedReader bufferedReader1 = new BufferedReader(inputStreamReader1);
+
+                StringBuilder stringBuilder1 = new StringBuilder();
+
+                String bufferedStrChunk1 = null;
+
+                while((bufferedStrChunk1 = bufferedReader1.readLine()) != null){
+                    stringBuilder1.append(bufferedStrChunk1);
+                }
 
 
-                return "ok";
+                String r = stringBuilder1.toString().substring(stringBuilder1.toString().indexOf("[")+1, stringBuilder1.toString().indexOf("]"));
+
+                return r;
 
 
             } catch (MalformedURLException e) {
@@ -108,7 +117,15 @@ public class CreateLogActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            Toast.makeText(getBaseContext(), "Log created", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
+            int userTaken=Integer.parseInt(result);
+            if(userTaken==1){
+                Toast.makeText(getBaseContext(), "Log created", Toast.LENGTH_LONG).show();
+                Intent logged = new Intent(getBaseContext(), MonitorActivity.class);
+                logged.putExtra("username", UsernameApp);
+                logged.putExtra("messagetime", "0");
+                startActivity(logged);
+            }else Toast.makeText(getBaseContext(), "User already taken :( try again", Toast.LENGTH_LONG).show();
         }
     }
 

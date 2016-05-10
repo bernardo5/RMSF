@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.18)  9 MAY 2016 19:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.18)  10 MAY 2016 17:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -782,16 +782,12 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 300.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 300.
 Package rerunfilecheck Info: File `relatorio_intermedio.out' has not changed.
 (rerunfilecheck)             Checksum: 6B04C0868410F64FE6C31BC60432D1D4;634.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 300.
  ) 
 Here is how much of TeX's memory you used:
  7184 strings out of 493304
  107367 string characters out of 6139871
- 194453 words of memory out of 5000000
+ 194528 words of memory out of 5000000
  10501 multiletter control sequences out of 15000+600000
  11983 words of font info for 26 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
@@ -806,7 +802,7 @@ ype1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on relatorio_intermedio.pdf (11 pages, 711565 bytes).
+Output written on relatorio_intermedio.pdf (11 pages, 711365 bytes).
 PDF statistics:
  219 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams

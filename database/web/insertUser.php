@@ -32,19 +32,31 @@
 			$pass = htmlentities($_GET['pass'], ENT_QUOTES);
 			$device = htmlentities($_GET['device'], ENT_QUOTES);
 			
-			$result = $connection->prepare("insert into users values(:user, :hash, :username, :pass, '0');");
-			$result->bindParam(':user', $user);
-			$result->bindParam(':hash', password_hash($hash, PASSWORD_DEFAULT));
-			$result->bindParam(':username', $username);
-			$result->bindParam(':pass', $pass);
-			$result->execute();
-			QueryCheck($result);
 			
-			$result = $connection->prepare("insert into usersDevices values(:user, :device);");
+			$result = $connection->prepare("Select filename from users where filename=:user");
 			$result->bindParam(':user', $user);
-			$result->bindParam(':device', $device);
 			$result->execute();
-			QueryCheck($result);
+			
+			if($result->rowcount()==0){			
+				$result = $connection->prepare("insert into users values(:user, :hash, :username, :pass, '0');");
+				$result->bindParam(':user', $user);
+				$result->bindParam(':hash', password_hash($hash, PASSWORD_DEFAULT));
+				$result->bindParam(':username', $username);
+				$result->bindParam(':pass', $pass);
+				$result->execute();
+				QueryCheck($result);
+				
+				$result = $connection->prepare("insert into usersDevices values(:user, :device);");
+				$result->bindParam(':user', $user);
+				$result->bindParam(':device', $device);
+				$result->execute();
+				QueryCheck($result);
+				
+				$response[0]=1;
+			}else{
+				$response[0]=0;
+			}
+			echo json_encode($response);
 
 			$connection=null;
 
