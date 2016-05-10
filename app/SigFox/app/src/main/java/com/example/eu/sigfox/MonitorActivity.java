@@ -456,7 +456,7 @@ boolean all=false;
             //TextView debug;
 
             try {
-                String username = arg0[0];
+                String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
                 String link1 = "http://web.tecnico.ulisboa.pt/ist175462/userAlarms.php?username=" + username;
                 URL url1 = new URL(link1);
 
@@ -566,7 +566,7 @@ boolean all=false;
             //TextView debug;
 
             try {
-                String username = arg0[0];
+                String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
                 String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertLastTime.php?user="+arg0[0]+"&time="+arg0[1];
                 URL url1 = new URL(link1);
 

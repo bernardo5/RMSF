@@ -65,7 +65,7 @@ public class AddDeviceActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = arg0[0];
+                String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
                 String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertDevice.php?user="+arg0[0]+"&device="+arg0[1];
                 URL url1 = new URL(link1);
 

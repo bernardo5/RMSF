@@ -72,7 +72,7 @@ public class CreateLogActivity extends AppCompatActivity {
             //TextView debug;
 
             try {
-                String username = arg0[0];
+                String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
                 String link1 ="http://web.tecnico.ulisboa.pt/ist175462/insertUser.php?user="+arg0[0]+"&username="+arg0[1]+"&pass="+arg0[2]+"&device="+arg0[3]+"&filePass="+arg0[4];
                 URL url1 = new URL(link1);
 

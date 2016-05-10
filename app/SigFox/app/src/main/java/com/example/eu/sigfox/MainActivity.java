@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
             //TextView debug;
 
                 try {
-                    String username = arg0[0];
-                    String p=arg0[1];
+                    String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
+                    String p=arg0[1].replaceAll("[^a-zA-Z0-9]+", "");
                     String link ="http://web.tecnico.ulisboa.pt/ist175462/userPass.php?username="+username+"&password="+p;
                     URL url = new URL(link);
 
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                String username = arg0[0];
+                String username = arg0[0].replaceAll("[^a-zA-Z0-9]+", "");
                 String link1 ="http://web.tecnico.ulisboa.pt/ist175462/userDev.php?username="+username;
                 URL url1 = new URL(link1);
 
