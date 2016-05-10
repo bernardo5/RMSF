@@ -37,7 +37,7 @@
 			$result->bindParam(':user', $user);
 			$result->execute();
 			
-			if($result->rowcount()==0){			
+			if(($result->rowcount())==0){			
 				$result = $connection->prepare("insert into users values(:user, :hash, :username, :pass, '0');");
 				$result->bindParam(':user', $user);
 				$result->bindParam(':hash', password_hash($hash, PASSWORD_DEFAULT));
