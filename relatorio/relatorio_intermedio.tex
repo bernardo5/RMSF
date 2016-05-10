@@ -72,9 +72,9 @@ As relações entre as actividades descritas, encontram-se representadas na figu
   \label{fig:app_android_geral}
 \end{figure}
 
-A \textit{MainActivity} tem como objectivo perguntar ao utilizador o nome com o qual está registado na rede, realizando \textit{queries} à base de dados com as informações do utilzador. No caso de existir registo prévio, as informações são armazenadas num ficheiro que irá funcionar como \textit{cache} na aplicação e é lançada a \textit{MonitorActivity}. Caso o utilizador na tenha registo, é lançada a \textit{CreateLogActivity} para registar o novo utilizador. 
+A \textit{MainActivity} tem como objectivo perguntar ao utilizador o nome com o qual está registado na rede, realizando \textit{queries} à base de dados com as informações do utilzador. No caso de existir registo prévio, as informações são armazenadas num ficheiro que irá funcionar como \textit{cache} na aplicação e é lançada a \textit{MonitorActivity}. Caso o utilizador não tenha registo, é lançada a \textit{CreateLogActivity} para registar o novo utilizador. 
 
-A actividade de registo de um utilizador (\textit{CreateLogActivity}), terá cinco campos de inserção de texto: dois para a aplicação/base de dados(\textit{App Username, Password}) e três para o \textit{Backend SigFox}(\textit{SigFox Name, SigFox Password, Device-id}). Os parâmetros da aplicação, são guardados na base de dados e serão utilizados para diferenciar os utilizadores da aplicação, enquanto que os parâmetros do \textit{Backend} são gravados no ficheiro de texto descrito anteriormente, bem como na base de dados central. De seguida, a aplicação irá lançar a \textit{MonitorActivity}.
+A actividade de registo de um utilizador (\textit{CreateLogActivity}), terá cinco campos de inserção de texto: dois para a aplicação/base de dados(\textit{App Username, Password}) e três para o \textit{Backend SigFox}(\textit{SigFox Name, SigFox Password, Device-id}). Os parâmetros da aplicação, são guardados na base de dados e serão utilizados para diferenciar os utilizadores da aplicação, enquanto que os parâmetros do \textit{Backend} são gravados no ficheiro de texto descrito anteriormente, bem como na base de dados central. Caso haja o registo de um utilizador já existente, é lançada uma mensagem de erro, permitindo no entanto que o utilizador modifique o registo por forma a não existir colisões de utilizadores. De seguida, a aplicação irá lançar a \textit{MonitorActivity}.
 
 A actividade de visualização da informação da \textit{Cloud} (\textit{Monitor}), é constituída por duas \textit{threads} principais. A primeira consiste na obtenção das mensagens do dispositivo por pedidos HTTPS (GET) periódicos, de acordo com a informação de registo do utilizador e que é actividada por uma \textit{checkbox}. Posteriormente a resposta será enviada para a \textit{thread} principal (da API) que a disponibiliza ao utilizador. No caso de a \textit{checkbox "periodic"} não estar activa, os pedidos podem ser efectuados apenas ao clicar no botão de pedido de informação.
 
@@ -96,7 +96,7 @@ No caso de o utilizador pretender fazer \textit{logout}, é lançada a \textit{M
   \caption{\textit{Layout} da actividade \textit{Monitor}}
   \label{fig:app_logs}
 \end{figure}
-
+\pagebreak
 \subsection{Servidor \textit{SigFox}}
 
 O papel deste servidor é o armazenamento da informação medida pelo sensor e a recepção de pedidos por parte da aplicação \textit{Android}. Consoante o tipo de pedido, irá realizar uma resposta em \textit{JSON} com as informações das medições.
@@ -109,7 +109,8 @@ O sensor deverá realizar medições periodicamente enviando-as para a \textit{C
 
 \subsection{Web Server}
 
-Por forma a realizar pedidos à base de dados, quer de leitura quer de escrita, é utilizado um \textit{Web Server} que recolhe a informação do utilizador recebida pela aplicação através do método \textit{GET} e realiza as operações respectivas na base de dados. No caso de ser realizado um pedido de informação, esta é colocado num \textit{array} que é retornado à aplicação em \textit{JSON}.
+Por forma a realizar pedidos à base de dados, quer de leitura quer de escrita, é utilizado um \textit{Web Server} que recolhe a informação do utilizador recebida pela aplicação através do método \textit{GET} e realiza as operações respectivas na base de dados. Como os pedidos são feitos mediante o \textit{input} do utilizador, este tem de ser tratado antes de se realizar o pedido. Para tal, apenas são permitidos como \textit{input} caracteres pertencentes ao alfabeto e dígitos de 0 a 9. Tal não afectará o pedido uma vez que os parâmetros da \textit{backend SigFox} são somente constituídos por estes caracteres.
+No caso de ser realizado um pedido de informação, esta é colocado num \textit{array} que é retornado à aplicação em \textit{JSON}. Para retornar mensagens a partir de um determinado tempo é utilizada a opção \textit{since} no campo do \textit{URL} de forma a realizar o pedido a partir da última mensagem lida, ou em caso de primeira utilização todas as mensagens presentes na \textit{Cloud}.
 
 \section{Detalhes técnicos}
 
@@ -120,8 +121,8 @@ Para a aplicação \textit{Android}:
 \item \textbf{MainAcitivity, CreateLogActivity, NewAlarmActivity e AddDeviceActivity} - Nestes módulos, realizam-se pedidos a um \textit{Web Server} relativamente aos dados de um dado utilizador. Assim, na \textit{MainActivity}, com base nos dados recolhidos da base de dados, é escrito um ficheiro, por forma a efectuar/consultar registos (utilizador, dispositivo ou alarme) noutras actividades. Nas restantes, o objectivo de contacto com o servidor \textit{web} é o de acrescentar informação à base de dados, sendo também o ficheiro interno actualizado. 
 
 Para este efeito, utiliza-se a Classe \textit{FILE} presente em \textit{Android} para o armazenamento interno (\textit{cache}) e por cada pedido ao servidor, é necessária a abertura de \textit{threads} por forma a não bloquear a \textit{User Interface} (UI), recorrendo à classe \textit{AsyncTask};
-
-\item \textbf{Monitor} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a UI principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, caso o utiizador queira realizar pedidos periódicos, esta \textit{thread} será aberta (recurrendo à classe \textit{Thread}). Caso contrário, será apenas necessário utilizar novamente a classe \textit{AsyncTask} para os pedidos, que apenas serão realzados mediante a pressão de um botão na aplicação.
+\pagebreak
+\item \textbf{Monitor} - Neste módulo, será essencial a abertura de uma \textit{thread}, na medida em que a UI principal não permite efectuar pedidos periódicos pelo facto de estes a poderem bloquear. Assim, caso o utiizador queira realizar pedidos periódicos, esta \textit{thread} será aberta (recorrendo à classe \textit{Thread}). Caso contrário, será apenas necessário utilizar novamente a classe \textit{AsyncTask} para os pedidos, que apenas serão realzados mediante a pressão de um botão na aplicação.
 
 Para efectuar os pedidos HTTPS, utiliza-se a classe \textit{HttpURLConnection}. O formato destes pedidos seguem as normas descritas na REST API-Students fornecida pelo corpo docente.
 
@@ -147,9 +148,8 @@ Como tal, a base de dados irá ter três tabelas, tal como se pode verificar no 
   \label{fig:db-script}
 \end{figure}
 
-Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}. O tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto.
-
-Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru 3.3} disponibilizadas pelo \textit{Snootlab}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{delay()} presente em ambiente \textit{Arduino}.
+Relativamente ao alojamento da base de dados e do servidor \textit{web}, recorreu-se ao servidor do IST \textit{sigma.tecnico.ulisboa.pt}. O acesso à base de dados encontra-se protegido contra \textit{SQL Injection} utilizando-se para tal \textit{prepared statements with variable binding}. O tráfego no entanto não se encontra encriptado pois não se considerou uma ameaça de grande nível para este tipo de projecto, porém a password correspondente da aplicação não é armazenada em \textit{plaintext} mas sim em formato de \textit{hash} com adição de \textit{salt} utilizando as funções \textit{PHP} \textit{password\_hash} para armazenamento e \textit{password\_verify} para validação da password durante o \textit{login}.
+Para a implementação do sensor de temperatura, recorreu-se às bibliotecas associadas ao dispositivo \textit{Akeru.h} disponibilizadas pelo \textit{Snootlab} bem como a biblioteca associada ao sensor \textit{idDHT11.h}. Para enviar mensagens periodicamente de 12 em 12 minutos utilizou-se a função \textit{delay()} presente em ambiente \textit{Arduino}.
 O sensor de temperatura usado foi o DHT11, sensor que pode medir tanto temperatura como humidade.
 
 \section{Verificações da solução encontrada}
@@ -213,23 +213,23 @@ Na figura \ref{fig:addAlarm} é representada a actividade onde se adicionam novo
 \begin{figure}[H]
 \minipage{0.39\textwidth}
   \includegraphics[width=\linewidth]{alarmss.png}
-  \caption{Registo de um novo \textit{device}}\label{fig:a}
+  \caption{Lançamento das notificações}\label{fig:a}
 \endminipage\hfill
 \minipage{0.39\textwidth}
   \includegraphics[width=\linewidth]{logss.png}
-  \caption{Dispositivo adicionado}\label{fig:b}
+  \caption{Lançamento das notificações dentro da \textit{app}}\label{fig:b}
 \endminipage\hfill
 \end{figure}
 
-Ao realizar o \textit{logout}, a aplicação voltará à actividade inicial, pelo que se se colocar o \textit{username} e \textit{password} anteriores será um processo equivalente a ligar a aplicação pela segunda vez. Assim:
+Ao realizar o \textit{logout}, a aplicação voltará à actividade inicial, pelo que se se colocar o \textit{username} e \textit{password} anteriores será um processo equivalente a ligar a aplicação pela segunda vez como se pode ver de seguida:
 
 \begin{figure}[H]
 \minipage{0.39\textwidth}
-  \includegraphics[width=\linewidth]{login2.png}
-  \caption{\textit{Login} pela n-ésima vez}\label{fig:2}
+  \includegraphics[width=0.95\linewidth]{login2.png}
+  \caption{Retorno à actividade inicial após \textit{logout}}\label{fig:2}
 \endminipage\hfill
 \minipage{0.39\textwidth}
-  \includegraphics[width=\linewidth]{show.png}
+  \includegraphics[width=0.95\linewidth]{show.png}
   \caption{Informações actuais}\label{fig:15}
 \endminipage\hfill
 \end{figure}
@@ -243,7 +243,7 @@ Ao realizar as acções anteriores, a base de dados irá ser atualizada em confo
 \item Ao realizar a acção da figura \ref{fig:newalarm}, a tabela \textit{users} terá as seguintes entradas:
 
 \begin{figure}[H]
-\includegraphics[width=\linewidth]{logfirst.png}
+\includegraphics[width=1.2\linewidth]{logfirst.png}
   \caption{Entrada correspondente ao registo de um utilizador}\label{fig:db-first}
 \end{figure}
 
@@ -259,7 +259,7 @@ Ao realizar as acções anteriores, a base de dados irá ser atualizada em confo
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{newtime.png}
+\includegraphics[width=1.2\linewidth]{newtime.png}
   \caption{Alteração do valor de \textit{lastMessageTime}}\label{fig:newtime}
 \end{figure}
 
@@ -274,7 +274,19 @@ Ao realizar as acções anteriores, a base de dados irá ser atualizada em confo
 \end{itemize}
 
 %inserir os prints
+\pagebreak
+\subsection{Considerações Finais}
 
+Relativamente ao planeamento intermédio, a implementação da base de dados surgiu como um pretexto de tornar a aplicação escalável de modo a que mais do que um utilizador a pudesse utilizar. 
+A inserção de novos dispositivos esteve sempre dependente da informação presente na conta \textit{SigFox}, pelo que se teve de separar o registo de um utilizador no seio da aplicação e o registo de um utilizador do serviço prestado pela \textit{Sigfox}.
+
+Assim não foi possível testar o correcto funcionamento de um utilizador com mais de dispositivo registado na conta \textit{SigFox}, uma vez que cada utilizador registado possuía apenas 1 dispositivo associado. Para dispositivos não existentes/associados à conta \textit{SigFox}, existe o correcto funcionamento da aplicação, não apresentando qualquer mensagem associado a este suposto dispositivo, pelo que se assume o normal funcionamento caso houvesse realmente dois dispositivos associados.
+
+Por fim, em termos de apresentação de forma \textit{user friendly}, este objectivo assume-se assegurado, porém a existência de uma interface gráfica representativa da subida ou descida de temperatura, ou indicativa da qualidade de ligação podia ter sido uma forma de aumentar o nível de fluidez e clareza da informação disponibilizada ao utilizador.
+
+
+
+\pagebreak
 \begin{thebibliography}{9}
 
 \bibitem{ficheiros}
@@ -301,7 +313,7 @@ Ao realizar as acções anteriores, a base de dados irá ser atualizada em confo
 \bibitem{DHT11} 
   [DHT1110] \texttt{http://www.micropik.com/PDF/dht11.pdf}, Julho 2010
  \bibitem{DHT12} 
-  [DHT1115] \begin{sloppypar} \texttt{https://github.com/nicolsc/connected-temperature-sensor/blob/master/connected-temperature-sensor.ino}, Fevereiro 2015  \end{sloppypar}
+  [DHT1115] \begin{sloppypar} \texttt{https://github.com/nicolsc/connected-temperature-sensor/blob/master/ \allowbreak connected-temperature-sensor.ino}, Fevereiro 2015  \end{sloppypar}
 
 
 \end{thebibliography}

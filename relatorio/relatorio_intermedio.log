@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.18)  10 MAY 2016 18:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.1)  10 MAY 2016 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -506,7 +506,7 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-(./rosto.tex <./title.png, id=44, 674.2791pt x 156.8259pt>
+(./rosto.tex <./title.png, id=48, 674.2791pt x 156.8259pt>
 File: ./title.png Graphic file (type png)
  <use ./title.png>
 Package pdftex.def Info: ./title.png used on input line 5.
@@ -537,7 +537,7 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 36.
 
-<general.png, id=74, 755.82375pt x 244.915pt>
+<general.png, id=79, 755.82375pt x 244.915pt>
 File: general.png Graphic file (type png)
  <use general.png>
 Package pdftex.def Info: general.png used on input line 47.
@@ -560,18 +560,18 @@ been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.67 
-      [1 <./general.png>] <App_geral.png, id=83, 770.88pt x 524.31177pt>
+      [1 <./general.png>] <App_geral.png, id=88, 770.88pt x 524.31177pt>
 File: App_geral.png Graphic file (type png)
 
 <use App_geral.png>
 Package pdftex.def Info: App_geral.png used on input line 70.
 (pdftex.def)             Requested size: 308.34654pt x 209.721pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 83.
+(babel)             in language append on input line 82.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 83.
+(babel)             in language append on input line 82.
  [2 <./App_geral.png>]
-<ShowLogs.png, id=90, 219.82124pt x 424.58624pt>
+<ShowLogs.png, id=95, 219.82124pt x 424.58624pt>
 File: ShowLogs.png Graphic file (type png)
  <use ShowLogs.png>
 Package pdftex.def Info: ShowLogs.png used on input line 95.
@@ -579,229 +579,254 @@ Package pdftex.def Info: ShowLogs.png used on input line 95.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 100.
 Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 100.
+ [3 <./ShowLogs.png>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 100.
+Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 106.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 110.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 113.
+(babel)             in language append on input line 115.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 113.
- [3 <./ShowLogs.png>]
+(babel)             in language append on input line 125.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 114.
- <DB-ER.png, id=96, 674.52pt x 331.59177pt>
+(babel)             in language append on input line 125.
+ [4] <DB-ER.png, id=105, 674.52pt x 331.59177pt>
 File: DB-ER.png Graphic file (type png)
  <use DB-ER.png>
-Package pdftex.def Info: DB-ER.png used on input line 136.
+Package pdftex.def Info: DB-ER.png used on input line 137.
 (pdftex.def)             Requested size: 269.80322pt x 132.63435pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 140.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 140.
- [4]
-<DB-script.png, id=102, 288.07625pt x 294.09875pt>
+
+<DB-script.png, id=107, 288.07625pt x 294.09875pt>
 File: DB-script.png Graphic file (type png)
  <use DB-script.png>
-Package pdftex.def Info: DB-script.png used on input line 145.
+Package pdftex.def Info: DB-script.png used on input line 146.
 (pdftex.def)             Requested size: 144.03777pt x 147.04901pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 154.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 154.
+ [5 <./DB-ER.png> <./DB-script.png>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 155.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 159.
-
-<welcomee.png, id=103, 328.22626pt x 585.18625pt>
+ <welcomee.png, id=115, 328.22626pt x 585.18625pt>
 File: welcomee.png Graphic file (type png)
- <use welcomee.png>
+
+<use welcomee.png>
 Package pdftex.def Info: welcomee.png used on input line 166.
 (pdftex.def)             Requested size: 110.40253pt x 196.83554pt.
-
-<welcome.png, id=104, 325.215pt x 588.1975pt>
+ <welcome.png, id=116, 325.215pt x 588.1975pt>
 File: welcome.png Graphic file (type png)
- <use welcome.png>
+
+<use welcome.png>
 Package pdftex.def Info: welcome.png used on input line 170.
 (pdftex.def)             Requested size: 110.40253pt x 199.67934pt.
-
-<AddDevice.png, id=105, 330.23375pt x 587.19376pt>
+ <AddDevice.png, id=117, 330.23375pt x 587.19376pt>
 File: AddDevice.png Graphic file (type png)
- <use AddDevice.png>
+
+<use AddDevice.png>
 Package pdftex.def Info: AddDevice.png used on input line 174.
 (pdftex.def)             Requested size: 110.40253pt x 196.31017pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 177.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 177.
- [5 <./DB-ER.png> <./DB-script.png>] <newalarm.png, id=113, 326.21875pt x 586.1
-9pt>
+ <newalarm.png, id=118, 326.21875pt x 586.19pt>
 File: newalarm.png Graphic file (type png)
 
 <use newalarm.png>
 Package pdftex.def Info: newalarm.png used on input line 181.
 (pdftex.def)             Requested size: 100.04768pt x 179.77606pt.
- <login.png, id=114, 329.23pt x 587.19376pt>
+ <login.png, id=119, 329.23pt x 587.19376pt>
 File: login.png Graphic file (type png)
  <use login.png>
 Package pdftex.def Info: login.png used on input line 185.
 (pdftex.def)             Requested size: 100.04768pt x 178.43529pt.
 
-<drop.png, id=115, 332.24126pt x 586.19pt>
+<drop.png, id=120, 332.24126pt x 586.19pt>
 File: drop.png Graphic file (type png)
  <use drop.png>
 Package pdftex.def Info: drop.png used on input line 189.
 (pdftex.def)             Requested size: 100.04768pt x 176.52025pt.
-
-<addDev.png, id=117, 329.23pt x 587.19376pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 193.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 193.
+ [6 <./welcomee.png> <./welcome.png> <./AddDevice.png>] <addDev.png, id=127, 32
+9.23pt x 587.19376pt>
 File: addDev.png Graphic file (type png)
- <use addDev.png>
+
+<use addDev.png>
 Package pdftex.def Info: addDev.png used on input line 198.
 (pdftex.def)             Requested size: 100.04768pt x 178.43529pt.
-
-<dropdown.png, id=118, 329.23pt x 589.20125pt>
+ <dropdown.png, id=128, 329.23pt x 589.20125pt>
 File: dropdown.png Graphic file (type png)
- <use dropdown.png>
+
+<use dropdown.png>
 Package pdftex.def Info: dropdown.png used on input line 202.
 (pdftex.def)             Requested size: 100.04768pt x 179.0453pt.
-
-<addAlarm.png, id=119, 331.2375pt x 586.19pt>
+ <addAlarm.png, id=129, 331.2375pt x 586.19pt>
 File: addAlarm.png Graphic file (type png)
- <use addAlarm.png>
+
+<use addAlarm.png>
 Package pdftex.def Info: addAlarm.png used on input line 206.
 (pdftex.def)             Requested size: 100.04768pt x 177.04797pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 210.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 210.
- [6 <./welcomee.png> <./welcome.png> <./AddDevice.png> <./newalarm.png> <./logi
-n.png> <./drop.png>] <alarmss.png, id=127, 328.22626pt x 586.19pt>
+ <alarmss.png, id=131, 328.22626pt x 586.19pt>
 File: alarmss.png Graphic file (type png)
- <use alarmss.png>
+
+<use alarmss.png>
 Package pdftex.def Info: alarmss.png used on input line 215.
 (pdftex.def)             Requested size: 134.54979pt x 240.29472pt.
-
-<logss.png, id=128, 330.23375pt x 585.18625pt>
+ <logss.png, id=132, 330.23375pt x 585.18625pt>
 File: logss.png Graphic file (type png)
- <use logss.png>
+
+<use logss.png>
 Package pdftex.def Info: logss.png used on input line 219.
 (pdftex.def)             Requested size: 134.54979pt x 238.43674pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 225.
+(babel)             in language append on input line 223.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 225.
- [7 <./addDev.png> <./dropdown.png> <./addAlarm.png> <./alarmss.png> <./logss.p
-ng>]
-<login2.png, id=135, 328.22626pt x 588.1975pt>
+(babel)             in language append on input line 223.
+ [7 <./newalarm.png> <./login.png> <./drop.png> <./addDev.png> <./dropdown.png>
+ <./addAlarm.png>]
+<login2.png, id=139, 328.22626pt x 588.1975pt>
 File: login2.png Graphic file (type png)
  <use login2.png>
 Package pdftex.def Info: login2.png used on input line 228.
-(pdftex.def)             Requested size: 134.54979pt x 241.11766pt.
+(pdftex.def)             Requested size: 127.82188pt x 229.06401pt.
 
-<show.png, id=136, 328.22626pt x 588.1975pt>
+<show.png, id=140, 328.22626pt x 588.1975pt>
 File: show.png Graphic file (type png)
  <use show.png>
 Package pdftex.def Info: show.png used on input line 232.
-(pdftex.def)             Requested size: 134.54979pt x 241.11766pt.
+(pdftex.def)             Requested size: 127.82188pt x 229.06401pt.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language append on input line 238.
-
-<logfirst.png, id=138, 1258.7025pt x 117.43875pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 241.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 241.
+ [8 <./alarmss.png> <./logss.png> <./login2.png> <./show.png>]
+<logfirst.png, id=148, 1258.7025pt x 117.43875pt>
 File: logfirst.png Graphic file (type png)
  <use logfirst.png>
 Package pdftex.def Info: logfirst.png used on input line 246.
-(pdftex.def)             Requested size: 345.0pt x 32.18912pt.
+(pdftex.def)             Requested size: 413.99895pt x 38.62587pt.
 
-<newalarmm.png, id=140, 270.00874pt x 117.43875pt>
+Overfull \hbox (68.99895pt too wide) in paragraph at lines 246--247
+[][] 
+ []
+
+<newalarmm.png, id=150, 270.00874pt x 117.43875pt>
 File: newalarmm.png Graphic file (type png)
  <use newalarmm.png>
 Package pdftex.def Info: newalarmm.png used on input line 254.
 (pdftex.def)             Requested size: 135.00403pt x 58.71922pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 257.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 257.
- [8 <./login2.png> <./show.png> <./logfirst.png>]
-<newtime.png, id=147, 1252.68pt x 121.45375pt>
+
+<newtime.png, id=151, 1252.68pt x 121.45375pt>
 File: newtime.png Graphic file (type png)
  <use newtime.png>
 Package pdftex.def Info: newtime.png used on input line 262.
-(pdftex.def)             Requested size: 345.0pt x 33.44897pt.
+(pdftex.def)             Requested size: 413.99895pt x 40.13914pt.
 
-<newdevvv.png, id=148, 361.35pt x 153.57375pt>
+Overfull \hbox (68.99895pt too wide) in paragraph at lines 262--263
+ [][] 
+ []
+
+<newdevvv.png, id=152, 361.35pt x 153.57375pt>
 File: newdevvv.png Graphic file (type png)
  <use newdevvv.png>
 Package pdftex.def Info: newdevvv.png used on input line 270.
 (pdftex.def)             Requested size: 144.53743pt x 61.4284pt.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 281.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 278.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 278.
+ [9 <./logfirst.png> <./newalarmm.png> <./newtime.png> <./newdevvv.png (PNG cop
+y)>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 278.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 290.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language append on input line 290.
+ [10]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 293.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-Overfull \hbox (8.22052pt too wide) in paragraph at lines 281--282
+Overfull \hbox (8.22052pt too wide) in paragraph at lines 293--294
 []\T1/cmr/m/n/10 [FILE16] \T1/cmtt/m/n/10 http://developer.android.com/referenc
 e/java/io/File.html\T1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (50.04364pt too wide) in paragraph at lines 284--285
+Overfull \hbox (50.04364pt too wide) in paragraph at lines 296--297
 []\T1/cmr/m/n/10 [THREAD16] \T1/cmtt/m/n/10 http://developer.android.com/refere
 nce/java/lang/Thread.html\T1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (40.74036pt too wide) in paragraph at lines 287--287
+Overfull \hbox (40.74036pt too wide) in paragraph at lines 299--299
 []\T1/cmtt/m/n/10 http://developer.android.com/reference/java/net/HttpURLConnec
 tion.html\T1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (19.74548pt too wide) in paragraph at lines 290--290
+Overfull \hbox (19.74548pt too wide) in paragraph at lines 302--302
 []\T1/cmtt/m/n/10 http://developer.android.com/reference/java/net/URLConnection
 .html\T1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (68.73352pt too wide) in paragraph at lines 293--294
+Overfull \hbox (68.73352pt too wide) in paragraph at lines 305--306
 []\T1/cmr/m/n/10 [JSON16] \T1/cmtt/m/n/10 http://developer.android.com/referenc
 e/android/util/JsonReader.html\T1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (56.48651pt too wide) in paragraph at lines 296--296
+Overfull \hbox (56.48651pt too wide) in paragraph at lines 308--308
 []\T1/cmtt/m/n/10 http://developer.android.com/training/notify-user/build-notif
 ication.html\T1/cmr/m/n/10 ,
  []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 301.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 301.
-[9 <./newalarmm.png> <./newtime.png> <./newdevvv.png (PNG copy)>]
-Overfull \hbox (198.2019pt too wide) in paragraph at lines 304--304
+
+Overfull \hbox (27.46582pt too wide) in paragraph at lines 316--316
 []\T1/cmtt/m/n/10 https://github.com/nicolsc/connected-temperature-sensor/blob/
-master/connected-temperature-sensor.ino\T1/cmr/m/n/10 ,
+master/
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 309.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 321.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 309.
+(babel)             in language append on input line 321.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language append on input line 309.
-[10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 309.
+(babel)             in language append on input line 321.
+[11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 321.
  (./relatorio_intermedio.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 309.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 309.
-Package rerunfilecheck Info: File `relatorio_intermedio.out' has not changed.
-(rerunfilecheck)             Checksum: 6B04C0868410F64FE6C31BC60432D1D4;634.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 309.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 321.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 321.
+
+
+Package rerunfilecheck Warning: File `relatorio_intermedio.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `relatorio_intermedio.out':
+(rerunfilecheck)             Before: 1918DE9AB4ACEE8029BDBF322CC12BA8;697
+(rerunfilecheck)             After:  FF5BAFD57EF512EF3A04A50E14C45223;710.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 321.
  ) 
 Here is how much of TeX's memory you used:
- 7192 strings out of 493304
- 107484 string characters out of 6139871
- 194592 words of memory out of 5000000
- 10506 multiletter control sequences out of 15000+600000
+ 7195 strings out of 493304
+ 107521 string characters out of 6139872
+ 194638 words of memory out of 5000000
+ 10507 multiletter control sequences out of 15000+600000
  11983 words of font info for 26 fonts, out of 8000000 for 9000
  958 hyphenation exceptions out of 8191
- 36i,7n,38p,657b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,7n,38p,854b,404s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/
 type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-supe
@@ -812,10 +837,10 @@ ype1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on relatorio_intermedio.pdf (12 pages, 789312 bytes).
+Output written on relatorio_intermedio.pdf (13 pages, 793275 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
- 47 named destinations out of 1000 (max. 500000)
- 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 236 PDF objects out of 1000 (max. 8388607)
+ 184 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 204 words of extra memory for PDF output out of 10000 (max. 10000000)
 

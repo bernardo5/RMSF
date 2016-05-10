@@ -2,10 +2,11 @@
 \contentsline {section}{\numberline {1}Objectivo}{1}{section.1}
 \contentsline {section}{\numberline {2}Solu\IeC {\c c}\IeC {\~a}o encontrada}{1}{section.2}
 \contentsline {subsection}{\numberline {2.1}Aplica\IeC {\c c}\IeC {\~a}o \textit {Android}}{1}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Servidor \textit {SigFox}}{3}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Sensor Arduino}{3}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.2}Servidor \textit {SigFox}}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Sensor Arduino}{4}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Web Server}{4}{subsection.2.4}
 \contentsline {section}{\numberline {3}Detalhes t\IeC {\'e}cnicos}{4}{section.3}
-\contentsline {section}{\numberline {4}Verifica\IeC {\c c}\IeC {\~o}es da solu\IeC {\c c}\IeC {\~a}o encontrada}{5}{section.4}
+\contentsline {section}{\numberline {4}Verifica\IeC {\c c}\IeC {\~o}es da solu\IeC {\c c}\IeC {\~a}o encontrada}{6}{section.4}
 \contentsline {subsection}{\numberline {4.1}Registo do primeiro utilizador}{6}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Database}{8}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.2}Database}{9}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Considera\IeC {\c c}\IeC {\~o}es Finais}{10}{subsection.4.3}
