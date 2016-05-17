@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ThermoFox</string>
+    <string name="title_activity_logs">LogsActivity</string>
+</resources>
